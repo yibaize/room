@@ -16808,3 +16808,158 @@ org.bql.error.GenaryAppError
 2018-05-31 17:16:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[32, 2, 42]}
 2018-05-31 17:16:59.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
 2018-05-31 17:16:59.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, false, false, false]
+2018-05-31 17:17:08.286  INFO org.bql.rooms.three_cards.three_cards_1.manage.FirstGamblingParty.startBattle(FirstGamblingParty.java:108) - 现在下注位置是--->开始1
+2018-05-31 17:17:08.286  INFO org.bql.rooms.three_cards.three_cards_1.manage.FirstGamblingParty.timer(FirstGamblingParty.java:272) - 这一直执行吗？
+2018-05-31 17:17:10.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=false, cardIds=[5, 12, 24]}
+2018-05-31 17:17:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=false, cardIds=[34, 35, 17]}
+2018-05-31 17:17:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[9, 21, 32]}
+2018-05-31 17:17:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[33, 49, 11]}
+2018-05-31 17:17:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=true, cardIds=[14, 20, 48]}
+2018-05-31 17:17:11.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:17:11.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [false, false, false, true]
+2018-05-31 17:17:12.310  INFO org.bql.rooms.three_cards.three_cards_1.manage.FirstRooms.bottom(FirstRooms.java:51) - 0
+2018-05-31 17:17:20.284  INFO org.bql.rooms.three_cards.three_cards_1.manage.FirstRooms.bottom(FirstRooms.java:51) - 1
+2018-05-31 17:17:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=2, result=true, cardIds=[46, 8, 34]}
+2018-05-31 17:17:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=false, cardIds=[9, 44, 4]}
+2018-05-31 17:17:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=0, result=false, cardIds=[40, 42, 15]}
+2018-05-31 17:17:22.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[26, 29, 45]}
+2018-05-31 17:17:22.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[35, 10, 20]}
+2018-05-31 17:17:23.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:17:23.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [false, false, false, false]
+2018-05-31 17:17:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=false, cardIds=[19, 8, 13]}
+2018-05-31 17:17:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=2, result=true, cardIds=[52, 23, 39]}
+2018-05-31 17:17:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[43, 21, 20]}
+2018-05-31 17:17:34.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=true, cardIds=[47, 16, 40]}
+2018-05-31 17:17:34.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=4, result=true, cardIds=[6, 4, 9]}
+2018-05-31 17:17:35.290  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:17:35.290  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, false, true, true]
+2018-05-31 17:17:46.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=2, result=true, cardIds=[32, 2, 6]}
+2018-05-31 17:17:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=2, result=true, cardIds=[26, 11, 50]}
+2018-05-31 17:17:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[25, 18, 29]}
+2018-05-31 17:17:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[52, 24, 47]}
+2018-05-31 17:17:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[23, 35, 39]}
+2018-05-31 17:17:47.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:17:47.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, false, false, false]
+2018-05-31 17:17:58.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=true, cardIds=[13, 11, 14]}
+2018-05-31 17:17:58.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=false, cardIds=[5, 28, 37]}
+2018-05-31 17:17:58.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=3, result=true, cardIds=[19, 47, 33]}
+2018-05-31 17:17:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[10, 39, 20]}
+2018-05-31 17:17:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[24, 32, 49]}
+2018-05-31 17:17:59.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:17:59.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [false, true, false, false]
+2018-05-31 17:18:10.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=false, cardIds=[7, 41, 45]}
+2018-05-31 17:18:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=true, cardIds=[6, 29, 37]}
+2018-05-31 17:18:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=true, cardIds=[50, 14, 48]}
+2018-05-31 17:18:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=true, cardIds=[18, 38, 22]}
+2018-05-31 17:18:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=true, cardIds=[25, 43, 32]}
+2018-05-31 17:18:11.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:18:11.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, true, true, true]
+2018-05-31 17:18:22.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=false, cardIds=[39, 45, 8]}
+2018-05-31 17:18:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=false, cardIds=[26, 46, 43]}
+2018-05-31 17:18:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[3, 9, 31]}
+2018-05-31 17:18:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=true, cardIds=[17, 27, 5]}
+2018-05-31 17:18:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=true, cardIds=[34, 23, 40]}
+2018-05-31 17:18:23.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:18:23.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [false, false, true, true]
+2018-05-31 17:18:34.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=true, cardIds=[37, 34, 14]}
+2018-05-31 17:18:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=true, cardIds=[45, 27, 39]}
+2018-05-31 17:18:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=4, result=true, cardIds=[48, 41, 51]}
+2018-05-31 17:18:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[50, 36, 28]}
+2018-05-31 17:18:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[33, 26, 49]}
+2018-05-31 17:18:35.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:18:35.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, true, false, false]
+2018-05-31 17:18:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=2, result=true, cardIds=[7, 33, 11]}
+2018-05-31 17:18:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=2, result=true, cardIds=[27, 9, 48]}
+2018-05-31 17:18:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=2, result=false, cardIds=[4, 32, 6]}
+2018-05-31 17:18:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[25, 28, 43]}
+2018-05-31 17:18:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[10, 29, 18]}
+2018-05-31 17:18:47.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:18:47.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, false, false, false]
+2018-05-31 17:18:58.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=true, cardIds=[49, 9, 28]}
+2018-05-31 17:18:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=true, cardIds=[25, 3, 18]}
+2018-05-31 17:18:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=2, result=true, cardIds=[52, 20, 39]}
+2018-05-31 17:18:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[15, 16, 33]}
+2018-05-31 17:18:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[23, 47, 42]}
+2018-05-31 17:18:59.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:18:59.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, true, false, false]
+2018-05-31 17:19:10.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=true, cardIds=[37, 16, 1]}
+2018-05-31 17:19:10.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=false, cardIds=[10, 35, 39]}
+2018-05-31 17:19:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[31, 4, 40]}
+2018-05-31 17:19:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[18, 38, 26]}
+2018-05-31 17:19:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[41, 23, 8]}
+2018-05-31 17:19:11.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:19:11.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [false, false, false, false]
+2018-05-31 17:19:22.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=true, cardIds=[14, 46, 19]}
+2018-05-31 17:19:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=false, cardIds=[48, 8, 11]}
+2018-05-31 17:19:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[31, 45, 37]}
+2018-05-31 17:19:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[42, 13, 51]}
+2018-05-31 17:19:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[17, 3, 27]}
+2018-05-31 17:19:23.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:19:23.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [false, false, false, false]
+2018-05-31 17:19:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=true, cardIds=[8, 39, 28]}
+2018-05-31 17:19:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=true, cardIds=[26, 3, 24]}
+2018-05-31 17:19:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[32, 10, 30]}
+2018-05-31 17:19:34.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[46, 12, 17]}
+2018-05-31 17:19:34.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[33, 4, 23]}
+2018-05-31 17:19:35.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:19:35.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, false, false, false]
+2018-05-31 17:19:46.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=true, cardIds=[27, 51, 35]}
+2018-05-31 17:19:46.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=2, result=true, cardIds=[11, 23, 36]}
+2018-05-31 17:19:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[9, 15, 1]}
+2018-05-31 17:19:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=4, result=true, cardIds=[20, 16, 19]}
+2018-05-31 17:19:46.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[31, 32, 40]}
+2018-05-31 17:19:47.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:19:47.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, false, true, false]
+2018-05-31 17:19:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=true, cardIds=[51, 31, 39]}
+2018-05-31 17:19:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=false, cardIds=[29, 52, 17]}
+2018-05-31 17:19:58.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[46, 37, 30]}
+2018-05-31 17:19:58.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=true, cardIds=[27, 16, 44]}
+2018-05-31 17:19:58.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=false, cardIds=[36, 45, 43]}
+2018-05-31 17:19:59.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:19:59.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [false, false, true, false]
+2018-05-31 17:20:10.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=false, cardIds=[24, 46, 51]}
+2018-05-31 17:20:10.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=true, cardIds=[25, 1, 35]}
+2018-05-31 17:20:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=false, cardIds=[6, 22, 21]}
+2018-05-31 17:20:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=false, cardIds=[7, 12, 15]}
+2018-05-31 17:20:10.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=true, cardIds=[40, 16, 33]}
+2018-05-31 17:20:11.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:20:11.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, false, false, true]
+2018-05-31 17:20:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=0, cardType=1, result=false, cardIds=[23, 47, 18]}
+2018-05-31 17:20:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=1, cardType=1, result=true, cardIds=[50, 8, 32]}
+2018-05-31 17:20:22.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=2, cardType=1, result=true, cardIds=[39, 28, 24]}
+2018-05-31 17:20:22.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=3, cardType=1, result=true, cardIds=[10, 16, 22]}
+2018-05-31 17:20:22.287  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.notifyHandCard(TOGamblingParty.java:244) - TOCardsDto{position=4, cardType=1, result=true, cardIds=[14, 2, 52]}
+2018-05-31 17:20:23.285  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:182) - 0
+2018-05-31 17:20:23.286  INFO org.bql.rooms.thousands_of.model.TOGamblingParty.settleAccounts(TOGamblingParty.java:199) - [true, true, true, true]
+2018-05-31 17:20:29.410  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:74) - 用户id:<<180531019>>:用户名:<<fds>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+org.bql.error.CloseConnectionError
+	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
+	at org.bql.net.handler.TcpHandler.massegeRansiter(TcpHandler.java:27)
+	at org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:97)
+	at org.bql.net.handler.ServerSimpleHandler.channelInactive(ServerSimpleHandler.java:24)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:75)
+	at io.netty.handler.timeout.IdleStateHandler.channelInactive(IdleStateHandler.java:277)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInputClosed(ByteToMessageDecoder.java:377)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInactive(ByteToMessageDecoder.java:342)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1354)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:917)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$8.run(AbstractChannel.java:822)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:463)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-05-31 17:20:29.410  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:98) - 用户下线/192.168.1.142:56956
