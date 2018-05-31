@@ -49,7 +49,7 @@ public class HttpClient {
             dos.write(buf);
             RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),baos.toByteArray());
             Request request = new Request.Builder()
-                    .url("http://127.0.0.1:1010")
+                    .url("http://127.0.0.1:8080")
                     .post(body)
                     .build();
             Response response = client.newCall(request).execute();
@@ -80,7 +80,7 @@ public class HttpClient {
             dos.write(buf);
             RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),baos.toByteArray());
             Request request = new Request.Builder()
-                    .url("http://127.0.0.1:1010")
+                    .url("http://127.0.0.1:8080")
                     .post(body)
                     .build();
             client.newCall(request).enqueue(new Callback() {
