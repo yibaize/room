@@ -19,6 +19,7 @@ public class CommandCode{
 	public static final int TOBankerList = 1015;
 	public static final int TOBankerDown = 1016;
 	public static final int AHBet = 1017;
+	public static final int FirstRoom_BetAll = 1018;
 	public static final int AHInfoRoomOperation = 1019;
 	public static final int GPRoom_ForbidCompare = 1023;
 	public static final int BroadcastOparetion = 5560;

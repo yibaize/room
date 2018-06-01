@@ -10,14 +10,18 @@ public class RoomBetDto {
     private String nextAccount;
     /**变更的财富值*/
     private long gold;
-
+    /**下注的玩家爱剩余多少金币*/
+    private long residueGold;
+    private long roomAllGOld;
     public RoomBetDto() {
     }
 
-    public RoomBetDto(String updateAccount, String nextAccount, long gold) {
+    public RoomBetDto(String updateAccount, String nextAccount, long gold, long residueGold, long roomAllGOld) {
         this.updateAccount = updateAccount;
         this.nextAccount = nextAccount;
         this.gold = gold;
+        this.residueGold = residueGold;
+        this.roomAllGOld = roomAllGOld;
     }
 
     public String getUpdateAccount() {
@@ -42,5 +46,21 @@ public class RoomBetDto {
 
     public void setGold(long gold) {
         this.gold = gold;
+    }
+
+    public long getResidueGold() {
+        return residueGold;
+    }
+
+    public void setResidueGold(long residueGold) {
+        this.residueGold = residueGold;
+    }
+
+    public long getRoomAllGOld() {
+        return roomAllGOld;
+    }
+
+    public void setRoomAllGOld(long roomAllGOld) {
+        this.roomAllGOld = roomAllGOld;
     }
 }

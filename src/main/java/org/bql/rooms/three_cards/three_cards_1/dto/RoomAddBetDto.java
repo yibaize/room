@@ -11,15 +11,20 @@ public class RoomAddBetDto {
     /**变更的财富值*/
     private long gold;
     /**加注之后房间当前筹码位置*/
-    private int addBetPOsition;
+    private int addBetPosition;
+    /**剩余金币*/
+    private long residueGold;
+    private long roomAllGold;
     public RoomAddBetDto() {
     }
 
-    public RoomAddBetDto(String updateAccount, String nextAccount, long gold, int addBetPOsition) {
+    public RoomAddBetDto(String updateAccount, String nextAccount, long gold, int addBetPosition, long residueGold, long roomAllGold) {
         this.updateAccount = updateAccount;
         this.nextAccount = nextAccount;
         this.gold = gold;
-        this.addBetPOsition = addBetPOsition;
+        this.addBetPosition = addBetPosition;
+        this.residueGold = residueGold;
+        this.roomAllGold = roomAllGold;
     }
 
     public String getUpdateAccount() {
@@ -46,11 +51,27 @@ public class RoomAddBetDto {
         this.gold = gold;
     }
 
-    public int getAddBetPOsition() {
-        return addBetPOsition;
+    public int getAddBetPosition() {
+        return addBetPosition;
     }
 
-    public void setAddBetPOsition(int addBetPOsition) {
-        this.addBetPOsition = addBetPOsition;
+    public long getResidueGold() {
+        return residueGold;
+    }
+
+    public void setResidueGold(long residueGold) {
+        this.residueGold = residueGold;
+    }
+
+    public long getRoomAllGold() {
+        return roomAllGold;
+    }
+
+    public void setRoomAllGold(long roomAllGold) {
+        this.roomAllGold = roomAllGold;
+    }
+
+    public void setAddBetPosition(int addBetPosition) {
+        this.addBetPosition = addBetPosition;
     }
 }

@@ -19,6 +19,8 @@ public class AHHistorysDtos {
     private long nowBetMoney;
     /**房间剩余时间*/
     private int roomTime;
+    /**房间状态*/
+    private int roomState;
     private List<AHHistoryDto> historyDtos;
 
     public AHHistorysDtos() {
@@ -61,5 +63,13 @@ public class AHHistorysDtos {
 
     public void setRoomTime(int roomTime) {
         this.roomTime = roomTime;
+    }
+
+    public int getRoomState() {
+        return roomState;
+    }
+
+    public void setRoomState(int roomState) {
+        this.roomState = roomState;
     }
 }

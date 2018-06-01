@@ -18,15 +18,15 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class AHBet {
+public class AHBetModel {
     private Map<PlayerRoom, Long> players;
     private AtomicLong allMoney;
     private int position;
 
-    public AHBet() {
+    public AHBetModel() {
     }
 
-    public AHBet(int position) {
+    public AHBetModel(int position) {
         allMoney = new AtomicLong(0);
         players = new ConcurrentHashMap<>();
         this.position = position;
@@ -51,6 +51,7 @@ public class AHBet {
         long allMo = allMoney.get();
         ServerResponse serverResponse = new ServerResponse();
         serverResponse.setId(NotifyCode.AH_ROOM_SETTLE_ACCOUNT);
+        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+type.getResult()+" : "+cardType.id());
         for (Map.Entry<PlayerRoom, Long> e : players.entrySet()) {
             PlayerRoom ap = e.getKey();
             ap.clearBet();

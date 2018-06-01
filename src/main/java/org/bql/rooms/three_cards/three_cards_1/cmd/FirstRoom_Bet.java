@@ -7,6 +7,7 @@ import org.bql.net.message.ServerResponse;
 import org.bql.net.server.manage.OperateCommandAbstract;
 import org.bql.player.PlayerInfoDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.RoomBetDto;
+import org.bql.rooms.three_cards.three_cards_1.dto.SettleModelDto;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstGamblingParty;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstPlayerRoom;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstRooms;
@@ -33,10 +34,11 @@ public class FirstRoom_Bet extends OperateCommandAbstract {
     private String nextAccount;//下一玩家的账号
     private String account;//自己的账号（财富发生变更的账号）
     private FirstRooms room;
+    private PlayerInfoDto p;
     @Override
     public Object execute() {
         FirstPlayerRoom playerRoom = (FirstPlayerRoom) getSession().getAttachment();
-        PlayerInfoDto p = playerRoom.getPlayer();
+        p = playerRoom.getPlayer();
         room = (FirstRooms) playerRoom.getRoom();
         MyPlayerSet playerSet = room.getPlayerSet();
         boolean isPlay = playerSet.isPlayForAccount(p.getAccount());
@@ -74,7 +76,7 @@ public class FirstRoom_Bet extends OperateCommandAbstract {
         //下一玩家下注位置
         nextAccount = playerSet.getNextPositionAccount(p.getRoomPosition());
         gamblingParty.addOparetionCount();
-        return null;
+        return new SettleModelDto(account,p.getGold(),room.getAllMoneyNum());
     }
 
     @Override
@@ -84,7 +86,7 @@ public class FirstRoom_Bet extends OperateCommandAbstract {
         room.getGamblingParty().setNowBottomPos(new AtomicInteger(nextPlayer.getPlayer().getRoomPosition()));
         //通知下一个下注玩家
         nextPlayer.getSession().write(new ServerResponse(NotifyCode.ROOM_PLAYER_BOTTOM,null));
-        RoomBetDto dto = new RoomBetDto(account,nextAccount,moneyChange);
+        RoomBetDto dto = new RoomBetDto(account,nextAccount,moneyChange,p.getGold(),room.getAllMoneyNum());
         //通知所有玩家财富变更，下一玩家下注
         room.broadcast(room.getPlayerSet().getNotAccountPlayer(account),NotifyCode.ROOM_PLAYER_BOTTOM_NEXT,dto);
     }

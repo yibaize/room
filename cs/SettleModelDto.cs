@@ -7,4 +7,6 @@ public class SettleModelDto : IProtostuff {
 	public string Account{get;set;}
 	[ProtoMember(2)]
 	public long Money{get;set;}
+	[ProtoMember(3)]
+	public long RoomAllGold{get;set;}
 }

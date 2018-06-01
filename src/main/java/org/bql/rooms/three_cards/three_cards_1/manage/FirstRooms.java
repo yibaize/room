@@ -50,7 +50,7 @@ public class FirstRooms extends RoomAbs {
 
     public void bottom(String account, long num) {
         long num1 = num;
-        LoggerUtils.getLogicLog().info(bottomMoney.size());
+        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+bottomMoney.size());
         if (bottomMoney.containsKey(account)) {
             num1 += bottomMoney.get(account);
         }

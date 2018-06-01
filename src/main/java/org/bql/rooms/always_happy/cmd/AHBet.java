@@ -7,6 +7,8 @@ import org.bql.player.PlayerInfoDto;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.RoomFactory;
 import org.bql.rooms.always_happy.model.AHRoom;
+import org.bql.rooms.three_cards.three_cards_1.dto.SettleModelDto;
+import org.bql.rooms.type.RoomStateType;
 import org.bql.utils.builder_clazz.ann.Protocol;
 
 /**
@@ -39,7 +41,10 @@ public class AHBet extends OperateCommandAbstract {
         }
         player.addBet(allNum);
         AHRoom room = RoomFactory.getInstance().getAhRoom();
+        if(room.getRoomState() != RoomStateType.START){
+            new GenaryAppError(AppErrorCode.BET_TIME_OUT);
+        }
         room.getGamblingParty().bet(betPosition,allNum, player);
-        return null;
+        return new SettleModelDto(infoDto.getAccount(),infoDto.getGold(),room.getGamblingParty().getAllMoney());
     }
 }

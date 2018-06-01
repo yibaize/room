@@ -10,5 +10,9 @@ public class RoomAddBetDto : IProtostuff {
 	[ProtoMember(3)]
 	public long Gold{get;set;}
 	[ProtoMember(4)]
-	public int AddBetPOsition{get;set;}
+	public int AddBetPosition{get;set;}
+	[ProtoMember(5)]
+	public long ResidueGold{get;set;}
+	[ProtoMember(6)]
+	public long RoomAllGold{get;set;}
 }

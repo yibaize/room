@@ -6,13 +6,14 @@ import org.bql.utils.builder_clazz.ann.Protostuff;
 public class SettleModelDto {
     private String account;
     private long money;
-
+    private long roomAllGold;
     public SettleModelDto() {
     }
 
-    public SettleModelDto(String account, long money) {
+    public SettleModelDto(String account, long money, long roomAllGold) {
         this.account = account;
         this.money = money;
+        this.roomAllGold = roomAllGold;
     }
 
     public String getAccount() {
@@ -29,5 +30,13 @@ public class SettleModelDto {
 
     public void setMoney(long money) {
         this.money = money;
+    }
+
+    public long getRoomAllGold() {
+        return roomAllGold;
+    }
+
+    public void setRoomAllGold(long roomAllGold) {
+        this.roomAllGold = roomAllGold;
     }
 }

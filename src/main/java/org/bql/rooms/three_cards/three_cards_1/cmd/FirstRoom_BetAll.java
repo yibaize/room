@@ -18,7 +18,6 @@ import org.bql.rooms.three_cards.three_cards_1.manage.MyPlayerSet;
 import org.bql.rooms.three_cards.three_cards_1.model.HandCard;
 import org.bql.utils.ArrayUtils;
 import org.bql.utils.builder_clazz.ann.Protocol;
-import org.bql.utils.logger.LoggerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +27,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @作者： big
  * @创建时间： 18-5-31
- * @文件描述：
+ * @文件描述：全压
  */
-@Protocol("")
+@Protocol("1018")
 public class FirstRoom_BetAll extends OperateCommandAbstract {
     private FirstRooms room;
     private String account;
@@ -72,7 +71,7 @@ public class FirstRoom_BetAll extends OperateCommandAbstract {
         //下一玩家下注位置
         nextAccount = playerSet.getNextPositionAccount(p.getRoomPosition());
         gamblingParty.addOparetionCount();
-        return null;
+        return new SettleModelDto(account,p.getGold(),room.getAllMoneyNum());
     }
 
     /**
@@ -90,7 +89,7 @@ public class FirstRoom_BetAll extends OperateCommandAbstract {
             //通知下一个下注玩家
             nextPlayer.getSession().write(new ServerResponse(NotifyCode.NEXT_BET_ALL,null));
             //通知所有人这个玩家全压了
-            RoomBetDto dto = new RoomBetDto(account,nextAccount,gold);
+            RoomBetDto dto = new RoomBetDto(account,nextAccount,gold,player.getPlayer().getGold(),room.getAllMoneyNum());
             room.broadcast(room.getPlayerSet().getNotAccountPlayer(account),NotifyCode.BET_ALL,dto);
         }else {
             //已经是最后一个，那么牌局结束
@@ -134,7 +133,7 @@ public class FirstRoom_BetAll extends OperateCommandAbstract {
         //输的玩家
         for(Map.Entry<String,Long> e:moneys.entrySet()){
             if(!e.getKey().equals(win.getPlayer().getAccount()))
-                modelDtos.add(new SettleModelDto(e.getKey(),e.getValue()));
+                modelDtos.add(new SettleModelDto(e.getKey(),e.getValue(),room.getAllMoneyNum()));
         }
         dto.setSettleModelDtos(modelDtos);
         return dto;

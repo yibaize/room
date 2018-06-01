@@ -119,7 +119,7 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
             //输的玩家
             for(Map.Entry<String,Long> e:moneys.entrySet()){
                 if(!e.getKey().equals(winAccount))
-                    modelDtos.add(new SettleModelDto(e.getKey(),e.getValue()));
+                    modelDtos.add(new SettleModelDto(e.getKey(),e.getValue(),room.getAllMoneyNum()));
             }
             settleDto.setSettleModelDtos(modelDtos);
 

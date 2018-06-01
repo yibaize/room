@@ -9,4 +9,8 @@ public class RoomBetDto : IProtostuff {
 	public string NextAccount{get;set;}
 	[ProtoMember(3)]
 	public long Gold{get;set;}
+	[ProtoMember(4)]
+	public long ResidueGold{get;set;}
+	[ProtoMember(5)]
+	public long RoomAllGOld{get;set;}
 }

@@ -18,6 +18,7 @@ import org.bql.rooms.thousands_of.cmd.ToUpBanker;
 import org.bql.rooms.thousands_of.cmd.TOBankerList;
 import org.bql.rooms.thousands_of.cmd.TOBankerDown;
 import org.bql.rooms.always_happy.cmd.AHBet;
+import org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_BetAll;
 import org.bql.rooms.always_happy.cmd.AHInfoRoomOperation;
 import org.bql.rooms.great_pretenders.cmd.GPRoom_ForbidCompare;
 import org.bql.chat.BroadcastOparetion;
@@ -73,6 +74,8 @@ import org.bql.net.server.manage.OperateCommandAbstract;public class OperateComm
 				return getTOBankerDown(params);
 			case 1017:
 				return getAHBet(params);
+			case 1018:
+				return getFirstRoom_BetAll(params);
 			case 1019:
 				return getAHInfoRoomOperation(params);
 			case 1023:
@@ -161,6 +164,9 @@ import org.bql.net.server.manage.OperateCommandAbstract;public class OperateComm
 		int value0 = Integer.parseInt(params[0]);
 		int value1 = Integer.parseInt(params[1]);
 		return new AHBet(value0,value1);
+	}
+	private OperateCommandAbstract getFirstRoom_BetAll(String[] params){
+		return new FirstRoom_BetAll();
 	}
 	private OperateCommandAbstract getAHInfoRoomOperation(String[] params){
 		int value0 = Integer.parseInt(params[0]);

@@ -81,7 +81,8 @@ public class NotifyCode {
     public static final short AH_ROOM_START = 3003;
     @ExcelValue(value = "时时乐本局结束  下发 null 所有在线玩家都会收到")
     public static final short AH_ROOM_END = 3004;
-
+    @ExcelValue(value = "时时乐开牌结果这一局不能下注了等待下一局吧")
+    public static final short AH_ROOM_CAN_NOT_BET = 3005;
 
     /**请求大厅的请求吗段10000 - 20000*/
     @ExcelValue(value = "请求大厅获取玩家信息数据")

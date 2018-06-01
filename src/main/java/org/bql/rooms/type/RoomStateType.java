@@ -8,7 +8,8 @@ public enum RoomStateType {
     START(2),//开始
     DEAL(3),//发牌
     STOP_BOTTOM(4),//停止下注
-    SETTLE(5);//结算
+    SETTLE(5),
+    END(6);//结算
     private int id;
 
     private RoomStateType(int id) {

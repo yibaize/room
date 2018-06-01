@@ -8,7 +8,6 @@ import org.bql.net.builder_clazz.NotifyCode;
 import org.bql.net.http.HttpClient;
 import org.bql.net.server.session.SessionManager;
 import org.bql.player.PlayerFactory;
-import org.bql.player.PlayerInfoDto;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.always_happy.dto.AHBetDto;
 import org.bql.rooms.always_happy.dto.AHHistoryDto;
@@ -16,6 +15,7 @@ import org.bql.rooms.always_happy.dto.AHResultDto;
 import org.bql.rooms.always_happy.manager.AHDealManager;
 import org.bql.rooms.card.CardType;
 import org.bql.rooms.type.ProcedureType;
+import org.bql.rooms.type.RoomStateType;
 import org.bql.utils.DateUtils;
 import org.bql.utils.JsonUtils;
 import org.bql.utils.logger.LoggerUtils;
@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class AHGamblingParty {
     private final AHRoom room;
     private AHPlayerSet playerSet;
-    private Map<Integer, AHBet> betMap;
+    private Map<Integer, AHBetModel> betMap;
     private AtomicLong allMoney;
     private AtomicLong todayGetMoney;//当天系统财富收入
     private int todayTimer;//当天系统财富收入计时器
@@ -82,9 +82,9 @@ public class AHGamblingParty {
         allMoney.set(m + num);
         if (betPosition < 0)
             new GenaryAppError(AppErrorCode.DATA_ERR);
-        AHBet bet = betMap.get(betPosition);
+        AHBetModel bet = betMap.get(betPosition);
         if (bet == null) {
-            bet = new AHBet(betPosition);
+            bet = new AHBetModel(betPosition);
             betMap.put(betPosition, bet);
         }
         bet.bet(player, num);
@@ -108,9 +108,8 @@ public class AHGamblingParty {
         updatebloodGroove = 0;
         lastTimeGrantAward = 0;
         //通知所有人开牌了
-        notifyResult();
         List<PlayerRoom> ahPlayers = new ArrayList<>();
-        for (AHBet b : betMap.values()) {
+        for (AHBetModel b : betMap.values()) {
             ahPlayers.addAll(b.getAllPlayer());
             if (b.getPosition() == thisGamblingParCard.getResult() || b.getPosition() == thisGamblingParCard.getOddEnven()) {
                 lastTimeGrantAward += b.settleAccount(CardType.getType(thisGamblingParCard.getResult()), ProcedureType.WIN);//赢
@@ -123,6 +122,7 @@ public class AHGamblingParty {
             }
         }
         bloodGroove += updatebloodGroove;
+        notifyResult();
         //本局有财富变更才更新
         //通知大厅 系统赢了多少或者输了多少 今日输赢财富 奖池 血池
         if (lastTimeGrantAward > 0 || updatebloodGroove > 0)
@@ -135,13 +135,13 @@ public class AHGamblingParty {
             RoomWeathDtos notifyMessage = new RoomWeathDtos(weathDtos);
             HttpClient.getInstance().asyncPost(NotifyCode.REQUEST_HALL_UPDATE_WEATH, JsonUtils.jsonSerialize(notifyMessage) + "," + PlayerFactory.SYSTEM_PLAYER_ID);
         }
-        betMap.clear();
+
     }
 
     private void notifyResult() {
         AHResultDto dto = new AHResultDto();
         dto.setCardIds(thisGamblingParCard.getCardIds());
-        dto.setLastTimeGrantAward(allMoney.get());
+        dto.setLastTimeGrantAward(lastTimeGrantAward);
         dto.setNum(nowNum);
         dto.setOddEnven(thisGamblingParCard.getOddEnven());
         dto.setResult(thisGamblingParCard.getResult());
@@ -161,15 +161,23 @@ public class AHGamblingParty {
             //通知开始
             case 1:
                 SessionManager.notifyAllx(NotifyCode.AH_ROOM_START, null);
+                room.setRoomState(RoomStateType.START);
                 break;
             case 7:
                 shuffle();
                 break;
-            case 10:
-                settleAccount();
+            case 22:
+                //不能下注了
+                room.setRoomState(RoomStateType.STOP_BOTTOM);
+                room.braodcast(playerSet.getPlayers(), NotifyCode.AH_ROOM_CAN_NOT_BET, null);
                 break;
-            case 17:
+            case 25:
+                settleAccount();
+                room.setRoomState(RoomStateType.SETTLE);
+                break;
+            case 30:
                 SessionManager.notifyAllx(NotifyCode.AH_ROOM_END, null);
+                room.setRoomState(RoomStateType.END);
                 //通知结束
                 end();
                 timer = 0;
@@ -182,6 +190,9 @@ public class AHGamblingParty {
     }
 
     public void end() {
+        nowBetPlayerNum = 0;
+        betMap.clear();
+        allMoney.set(0);
         playerSet.end();
     }
 }

@@ -7,6 +7,7 @@ import org.bql.net.message.ServerResponse;
 import org.bql.net.server.manage.OperateCommandAbstract;
 import org.bql.player.PlayerInfoDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.RoomAddBetDto;
+import org.bql.rooms.three_cards.three_cards_1.dto.SettleModelDto;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstGamblingParty;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstPlayerRoom;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstRooms;
@@ -29,10 +30,11 @@ public class FirstRoom_AddBet extends OperateCommandAbstract {
     private String nextAccount;
     private FirstRooms room;
     private long moneyChange;
+    private PlayerInfoDto p;
     @Override
     public Object execute() {
         FirstPlayerRoom player = (FirstPlayerRoom) getSession().getAttachment();
-        PlayerInfoDto p = player.getPlayer();
+        p = player.getPlayer();
         room = (FirstRooms) player.getRoom();
         MyPlayerSet playerSet = room.getPlayerSet();
         account = p.getAccount();
@@ -69,7 +71,7 @@ public class FirstRoom_AddBet extends OperateCommandAbstract {
         //下一玩家下注位置
         nextAccount = playerSet.getNextPositionAccount(p.getRoomPosition());
         gamblingParty.addOparetionCount();
-        return null;
+        return new SettleModelDto(account,p.getGold(),room.getAllMoneyNum());
     }
 
     /**
@@ -81,7 +83,7 @@ public class FirstRoom_AddBet extends OperateCommandAbstract {
         room.getGamblingParty().setNowBottomPos(new AtomicInteger(nextPlayer.getPlayer().getRoomPosition()));
         //通知下一个下注玩家
         nextPlayer.getSession().write(new ServerResponse(NotifyCode.ROOM_PLAYER_BOTTOM,null));
-        RoomAddBetDto dto = new RoomAddBetDto(account,nextAccount,moneyChange,addBetChipPosition);
+        RoomAddBetDto dto = new RoomAddBetDto(account,nextAccount,moneyChange,addBetChipPosition,p.getGold(),room.getAllMoneyNum());
         //通知所有玩家财富变更，下一玩家下注
         room.broadcast(room.getPlayerSet().getNotAccountPlayer(account),NotifyCode.ROOM_ADD_BET,dto);
     }

@@ -12,5 +12,7 @@ public class AHHistorysDtos : IProtostuff {
 	[ProtoMember(4)]
 	public int RoomTime{get;set;}
 	[ProtoMember(5)]
+	public int RoomState{get;set;}
+	[ProtoMember(6)]
 	public List<AHHistoryDto> HistoryDtos{get;set;}
 }
