@@ -10,6 +10,7 @@ import org.bql.rooms.always_happy.dto.AHWeathDto;
 import org.bql.rooms.card.CardType;
 import org.bql.rooms.type.ProcedureType;
 import org.bql.utils.ProtostuffUtils;
+import org.bql.utils.logger.LoggerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,7 @@ public class AHBet {
         }
         allMoney.set(0);
         players.clear();
-        System.err.println("这里清空");
+        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+"这里清空");
         return allMo;
     }
 }

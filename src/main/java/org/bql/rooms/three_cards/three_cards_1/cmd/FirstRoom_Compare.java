@@ -39,7 +39,8 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
     private FirstRooms room;
     private String account;
     private MyPlayerSet playerSet;
-    FirstPlayerRoom player;
+    private FirstPlayerRoom player;
+
     @Override
     public Object execute() {
         player = (FirstPlayerRoom) getSession().getAttachment();
@@ -128,13 +129,15 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
             room.broadcast(playerSet.getAllPlayer(),NotifyCode.ROOM_SETTLE_ACCOUNT,settleDto);//通知所有玩家这家伙赢了
 
             room.getGamblingParty().setWinPosition(winPosition);//设置这把赢家的位置
-            //TODO 牌局结束
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                LoggerUtils.getPlatformLog().info("等待比牌结束异常",e);
-            }
-            room.end();
+//            //TODO 牌局结束
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                LoggerUtils.getPlatformLog().info("等待比牌结束异常",e);
+//            }
+            room.getGamblingParty().setRoomEnd();
+            room.getGamblingParty().setEndTime();
+//            room.end();
         }else {
             //下一个位置的玩家
             String nextAccount = playerSet.getNextPositionAccount(player.getPlayer().getRoomPosition());

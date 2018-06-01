@@ -197,7 +197,7 @@ public class AHDealManager {
     }
 
     private Integer[] getIds(Integer[] flower, Integer[] faces) {
-        LoggerUtils.getLogicLog().info(Arrays.toString(flower)+ " : " + Arrays.toString(faces));
+        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+Arrays.toString(flower)+ " : " + Arrays.toString(faces));
         Integer[] ids = new Integer[3];
         for (int i = 0; i < 3; i++) {
             ids[i] = CardManager.getInstance().cardTypeFace[flower[i]][faces[i]];

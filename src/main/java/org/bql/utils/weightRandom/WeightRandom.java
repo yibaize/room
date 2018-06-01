@@ -40,7 +40,7 @@ public class WeightRandom {
         Integer m = 0;
         for (WeightCategory wc : categorys) {
             if (m <= n && n < m + wc.getWeight()) {
-                LoggerUtils.getLogicLog().info("本次权重随机所得id为 " + wc.getCategory());
+                LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+"本次权重随机所得id为 " + wc.getCategory());
                 return wc.getCategory();
             }
             m += wc.getWeight();

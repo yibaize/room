@@ -46,4 +46,13 @@ public class CardDataTable implements DataTableMessage {
         CardDataTable c = (CardDataTable) obj;
         return c.getId() == id;
     }
+
+    @Override
+    public String toString() {
+        return "CardDataTable{" +
+                "id=" + id +
+                ", type=" + type +
+                ", face=" + face +
+                '}';
+    }
 }

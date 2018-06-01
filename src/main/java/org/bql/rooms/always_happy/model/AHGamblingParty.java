@@ -135,7 +135,7 @@ public class AHGamblingParty {
             RoomWeathDtos notifyMessage = new RoomWeathDtos(weathDtos);
             HttpClient.getInstance().asyncPost(NotifyCode.REQUEST_HALL_UPDATE_WEATH, JsonUtils.jsonSerialize(notifyMessage) + "," + PlayerFactory.SYSTEM_PLAYER_ID);
         }
-
+        betMap.clear();
     }
 
     private void notifyResult() {
@@ -145,7 +145,7 @@ public class AHGamblingParty {
         dto.setNum(nowNum);
         dto.setOddEnven(thisGamblingParCard.getOddEnven());
         dto.setResult(thisGamblingParCard.getResult());
-        LoggerUtils.getLogicLog().info(playerSet);
+        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+playerSet);
         room.braodcast(playerSet.getPlayers(), NotifyCode.AH_ROOM_CARD_RESULT, dto);
     }
 

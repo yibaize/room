@@ -5,11 +5,7 @@ import org.bql.error.GenaryAppError;
 import org.bql.hall_connection.dto.RoomWeathDto;
 import org.bql.hall_connection.dto.RoomWeathDtos;
 import org.bql.net.builder_clazz.NotifyCode;
-import org.bql.net.client.GameClient;
 import org.bql.net.http.HttpClient;
-import org.bql.net.message.ClientRequest;
-import org.bql.net.message.ClientResponse;
-import org.bql.net.message.Msg;
 import org.bql.player.PlayerFactory;
 import org.bql.rooms.card.CardDataTable;
 import org.bql.rooms.card.CardManager;
@@ -22,9 +18,7 @@ import org.bql.rooms.three_cards.three_cards_1.model.HandCard;
 import org.bql.rooms.type.Chip;
 import org.bql.rooms.type.RoomStateType;
 import org.bql.utils.ArrayUtils;
-import org.bql.utils.DateUtils;
 import org.bql.utils.JsonUtils;
-import org.bql.utils.ProtostuffUtils;
 import org.bql.utils.logger.LoggerUtils;
 
 import java.util.*;
@@ -36,6 +30,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class FirstGamblingParty {
     public static final int MULTIPLE = 2;//看牌后翻的倍数
     private static final long OUT_TIME = 5000;//有超过两个人准备之后最多五秒后房间开局
+    private static final int END_TIME = 3000;//结束之后延迟3秒才结束牌局
     private static final long END_OUT_TIME = 15000;//每次考虑下注最长的时间，如果超过视为弃牌
     private List<CardDataTable> exchangeCard;//换牌是使用的集合
     private Map<String, List<ForbidCompareModel>> forbidCompareModelMap;//禁比
@@ -43,13 +38,15 @@ public class FirstGamblingParty {
     private final MyPlayerSet playerSet;
     private final CardManager cardManager;
     private AtomicLong startTime;
+    private AtomicLong endTime;
     private AtomicInteger winPosition;//上把赢钱的位置
     private AtomicInteger nowBottomPos;//当前下注房间位置
     private AtomicInteger nowBottomChip;//当前筹码位置
-    private AtomicInteger oparetionCont;//操作轮数
-    private AtomicInteger oparetionPlayerNum;//操作人数
+    private AtomicInteger operationCont;//操作轮数
+    private AtomicInteger operationPlayerNum;//操作人数
     private AtomicBoolean betState;//压注状态，是否已经开启全压模式
     private FirstPlayerRoom betAllPlayer;//上一个全压的玩家
+    private AtomicBoolean roomEnd;//房间结束标记
     public FirstGamblingParty(FirstRooms myRoom) {
         this.myRoom = myRoom;
         this.cardManager = myRoom.getCardManager();
@@ -60,9 +57,11 @@ public class FirstGamblingParty {
         this.nowBottomChip = new AtomicInteger(0);
         this.exchangeCard = new ArrayList<>();
         this.forbidCompareModelMap = new ConcurrentHashMap<>();
-        this.oparetionCont = new AtomicInteger(0);
-        this.oparetionPlayerNum = new AtomicInteger(0);
+        this.operationCont = new AtomicInteger(0);
+        this.operationPlayerNum = new AtomicInteger(0);
         this.betState = new AtomicBoolean(false);
+        this.roomEnd = new AtomicBoolean(false);
+        this.endTime = new AtomicLong(0);
     }
 
     public void setStartTime(long startTime) {
@@ -84,7 +83,12 @@ public class FirstGamblingParty {
     public void setNowBottomPos(AtomicInteger nowBottomPos) {
         this.nowBottomPos = nowBottomPos;
     }
-
+    public void setEndTime(){
+        endTime.set(System.currentTimeMillis());
+    }
+    public void setRoomEnd(){
+        roomEnd.set(true);
+    }
     /**
      * 开局一条狗，发牌全靠吹
      *
@@ -108,7 +112,7 @@ public class FirstGamblingParty {
         nowBottomPos.set(playerSet.getPlayerPos(nextPositionAccount));
         setStartTime();
         myRoom.broadcast(playerSet.getAllPlayer(), NotifyCode.ROOM_START, new FirstRoomStartDto(nextPositionAccount));
-        LoggerUtils.getLogicLog().info("现在下注位置是--->开始" + nowBottomPos.get());
+        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+"现在下注位置是--->开始" + nowBottomPos.get());
         return false;
     }
 
@@ -132,11 +136,11 @@ public class FirstGamblingParty {
         List<CardDataTable> cardDataTables = cardManager.shuff(playerNum * 3, scenesType);
         //移除已经发了的的牌
         shuffExchange(cardDataTables);
+        int temp = 0;
         for (int i = 0; i < playerNum; i++) {
             Integer[] cardIds = new Integer[3];
             Integer[] cardFaces = new Integer[3];
             HandCard handCard = new HandCard();
-            int temp = 0;
             for (int j = 0; j < 3; j++) {
                 cardIds[j] = cardDataTables.get(temp).getId();
                 cardFaces[j] = cardDataTables.get(temp).getFace();
@@ -148,6 +152,7 @@ public class FirstGamblingParty {
             cardManager.getCardType(handCard);
             players.get(i).setHandCard(handCard);
         }
+        LoggerUtils.getLogicLog().info(cardDataTables);
     }
 
     public List<CardDataTable> getExchangeCard() {
@@ -225,9 +230,9 @@ public class FirstGamblingParty {
      * 增加操作轮数,禁比超过5轮的移除
      */
     public void addOparetionCount() {
-        int i = oparetionPlayerNum.getAndIncrement();
+        int i = operationPlayerNum.getAndIncrement();
         if (i == playerSet.getNowPlay().size()) {
-            oparetionCont.incrementAndGet();
+            operationCont.incrementAndGet();
             for(Map.Entry<String,List<ForbidCompareModel>> e:forbidCompareModelMap.entrySet()){
                 List<Integer> removeAccount = new ArrayList<>();
                 List<ForbidCompareModel> eValue = e.getValue();
@@ -247,9 +252,11 @@ public class FirstGamblingParty {
         setStartTime();
         exchangeCard.clear();
         forbidCompareModelMap.clear();
-        oparetionCont.set(0);
-        oparetionPlayerNum.set(0);
+        operationCont.set(0);
+        operationPlayerNum.set(0);
         betState.set(false);
+        roomEnd.set(false);
+        endTime.set(0);
         betAllPlayer = null;
         myRoom.setRoomState(RoomStateType.READY);
         //设置下一局下注位置
@@ -274,7 +281,7 @@ public class FirstGamblingParty {
         if (myRoom.getRoomState() != RoomStateType.START) {
             if (playerSet.getChoiceNum(true) >= 2 && System.currentTimeMillis() - startTime.get() >= OUT_TIME) {
                 startBattle();
-                LoggerUtils.getLogicLog().info("这一直执行吗？");
+                LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+"这一直执行吗？");
             }
             return;
         }
@@ -292,6 +299,10 @@ public class FirstGamblingParty {
             myRoom.broadcast(playerSet.getAllPlayer(), NotifyCode.ROOM_BET_TIME_OUT, new RoomPlayerAccountDto(loseAccount));
 
             startTime.set(System.currentTimeMillis());
+        }
+        //延迟3秒结束
+        if(roomEnd.get() && System.currentTimeMillis() - endTime.get() > END_TIME){
+            myRoom.end();
         }
     }
 

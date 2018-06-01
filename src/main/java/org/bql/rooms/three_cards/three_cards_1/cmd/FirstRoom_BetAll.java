@@ -107,13 +107,15 @@ public class FirstRoom_BetAll extends OperateCommandAbstract {
             }
             //通知玩家结束
             room.broadcast(room.getPlayerSet().getAllPlayer(),NotifyCode.FIRST_ROOM_GAME_OVER,dto);
-            //TODO 牌局结束
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                LoggerUtils.getPlatformLog().info("等待比牌结束异常",e);
-            }
-            room.end();
+//            //TODO 牌局结束
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                LoggerUtils.getPlatformLog().info("等待比牌结束异常",e);
+//            }
+            gamblingParty.setEndTime();
+            gamblingParty.setRoomEnd();
+//            room.end();
         }
     }
     private BetAllDto winOrLose(FirstPlayerRoom win,FirstPlayerRoom lose){
