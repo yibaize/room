@@ -19,7 +19,9 @@ public class Task_1 implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         for(RoomAbs r : rooms){
             //计时开始;
-            r.timer();
+            r.submin(() -> {
+                r.timer();
+            });
         }
 //        LoggerUtils.getLogicLog().info("当前时间------>>>"+new Date().toLocaleString());
     }

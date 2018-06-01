@@ -57,6 +57,10 @@ public final class AppErrorCode{
     public final static int IN_TO_ROOM_BET_NIMIETY = 1015;
     @ExcelValue(value = "你在时时乐下注了很多不能再在万人场下注这么多金币，请先到商城购买或者等待万人场牌局完毕吧！")
     public final static int IN_AH_ROOM_BET_NIMIETY = 1016;
+    @ExcelValue(value = "当前剩余人数不是2人不能说哈！")
+    public final static int NOW_PLAY_PLAYER_ERR = 1017;
+    @ExcelValue(value = "上一玩家全压，您只能全压或者弃牌！")
+    public final static int HASH_PLAYER_BET_ALL = 1018;
 
     @ExcelValue(value = "超时下注了,等待下一局吧！^_^ 吼吼吼")
     public final static int BET_TIME_OUT = 2000;

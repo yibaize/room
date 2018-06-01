@@ -82,7 +82,7 @@ public class AHGamblingParty {
         allMoney.set(m + num);
         if (betPosition < 0)
             new GenaryAppError(AppErrorCode.DATA_ERR);
-        AHBet bet = betMap.getOrDefault(betPosition, null);
+        AHBet bet = betMap.get(betPosition);
         if (bet == null) {
             bet = new AHBet(betPosition);
             betMap.put(betPosition, bet);
@@ -176,7 +176,7 @@ public class AHGamblingParty {
                 nowNum++;
                 break;
         }
-        if (timer > 17) {
+        if (timer > 40) {
             timer = 0;
         }
     }

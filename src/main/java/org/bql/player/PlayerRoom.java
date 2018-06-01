@@ -46,8 +46,7 @@ public class PlayerRoom implements IPlayer{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        PlayerRoom p = (PlayerRoom) obj;
-        return p.getPlayer().getAccount().equals(player.getAccount());
+    public int hashCode() {
+        return super.hashCode();
     }
 }

@@ -1,9 +1,11 @@
 package org.bql.rooms.thousands_of.model;
 
+import org.bql.net.handler.TcpHandler;
 import org.bql.net.message.ServerResponse;
 import org.bql.player.IPlayer;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.RoomAbs;
+import org.bql.rooms.RoomFactory;
 import org.bql.rooms.card.CardManager;
 import org.bql.rooms.thousands_of.dto.TORoomInfoDto;
 import org.bql.rooms.type.RoomStateType;
@@ -19,7 +21,7 @@ public class TORoom extends RoomAbs {
     private CardManager cardManager;
     private RoomStateType roomState;// 1 当前可以下注，2 通知比牌并返回结果 3 通知本场结束 设置房间状态为下注状态
     public TORoom() {
-        super(ScenesType.TO_ROOM.id(),-778899, "");
+        super(ScenesType.TO_ROOM.id(),-778899, "",TcpHandler.getInstance().pool.nextWorker());
         playerSet = new TOPlayerSet(this);
         cardManager = CardManager.getInstance();
         gamblingParty = new TOGamblingParty(this);

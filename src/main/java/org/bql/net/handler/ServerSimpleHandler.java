@@ -11,17 +11,18 @@ import org.bql.utils.logger.LoggerUtils;
 
 public class ServerSimpleHandler extends SimpleChannelInboundHandler<ServerRequest> {
 	private ISession session = null;
+	private final TcpHandler tcpHandler = TcpHandler.getInstance();
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		session = new SessionImpl(ctx.channel());
-		TcpHandler.channelActive(ctx.channel());
+		tcpHandler.channelActive(ctx.channel());
 		//客户端在
 
 	}
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		TcpHandler.channelInactive(ctx.channel());
+		tcpHandler.channelInactive(ctx.channel());
 
 //		outLine(ctx.channel());
 	}
@@ -29,14 +30,14 @@ public class ServerSimpleHandler extends SimpleChannelInboundHandler<ServerReque
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 
-		TcpHandler.exceptionCaught(ctx.channel(),cause);
+		tcpHandler.exceptionCaught(ctx.channel(),cause);
 //		outLine(ctx.channel());
 	}
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, ServerRequest request) throws Exception {
 		//将消息发送到消息分发
-		TcpHandler.massegeRansiter(session,request);
+		tcpHandler.massegeRansiter(session,request);
 //		handlerMessage(ctx.channel(),request);
 	}
 //	/**消息分发器*/

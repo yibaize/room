@@ -36,6 +36,12 @@ public class NotifyCode {
     public static final short ROOM_SETTLE_ACCOUNT = 1512;
     @ExcelValue(value = "通知所有玩家有玩家换牌 下发RoomPlayerAccountDto")
     public static final short ROOM_PLAYER_EXCHANGE_CARD = 1513;
+    @ExcelValue(value = "下一玩家有人全压了")
+    public static final short NEXT_BET_ALL = 1514;
+    @ExcelValue(value = "全压")
+    public static final short BET_ALL = 1515;
+    @ExcelValue(value = "通知所有玩家牌局结束，那哪个玩家赢了多少输了多少  下发BetAllDto")
+    public static final short FIRST_ROOM_GAME_OVER = 1516;
 
     /**万人场使用2000-3000*/
     @ExcelValue(value = "有人上了位置 返回一个PlayerRoomBaseInfoDto对象")

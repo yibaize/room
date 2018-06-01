@@ -1,8 +1,10 @@
 package org.bql.rooms.dice.model;
 
+import org.bql.net.handler.TcpHandler;
 import org.bql.player.IPlayer;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.RoomAbs;
+import org.bql.rooms.RoomFactory;
 import org.bql.rooms.card.CardManager;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class DiceRoom extends RoomAbs {
     private CardManager cardManager;
     private int roomState;
     public DiceRoom() {
-        super(4,-753294, "");
+        super(4,-753294, "",TcpHandler.getInstance().pool.nextWorker());
     }
 
     public DicePlayerSet getPlayerSet() {

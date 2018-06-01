@@ -32,7 +32,7 @@ public class DiceGamblingParty {
     public void start(){
         //权重随机生成点数
         int count = WeightRandom.awardPosition(DiceManager.getInstance().getDiceDate());
-        int random = RandomUtils.randomSection(count-1,2);
+        int random = RandomUtils.getRandom(count-1,2);
         DiceDto diceDto = new DiceDto(count - random,random,battleCount++);
         if(historyQueue.size() >= 10){
             historyQueue.poll();

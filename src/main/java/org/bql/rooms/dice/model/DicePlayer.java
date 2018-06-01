@@ -16,10 +16,4 @@ public class DicePlayer extends PlayerRoom {
     public void setBetNum(long betNum) {
         this.betNum = betNum;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        DicePlayer d = (DicePlayer) obj;
-        return getPlayer().getAccount().equals(d.getPlayer().getAccount());
-    }
 }

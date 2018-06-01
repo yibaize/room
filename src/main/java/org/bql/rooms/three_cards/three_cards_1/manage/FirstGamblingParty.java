@@ -29,6 +29,7 @@ import org.bql.utils.logger.LoggerUtils;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -47,7 +48,8 @@ public class FirstGamblingParty {
     private AtomicInteger nowBottomChip;//当前筹码位置
     private AtomicInteger oparetionCont;//操作轮数
     private AtomicInteger oparetionPlayerNum;//操作人数
-
+    private AtomicBoolean betState;//压注状态，是否已经开启全压模式
+    private FirstPlayerRoom betAllPlayer;//上一个全压的玩家
     public FirstGamblingParty(FirstRooms myRoom) {
         this.myRoom = myRoom;
         this.cardManager = myRoom.getCardManager();
@@ -58,8 +60,9 @@ public class FirstGamblingParty {
         this.nowBottomChip = new AtomicInteger(0);
         this.exchangeCard = new ArrayList<>();
         this.forbidCompareModelMap = new ConcurrentHashMap<>();
-        oparetionCont = new AtomicInteger(0);
-        oparetionPlayerNum = new AtomicInteger(0);
+        this.oparetionCont = new AtomicInteger(0);
+        this.oparetionPlayerNum = new AtomicInteger(0);
+        this.betState = new AtomicBoolean(false);
     }
 
     public void setStartTime(long startTime) {
@@ -87,7 +90,7 @@ public class FirstGamblingParty {
      *
      * @return
      */
-    public boolean startBattle() {
+    private boolean startBattle() {
         List<FirstPlayerRoom> players = playerSet.getReadyPlayer(true);
         int chip = Chip.FIRST_BOTTOM_NUM[nowBottomChip.get()];
         for (FirstPlayerRoom p : players) {
@@ -246,6 +249,8 @@ public class FirstGamblingParty {
         forbidCompareModelMap.clear();
         oparetionCont.set(0);
         oparetionPlayerNum.set(0);
+        betState.set(false);
+        betAllPlayer = null;
         myRoom.setRoomState(RoomStateType.READY);
         //设置下一局下注位置
         String account = playerSet.getNextPositionAccount(nowBottomPos.get());
@@ -309,5 +314,21 @@ public class FirstGamblingParty {
             resultDtos.add(compareCardResultDto);
         }
         myRoom.broadcast(allPlayer, NotifyCode.ROOM_BATTLE_END, new CompareCardResultDtos(resultDtos));
+    }
+
+    public boolean getBetState() {
+        return betState.get();
+    }
+
+    public void setBetState() {
+        this.betState.set(true);
+    }
+
+    public FirstPlayerRoom getBetAllPlayer() {
+        return betAllPlayer;
+    }
+
+    public void setBetAllPlayer(FirstPlayerRoom betAllPlayer) {
+        this.betAllPlayer = betAllPlayer;
     }
 }

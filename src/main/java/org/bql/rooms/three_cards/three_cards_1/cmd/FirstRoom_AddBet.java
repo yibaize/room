@@ -48,6 +48,9 @@ public class FirstRoom_AddBet extends OperateCommandAbstract {
         if(gamblingParty.getNowBottomPos().get() != p.getRoomPosition()) {
             new GenaryAppError(AppErrorCode.NOT_IS_YOU_BET);//不是该玩家下注
         }
+        if(gamblingParty.getBetState()){
+            new GenaryAppError(AppErrorCode.HASH_PLAYER_BET_ALL);
+        }
         int scenesId = p.getScenesId();
         int[] bottom = ScenesType.get(scenesId).chip();
         if(bottom == null)

@@ -1,13 +1,16 @@
 package org.bql.rooms.always_happy.model;
 
+import org.bql.net.handler.TcpHandler;
 import org.bql.net.message.ServerResponse;
 import org.bql.player.IPlayer;
 import org.bql.player.PlayerFactory;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.RoomAbs;
+import org.bql.rooms.RoomFactory;
 import org.bql.rooms.always_happy.dto.AHHistorysDtos;
 import org.bql.rooms.type.ScenesType;
 import org.bql.utils.ProtostuffUtils;
+import org.bql.utils.executer.NioServerWorker;
 
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class AHRoom extends RoomAbs {
     private AHPlayerSet playerSet;
 
     public AHRoom() {
-        super(ScenesType.AH_ROOM.id(), -1111, PlayerFactory.SYSTEM_PLAYER_ID);
+        super(ScenesType.AH_ROOM.id(), -1111, PlayerFactory.SYSTEM_PLAYER_ID,TcpHandler.getInstance().pool.nextWorker());
         this.playerSet = new AHPlayerSet(this);
         this.gamblingParty = new AHGamblingParty(this);
     }

@@ -22,11 +22,6 @@ public class TOPlayer extends PlayerRoom {
         this.betNum = betNum;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        TOPlayer p = (TOPlayer) obj;
-        return p.getPlayer().getAccount().equals(getPlayer().getAccount());
-    }
     public void bet(long num){
         betNum += num;
     }

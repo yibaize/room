@@ -1,12 +1,14 @@
 package org.bql.rooms.three_cards.three_cards_1.manage;
 
 import org.bql.net.builder_clazz.NotifyCode;
+import org.bql.net.handler.TcpHandler;
 import org.bql.net.message.ServerResponse;
 import org.bql.player.IPlayer;
 import org.bql.player.PlayerInfoDto;
 import org.bql.player.PlayerRoom;
 import org.bql.player.PlayerRoomBaseInfoDto;
 import org.bql.rooms.RoomAbs;
+import org.bql.rooms.RoomFactory;
 import org.bql.rooms.card.CardManager;
 import org.bql.rooms.three_cards.three_cards_1.dto.FirstRoomStartDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.PlayerRoomDto;
@@ -34,7 +36,7 @@ public class FirstRooms extends RoomAbs {
      * @param account 创建人
      */
     public FirstRooms(int scenesId, int roomId, String account) {
-        super(scenesId, roomId, account);
+        super(scenesId, roomId, account,TcpHandler.getInstance().pool.nextWorker());
         roomState = RoomStateType.READY;
         playerSet = new MyPlayerSet(this);
         cardManager = CardManager.getInstance();
@@ -119,6 +121,7 @@ public class FirstRooms extends RoomAbs {
         //通知房间玩家有人进来
         PlayerRoomBaseInfoDto prbifd = firstPlayerRoom.roomPlayerDto();
         prbifd.setPostion(p.getRoomPosition());
+        gamblingParty.setStartTime();
         broadcast(playerSet.getNotAccountPlayer(p.getAccount()), NotifyCode.ROOM_PLAYER_ENTER, prbifd);
     }
 

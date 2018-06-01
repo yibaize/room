@@ -12,9 +12,9 @@ import org.bql.rooms.type.ProcedureType;
 import org.bql.utils.ProtostuffUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class AHBet {
@@ -27,7 +27,7 @@ public class AHBet {
 
     public AHBet(int position) {
         allMoney = new AtomicLong(0);
-        players = new HashMap<>();
+        players = new ConcurrentHashMap<>();
         this.position = position;
     }
 
@@ -75,6 +75,7 @@ public class AHBet {
         }
         allMoney.set(0);
         players.clear();
+        System.err.println("这里清空");
         return allMo;
     }
 }

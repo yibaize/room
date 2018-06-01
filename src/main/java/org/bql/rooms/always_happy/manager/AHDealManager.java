@@ -9,6 +9,7 @@ import org.bql.rooms.card.CardManager;
 import org.bql.utils.ArrayUtils;
 import org.bql.utils.RandomUtils;
 import org.bql.utils.builder_clazz.excel_init_data.StaticConfigMessage;
+import org.bql.utils.logger.LoggerUtils;
 import org.bql.utils.weightRandom.WeightRandom;
 
 import java.io.Serializable;
@@ -128,7 +129,7 @@ public class AHDealManager {
      * @return
      */
     public Integer[] c() {
-        int number = RandomUtils.randomSection(3, 13);
+        int number = RandomUtils.getRandom(3, 13);
         Integer[] face = new Integer[]{number - 1, number, number + 1};
         Integer[] flower = RandomUtils.randomNotRepeat(1, 4, 3);
         return getIds(flower, face);
@@ -140,7 +141,7 @@ public class AHDealManager {
      * @return
      */
     public Integer[] d() {
-        Integer[] face = RandomUtils.randomNotRepeat(3, 14, 2);
+        Integer[] face = RandomUtils.randomNotRepeat(3, 14, 3);
         //顺子
         Arrays.sort(face);
         boolean isStraight = true;
@@ -165,7 +166,7 @@ public class AHDealManager {
      * @return
      */
     public Integer[] e() {
-        int number = RandomUtils.randomSection(3, 13);
+        int number = RandomUtils.getRandom(3, 13);
         Integer[] face = new Integer[]{number - 1, number, number + 1};
         int flowerNumber = RandomUtils.getRandom(1, 4);
         Integer[] flower = new Integer[]{flowerNumber, flowerNumber, flowerNumber};
@@ -196,10 +197,19 @@ public class AHDealManager {
     }
 
     private Integer[] getIds(Integer[] flower, Integer[] faces) {
+        LoggerUtils.getLogicLog().info(Arrays.toString(flower)+ " : " + Arrays.toString(faces));
         Integer[] ids = new Integer[3];
         for (int i = 0; i < 3; i++) {
             ids[i] = CardManager.getInstance().cardTypeFace[flower[i]][faces[i]];
         }
         return ids;
+    }
+
+    public static void main(String[] args) {
+        for(int i = 0;i<10;i++) {
+            int number = RandomUtils.getRandom(3, 13);
+            int x = RandomUtils.randomIndex(13);
+            System.out.println(number+ " : " + x);
+        }
     }
 }

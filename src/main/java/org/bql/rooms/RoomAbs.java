@@ -5,6 +5,7 @@ import org.bql.player.IPlayer;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.dice.model.DicePlayer;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstPlayerRoom;
+import org.bql.utils.executer.pool.Worker;
 
 import java.util.List;
 
@@ -12,16 +13,18 @@ public abstract class RoomAbs {
     private int roomId;
     private String createAccount;
     private int scenecId;
+    private Worker worker;
     /**房间状态*/
     /**
      * 创建房间
      * @param roomId
      * @param account 创建人
      */
-    public RoomAbs(int scenesId,int roomId, String account) {
+    public RoomAbs(int scenesId,int roomId, String account,Worker worker) {
         this.roomId = roomId;
         this.createAccount = account;
         this.scenecId = scenesId;
+        this.worker = worker;
     }
 
     public int getRoomId() {
@@ -55,4 +58,7 @@ public abstract class RoomAbs {
     public abstract void timer();
     /**踢人下线*/
     public abstract void kicking(PlayerRoom player,int position);
+    public void submin(Runnable runnable){
+        worker.registerNewChannelTask(runnable);
+    }
 }
