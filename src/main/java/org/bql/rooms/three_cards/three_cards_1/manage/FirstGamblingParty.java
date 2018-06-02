@@ -9,10 +9,7 @@ import org.bql.net.http.HttpClient;
 import org.bql.player.PlayerFactory;
 import org.bql.rooms.card.CardDataTable;
 import org.bql.rooms.card.CardManager;
-import org.bql.rooms.three_cards.three_cards_1.dto.CompareCardResultDto;
-import org.bql.rooms.three_cards.three_cards_1.dto.CompareCardResultDtos;
-import org.bql.rooms.three_cards.three_cards_1.dto.FirstRoomStartDto;
-import org.bql.rooms.three_cards.three_cards_1.dto.RoomPlayerAccountDto;
+import org.bql.rooms.three_cards.three_cards_1.dto.*;
 import org.bql.rooms.three_cards.three_cards_1.model.ForbidCompareModel;
 import org.bql.rooms.three_cards.three_cards_1.model.HandCard;
 import org.bql.rooms.type.Chip;
@@ -46,7 +43,9 @@ public class FirstGamblingParty {
     private AtomicInteger operationPlayerNum;//操作人数
     private AtomicBoolean betState;//压注状态，是否已经开启全压模式
     private FirstPlayerRoom betAllPlayer;//上一个全压的玩家
+    private long betAllGold;//全压的金币数量是多少
     private AtomicBoolean roomEnd;//房间结束标记
+    private FirstPlayerRoom winPlayer;
     public FirstGamblingParty(FirstRooms myRoom) {
         this.myRoom = myRoom;
         this.cardManager = myRoom.getCardManager();
@@ -101,6 +100,7 @@ public class FirstGamblingParty {
             //减底注
             p.getPlayer().reduceGold(chip);
             myRoom.addAllMoney(chip);
+            myRoom.bottom(p.getPlayer().getAccount(),chip);
         }
 
         //发牌洗牌
@@ -112,7 +112,6 @@ public class FirstGamblingParty {
         nowBottomPos.set(playerSet.getPlayerPos(nextPositionAccount));
         setStartTime();
         myRoom.broadcast(playerSet.getAllPlayer(), NotifyCode.ROOM_START, new FirstRoomStartDto(nextPositionAccount));
-        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+"现在下注位置是--->开始" + nowBottomPos.get());
         return false;
     }
 
@@ -152,7 +151,6 @@ public class FirstGamblingParty {
             cardManager.getCardType(handCard);
             players.get(i).setHandCard(handCard);
         }
-        LoggerUtils.getLogicLog().info(cardDataTables);
     }
 
     public List<CardDataTable> getExchangeCard() {
@@ -177,6 +175,14 @@ public class FirstGamblingParty {
      */
     public boolean isBottomTimeOut() {
         return timeDifference() > END_OUT_TIME;
+    }
+
+    public FirstPlayerRoom getWinPlayer() {
+        return winPlayer;
+    }
+
+    public void setWinPlayer(FirstPlayerRoom winPlayer) {
+        this.winPlayer = winPlayer;
     }
 
     /**
@@ -248,6 +254,7 @@ public class FirstGamblingParty {
         }
     }
 
+
     public void end() {
         setStartTime();
         exchangeCard.clear();
@@ -258,6 +265,7 @@ public class FirstGamblingParty {
         roomEnd.set(false);
         endTime.set(0);
         betAllPlayer = null;
+        betAllGold = 0;
         myRoom.setRoomState(RoomStateType.READY);
         //设置下一局下注位置
         String account = playerSet.getNextPositionAccount(nowBottomPos.get());
@@ -281,7 +289,6 @@ public class FirstGamblingParty {
         if (myRoom.getRoomState() != RoomStateType.START) {
             if (playerSet.getChoiceNum(true) >= 2 && System.currentTimeMillis() - startTime.get() >= OUT_TIME) {
                 startBattle();
-                LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+"这一直执行吗？");
             }
             return;
         }
@@ -293,6 +300,10 @@ public class FirstGamblingParty {
             losePlayer.getHandCard().setCompareResult(false);
 
             if (playerSet.loseNum() >= playerSet.playNum() - 1) {
+                List<FirstPlayerRoom> list = new ArrayList<>(playerSet.getNowPlay().values());
+                if(list.size() <= 0)
+                    new GenaryAppError(AppErrorCode.SERVER_ERR);
+                winPlayer = list.get(0);
                 myRoom.end();
                 return;
             }
@@ -310,23 +321,28 @@ public class FirstGamblingParty {
      * 某个玩家弃牌导致牌局结束
      */
     public void timeOutAndEnd() {
+        FirstRoomSettleDto settleDto = new FirstRoomSettleDto();
+        settleDto.setAccount(winPlayer.getPlayer().getAccount());
+        settleDto.setCardType(winPlayer.getHandCard().getCardType());
+        settleDto.setCardIds(ArrayUtils.arrToList(winPlayer.getHandCard().getCardIds()));
+        settleDto.setWinPlayerGetNum(myRoom.getAllMoneyNum());
+        Map<String,Long> moneys = myRoom.getBottomMoney();
+        List<SettleLoseModelDto> modelDtos = new ArrayList<>(moneys.size());
+        //输的玩家
         List<FirstPlayerRoom> allPlayer = playerSet.getAllPlayer();
-        List<CompareCardResultDto> resultDtos = new ArrayList<>();
-        for (FirstPlayerRoom f : allPlayer) {
-            HandCard handCard = f.getHandCard();
-            if (handCard == null)
+        String winAccount = winPlayer.getPlayer().getAccount();
+        for(FirstPlayerRoom p:allPlayer){
+            if(p.getHandCard() == null)
                 continue;
-            if (playerSet.getNowPlay().containsKey(f.getPlayer().getAccount())) {
-                handCard.setCompareResult(true);
+            String pAccount = p.getPlayer().getAccount();
+            if(!pAccount.equals(winAccount)) {
+                modelDtos.add(new SettleLoseModelDto(pAccount, moneys.get(pAccount),ArrayUtils.arrToList(p.getHandCard().getCardIds()),p.getHandCard().getCardType()));
             }
-            CompareCardResultDto compareCardResultDto = new CompareCardResultDto(f.getPlayer().getAccount(), "",
-                    handCard.getCardType(),
-                    ArrayUtils.arrayToList(handCard.getCardIds()));
-            resultDtos.add(compareCardResultDto);
         }
-        myRoom.broadcast(allPlayer, NotifyCode.ROOM_BATTLE_END, new CompareCardResultDtos(resultDtos));
+        settleDto.setSettleModelDtos(modelDtos);
+        winPlayer.getPlayer().insertGold(myRoom.getAllMoneyNum());//赢家财富
+        myRoom.broadcast(playerSet.getAllPlayer(),NotifyCode.ROOM_SETTLE_ACCOUNT,settleDto);//通知所有玩家这家伙赢了
     }
-
     public boolean getBetState() {
         return betState.get();
     }
@@ -337,6 +353,14 @@ public class FirstGamblingParty {
 
     public FirstPlayerRoom getBetAllPlayer() {
         return betAllPlayer;
+    }
+
+    public void setBetAllGold(long betAllGold) {
+        this.betAllGold = betAllGold;
+    }
+
+    public long getBetAllGold() {
+        return betAllGold;
     }
 
     public void setBetAllPlayer(FirstPlayerRoom betAllPlayer) {

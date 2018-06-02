@@ -28,7 +28,6 @@ public class FirstRooms extends RoomAbs {
     private FirstGamblingParty gamblingParty;//牌局
     private long allMoneyNum;//本局房间总金额
     private Map<String, Long> bottomMoney;//下注的金额数量对应的玩家账号
-
     /**
      * 创建房间
      *
@@ -50,7 +49,6 @@ public class FirstRooms extends RoomAbs {
 
     public void bottom(String account, long num) {
         long num1 = num;
-        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+bottomMoney.size());
         if (bottomMoney.containsKey(account)) {
             num1 += bottomMoney.get(account);
         }
@@ -175,9 +173,9 @@ public class FirstRooms extends RoomAbs {
 
     public void end() {
         roomState = RoomStateType.READY;//房间状态码1：等待准备状态 2：房间开启了等待准备状态  3：打牌状态
+        gamblingParty.timeOutAndEnd();
         playerSet.end();
         gamblingParty.end();//牌局
-        gamblingParty.timeOutAndEnd();
         allMoneyNum = 0;
         bottomMoney.clear();
     }

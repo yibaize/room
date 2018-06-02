@@ -1,5 +1,7 @@
 package org.bql.rooms.three_cards.three_cards_1.cmd;
 
+import org.bql.error.AppErrorCode;
+import org.bql.error.GenaryAppError;
 import org.bql.net.builder_clazz.NotifyCode;
 import org.bql.net.server.manage.OperateCommandAbstract;
 import org.bql.rooms.three_cards.three_cards_1.dto.RoomPlayerAccountDto;
@@ -7,6 +9,9 @@ import org.bql.rooms.three_cards.three_cards_1.manage.FirstPlayerRoom;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstRooms;
 import org.bql.rooms.three_cards.three_cards_1.manage.MyPlayerSet;
 import org.bql.utils.builder_clazz.ann.Protocol;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 玩家主动放弃牌
@@ -26,6 +31,10 @@ public class FirstRoom_GiveUpCard extends OperateCommandAbstract {
         playerSet.losePlayer(account);
         player.getHandCard().setCompareResult(false);
         if(playerSet.playNum() <= 1){
+            List<FirstPlayerRoom> list = new ArrayList<>(playerSet.getNowPlay().values());
+            if(list.size() <= 0)
+                new GenaryAppError(AppErrorCode.SERVER_ERR);
+            room.getGamblingParty().setWinPlayer(list.get(0));
             room.end();
             isEnd = true;
         }

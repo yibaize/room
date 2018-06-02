@@ -3,8 +3,10 @@ package org.bql.net.server.manage;
 
 import org.bql.net.handler.TcpHandler;
 import org.bql.net.server.session.ISession;
+import org.bql.player.PlayerRoom;
 import org.bql.rooms.RoomAbs;
 import org.bql.utils.executer.pool.Worker;
+import org.bql.utils.logger.LoggerUtils;
 
 public abstract class OperateCommandAbstract implements IOperationCommand{
     private short cmdId;
@@ -37,10 +39,12 @@ public abstract class OperateCommandAbstract implements IOperationCommand{
         }
     }
     public void subim(){
-        if(room == null){
-            run();
-        }else {
+        PlayerRoom player = (PlayerRoom) getSession().getAttachment();
+        if(player != null && player.getRoom() != null){
+            room = player.getRoom();
             room.submin(this);
+        }else {
+            run();
         }
     }
     @Override

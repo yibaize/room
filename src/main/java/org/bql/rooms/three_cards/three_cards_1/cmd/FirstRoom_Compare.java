@@ -10,6 +10,7 @@ import org.bql.rooms.card.CardManager;
 import org.bql.rooms.three_cards.three_cards_1.dto.CompareCardResultDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.FirstRoomSettleDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.SettleModelDto;
+import org.bql.rooms.three_cards.three_cards_1.manage.FirstGamblingParty;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstPlayerRoom;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstRooms;
 import org.bql.rooms.three_cards.three_cards_1.manage.MyPlayerSet;
@@ -40,6 +41,8 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
     private String account;
     private MyPlayerSet playerSet;
     private FirstPlayerRoom player;
+    private FirstPlayerRoom winPlayer;
+    private FirstPlayerRoom losePlayer;
 
     @Override
     public Object execute() {
@@ -51,25 +54,29 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
 
         if(!playerSet.isPlayForAccount(account))
             new GenaryAppError(AppErrorCode.SERVER_ERR);//服务器异常，没这玩家
-        FirstPlayerRoom target = playerSet.getPlayerForPosition(targetAccount);
+        FirstPlayerRoom other = playerSet.getPlayerForPosition(targetAccount);
         selfCardIds = player.getHandCard();
-        otherCardIds = target.getHandCard();
-        if(target == null)
+        otherCardIds = other.getHandCard();
+        if(other == null)
             new GenaryAppError(AppErrorCode.SERVER_ERR);//服务器异常，没这玩家
         if(!playerSet.isPlayForAccount(targetAccount))
             new GenaryAppError(AppErrorCode.SERVER_ERR);//服务器异常，没这玩家
-        if(playerSet.isLose(target.getPlayer().getRoomPosition()))
+        if(playerSet.isLose(other.getPlayer().getRoomPosition()))
             new GenaryAppError(AppErrorCode.PLAYER_IS_COMPARE);
         if(room.getGamblingParty().getNowBottomPos().get() != p.getRoomPosition())
             new GenaryAppError(AppErrorCode.NOT_IS_YOU_BET);//不是该玩家操作
-        if(room.getGamblingParty().isForbidCompare(account,targetAccount)){
-            new GenaryAppError(AppErrorCode.TARGET_IS_FORBID);//禁比当中
-        }
+//        if(room.getGamblingParty().isForbidCompare(account,targetAccount)){
+//            new GenaryAppError(AppErrorCode.TARGET_IS_FORBID);//禁比当中
+//        }
         CardManager.getInstance().compareCard(selfCardIds,otherCardIds);
         if(selfCardIds.isCompareResult()){
             playerSet.losePlayer(targetAccount);
+            winPlayer = player;
+            losePlayer = other;
         }else {
             playerSet.losePlayer(account);
+            winPlayer = other;
+            losePlayer = player;
         }
          playerSet.addCompareNum();
         return null;
@@ -77,67 +84,22 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
 
     @Override
     public void broadcast() {
-        HandCard lowCards = selfCardIds;
-        String lowAccount = account;
-        String winAccount = targetAccount;
-        if(selfCardIds.isCompareResult()) {
-            lowCards = otherCardIds;
-            lowAccount = targetAccount;
-            winAccount = account;
-        }
         CompareCardResultDto resultDto = new CompareCardResultDto();/**new CompareCardResultDto(lowAccount,lowCards.getCardType(),ArrayUtils.arrayToList(lowCards.getCardIds()),winAccount);*/
+
         resultDto.setTargetAccount(targetAccount);
-        resultDto.setCardType(lowCards.getCardType());
-        resultDto.setAccount(lowAccount);
-        List<Integer> cardsIds = ArrayUtils.arrayToList(lowCards.getCardIds());
+        resultDto.setCardType(losePlayer.getHandCard().getCardType());
+        resultDto.setAccount(losePlayer.getPlayer().getAccount());
+        List<Integer> cardsIds = ArrayUtils.arrayToList(losePlayer.getHandCard().getCardIds());
         resultDto.setCardIds(cardsIds);
         room.broadcast(playerSet.getAllPlayer(),NotifyCode.ROOM_LOWER_PLAYER,resultDto);//通知所有玩家这家伙输了
-
         playerSet.losePlayer(account);//这个玩家输了
+        FirstGamblingParty gamblingParty = room.getGamblingParty();
         //在这里通知本场结束
         if(playerSet.getCompareNum() >= playerSet.playNum()-1){
-            FirstRoomSettleDto settleDto = new FirstRoomSettleDto();
-            int winPosition = -1;
-            List<Integer> cardIds;
-            int cardType;
-            if(!selfCardIds.isCompareResult()){//自己赢了 那就发自己的牌回去 否则发别人的牌
-                winPosition = playerSet.getPlayerPos(targetAccount);
-                cardIds = ArrayUtils.arrayToList(otherCardIds.getCardIds());
-                cardType = otherCardIds.getCardType();
-            }else {
-                winPosition = playerSet.getPlayerPos(account);
-                cardIds = ArrayUtils.arrayToList(selfCardIds.getCardIds());
-                cardType = selfCardIds.getCardType();
-            }
-            settleDto.setAccount(winAccount);
-            settleDto.setCardType(cardType);
-            settleDto.setCardIds(cardIds);
-            settleDto.setWinPlayerGetNum(room.getAllMoneyNum());
-            Map<String,Long> moneys = room.getBottomMoney();
-            List<SettleModelDto> modelDtos = new ArrayList<>(moneys.size());
-
-            //输的玩家
-            for(Map.Entry<String,Long> e:moneys.entrySet()){
-                if(!e.getKey().equals(winAccount))
-                    modelDtos.add(new SettleModelDto(e.getKey(),e.getValue(),room.getAllMoneyNum()));
-            }
-            settleDto.setSettleModelDtos(modelDtos);
-
-            FirstPlayerRoom winPlayer = playerSet.getPlayerForPosition(winAccount);
-            winPlayer.getPlayer().insertGold(room.getAllMoneyNum());//赢家财富
-
-            room.broadcast(playerSet.getAllPlayer(),NotifyCode.ROOM_SETTLE_ACCOUNT,settleDto);//通知所有玩家这家伙赢了
-
-            room.getGamblingParty().setWinPosition(winPosition);//设置这把赢家的位置
-//            //TODO 牌局结束
-//            try {
-//                Thread.sleep(3000);
-//            } catch (InterruptedException e) {
-//                LoggerUtils.getPlatformLog().info("等待比牌结束异常",e);
-//            }
-            room.getGamblingParty().setRoomEnd();
-            room.getGamblingParty().setEndTime();
-//            room.end();
+            gamblingParty.setWinPlayer(winPlayer);
+            gamblingParty.setWinPosition(winPlayer.getPlayer().getRoomPosition());//设置这把赢家的位置
+            gamblingParty.setRoomEnd();
+            gamblingParty.setEndTime();
         }else {
             //下一个位置的玩家
             String nextAccount = playerSet.getNextPositionAccount(player.getPlayer().getRoomPosition());
@@ -145,6 +107,7 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
             nextPlayer.getSession().write(new ServerResponse(NotifyCode.ROOM_PLAYER_BOTTOM,null));
             //通知下一个位置玩家做动作
         }
-        room.getGamblingParty().setStartTime(DateUtils.currentTime());
+        gamblingParty.setStartTime(DateUtils.currentTime());
     }
+
 }

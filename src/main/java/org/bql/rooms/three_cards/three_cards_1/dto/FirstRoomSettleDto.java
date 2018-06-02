@@ -9,7 +9,7 @@ public class FirstRoomSettleDto {
     private int cardType;//牌型
     private long winPlayerGetNum;//赢的玩家获得多少钱
     private List<Integer> cardIds;//赢的玩家的牌
-    private List<SettleModelDto> settleModelDtos;//所有玩的玩家每个人输了多少
+    private List<SettleLoseModelDto> settleModelDtos;//所有玩的玩家每个人输了多少
 
     public long getWinPlayerGetNum() {
         return winPlayerGetNum;
@@ -43,11 +43,11 @@ public class FirstRoomSettleDto {
         this.cardIds = cardIds;
     }
 
-    public List<SettleModelDto> getSettleModelDtos() {
+    public List<SettleLoseModelDto> getSettleModelDtos() {
         return settleModelDtos;
     }
 
-    public void setSettleModelDtos(List<SettleModelDto> settleModelDtos) {
+    public void setSettleModelDtos(List<SettleLoseModelDto> settleModelDtos) {
         this.settleModelDtos = settleModelDtos;
     }
 }

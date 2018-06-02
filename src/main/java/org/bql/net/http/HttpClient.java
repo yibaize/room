@@ -18,28 +18,29 @@ public class HttpClient {
     private static HttpClient instance;
 
     public static HttpClient getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new HttpClient();
         return instance;
     }
 
     public static void main(String[] args) throws IOException {
         HttpClient client = new HttpClient();
-        LoginDto s1 = client.syncPost((short)2,"2,2",LoginDto.class);
+        LoginDto s1 = client.syncPost((short) 2, "2,2", LoginDto.class);
         System.out.println(s1);
 
     }
 
     /**
      * 同步回调
+     *
      * @param cmd
      * @param args
      * @param tClazz
      * @param <T>
      * @return
      */
-    public <T> T syncPost(short cmd, String args, Class<T> tClazz){
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); DataOutputStream dos = new DataOutputStream(baos)){
+    public <T> T syncPost(short cmd, String args, Class<T> tClazz) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); DataOutputStream dos = new DataOutputStream(baos)) {
             OkHttpClient client = new OkHttpClient();
             dos.writeInt(-777888);
             dos.writeShort(cmd);
@@ -47,18 +48,19 @@ public class HttpClient {
             byte[] buf = ProtostuffUtils.serializer(msm);
             dos.writeShort(buf.length);
             dos.write(buf);
-            RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),baos.toByteArray());
+            RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), baos.toByteArray());
             Request request = new Request.Builder()
                     .url("http://127.0.0.1:8080")
                     .post(body)
                     .build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                return resultData(response.body().byteStream(),tClazz);
+                if (tClazz != null)
+                    return resultData(response.body().byteStream(), tClazz);
             } else {
                 throw new IOException("RPC数据同步异常 " + response);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return null;
@@ -66,11 +68,12 @@ public class HttpClient {
 
     /**
      * 异步回调
+     *
      * @param cmd
      * @param args
      */
-    public void asyncPost(short cmd,String args){
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); DataOutputStream dos = new DataOutputStream(baos)){
+    public void asyncPost(short cmd, String args) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); DataOutputStream dos = new DataOutputStream(baos)) {
             OkHttpClient client = new OkHttpClient();
             dos.writeInt(-777888);
             dos.writeShort(cmd);
@@ -78,7 +81,7 @@ public class HttpClient {
             byte[] buf = ProtostuffUtils.serializer(msm);
             dos.writeShort(buf.length);
             dos.write(buf);
-            RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),baos.toByteArray());
+            RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), baos.toByteArray());
             Request request = new Request.Builder()
                     .url("http://127.0.0.1:8080")
                     .post(body)
@@ -94,21 +97,22 @@ public class HttpClient {
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
-    private <T> T resultData(InputStream inputStream,Class<T> tClazz){
-        try (DataInputStream dis = new DataInputStream(inputStream)){
+
+    private <T> T resultData(InputStream inputStream, Class<T> tClazz) {
+        try (DataInputStream dis = new DataInputStream(inputStream)) {
             int head = dis.readInt();
-            if(head != -777888)
+            if (head != -777888)
                 new GenaryAppError(AppErrorCode.DATA_ERR);
             short cmdId = dis.readShort();
             short length = dis.readShort();
             byte[] buf = dis.readAllBytes();
-            if(length != buf.length)
+            if (length != buf.length)
                 new GenaryAppError(AppErrorCode.DATA_ERR);
-            T t = ProtostuffUtils.deserializer(buf,tClazz);
+            T t = ProtostuffUtils.deserializer(buf, tClazz);
             return t;
         } catch (IOException e) {
             e.printStackTrace();

@@ -12,5 +12,5 @@ public class FirstRoomSettleDto : IProtostuff {
 	[ProtoMember(4)]
 	public List<int> CardIds{get;set;}
 	[ProtoMember(5)]
-	public List<SettleModelDto> SettleModelDtos{get;set;}
+	public List<SettleLoseModelDto> SettleModelDtos{get;set;}
 }

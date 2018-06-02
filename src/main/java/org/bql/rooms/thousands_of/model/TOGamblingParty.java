@@ -179,7 +179,6 @@ public class TOGamblingParty {
         long alm = allMoney.get();
         if(alm != 0)
             isSyncSystemWeath = true;
-        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+alm);
         if (banker != null) {
             if (alm < 0) {
                 jackpot += Math.abs(alm) * ProcedureType.LOSE.id();
@@ -196,7 +195,6 @@ public class TOGamblingParty {
         room.setRoomState(RoomStateType.SETTLE);//设置房间状态
         battleCount++;
         //历史记录
-        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+historyResult);
         HistoryDto history = new HistoryDto(battleCount, historyResult.get(0), historyResult.get(1), historyResult.get(2), historyResult.get(3));
         if (historyResult.size() > 12) {
             historyQueue.poll();
@@ -240,9 +238,7 @@ public class TOGamblingParty {
         for (Map.Entry<Integer, HandCard> e : handCardMap.entrySet()) {
             cardsDtos.add(new TOCardsDto().dto(e.getKey(), e.getValue()));
         }
-        for (TOCardsDto t : cardsDtos) {
-            LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+t);
-        }
+
         room.setRoomState(RoomStateType.DEAL);
         room.broadcast(playerSet.getAllPlayer(), NotifyCode.NOTIFY_HAND_CARD, new TOCardsDtos(cardsDtos));
     }

@@ -20,10 +20,7 @@ import org.bql.utils.DateUtils;
 import org.bql.utils.JsonUtils;
 import org.bql.utils.logger.LoggerUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
@@ -40,8 +37,7 @@ public class AHGamblingParty {
     private Queue<AHHistoryDto> historyDtos;
     private long nowNum;//当前场次
     private AHHistoryDto thisGamblingParCard;
-    private int nowBetPlayerNum;
-
+    private Set<String> nowBetPlayerNum;
     public AHGamblingParty(AHRoom room) {
         this.room = room;
         this.todayGetMoney = new AtomicLong(0);
@@ -49,6 +45,7 @@ public class AHGamblingParty {
         this.betMap = new ConcurrentHashMap<>();
         this.allMoney = new AtomicLong(0);
         this.historyDtos = new ConcurrentLinkedQueue<>();
+        this.nowBetPlayerNum = new HashSet<>();
     }
 
     public void shuffle() {
@@ -61,7 +58,7 @@ public class AHGamblingParty {
     }
 
     public int getNowBetPlayerNum() {
-        return nowBetPlayerNum;
+        return nowBetPlayerNum.size();
     }
 
     public List<AHHistoryDto> getHistory() {
@@ -89,9 +86,9 @@ public class AHGamblingParty {
         }
         bet.bet(player, num);
         playerSet.enter(player);
-        nowBetPlayerNum++;
+        nowBetPlayerNum.add(player.getPlayer().getAccount());
         //通知有人下注
-        room.braodcast(playerSet.getPlayers(), NotifyCode.AH_ROOM_BET, new AHBetDto(nowBetPlayerNum, allMoney.get()));
+        room.braodcast(playerSet.getPlayers(), NotifyCode.AH_ROOM_BET, new AHBetDto(getNowBetPlayerNum(), allMoney.get()));
     }
 
     /**
@@ -145,7 +142,6 @@ public class AHGamblingParty {
         dto.setNum(nowNum);
         dto.setOddEnven(thisGamblingParCard.getOddEnven());
         dto.setResult(thisGamblingParCard.getResult());
-        LoggerUtils.getLogicLog().info(Thread.currentThread().getName()+" : "+playerSet);
         room.braodcast(playerSet.getPlayers(), NotifyCode.AH_ROOM_CARD_RESULT, dto);
     }
 
@@ -166,7 +162,7 @@ public class AHGamblingParty {
             case 7:
                 shuffle();
                 break;
-            case 22:
+            case 10:
                 //不能下注了
                 room.setRoomState(RoomStateType.STOP_BOTTOM);
                 room.braodcast(playerSet.getPlayers(), NotifyCode.AH_ROOM_CAN_NOT_BET, null);
@@ -190,7 +186,7 @@ public class AHGamblingParty {
     }
 
     public void end() {
-        nowBetPlayerNum = 0;
+        nowBetPlayerNum.clear();
         betMap.clear();
         allMoney.set(0);
         playerSet.end();

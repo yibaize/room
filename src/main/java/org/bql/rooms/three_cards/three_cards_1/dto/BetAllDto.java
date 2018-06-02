@@ -13,12 +13,16 @@ import java.util.List;
 public class BetAllDto {
     private String winAccount;//赢的玩家的账号
     private int winCardType;//牌型
-    private long winPlayerGetNum;//赢的玩家获得多少钱
+    private long winPlayerSurplusGold;//赢的玩家获得多少钱
     private List<Integer> winCardIds;//赢的玩家的牌
+
     private String loseAccount;
     private int loseCardType;
+    private long losePlayerSurplusGold;//赢的玩家获得多少钱
     private List<Integer> loseCardIds;
-    private List<SettleModelDto> settleModelDtos;//所有玩的玩家每个人输了多少
+
+    public BetAllDto() {
+    }
 
     public String getWinAccount() {
         return winAccount;
@@ -34,14 +38,6 @@ public class BetAllDto {
 
     public void setWinCardType(int winCardType) {
         this.winCardType = winCardType;
-    }
-
-    public long getWinPlayerGetNum() {
-        return winPlayerGetNum;
-    }
-
-    public void setWinPlayerGetNum(long winPlayerGetNum) {
-        this.winPlayerGetNum = winPlayerGetNum;
     }
 
     public List<Integer> getWinCardIds() {
@@ -76,11 +72,19 @@ public class BetAllDto {
         this.loseCardIds = loseCardIds;
     }
 
-    public List<SettleModelDto> getSettleModelDtos() {
-        return settleModelDtos;
+    public long getWinPlayerSurplusGold() {
+        return winPlayerSurplusGold;
     }
 
-    public void setSettleModelDtos(List<SettleModelDto> settleModelDtos) {
-        this.settleModelDtos = settleModelDtos;
+    public void setWinPlayerSurplusGold(long winPlayerSurplusGold) {
+        this.winPlayerSurplusGold = winPlayerSurplusGold;
+    }
+
+    public long getLosePlayerSurplusGold() {
+        return losePlayerSurplusGold;
+    }
+
+    public void setLosePlayerSurplusGold(long losePlayerSurplusGold) {
+        this.losePlayerSurplusGold = losePlayerSurplusGold;
     }
 }
