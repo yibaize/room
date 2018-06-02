@@ -58,6 +58,7 @@ public class FirstRoom_BetAll extends OperateCommandAbstract {
         int num = nowPLay.size();
         if(num != 2)
             new GenaryAppError(AppErrorCode.NOW_PLAY_PLAYER_ERR);
+
         if(!gamblingParty.getBetState()) {
             for (int i = 0, j = num; i < j; i++) {
                 long nowMoney = nowPLay.get(i).getPlayer().getGold();
@@ -125,8 +126,8 @@ public class FirstRoom_BetAll extends OperateCommandAbstract {
     }
     private BetAllDto winOrLose(FirstPlayerRoom win,FirstPlayerRoom lose){
         win.getPlayer().insertGold(room.getAllMoneyNum());
+        room.clearAllMoneyNum();
         BetAllDto dto = new BetAllDto();
-
         dto.setLoseAccount(lose.getPlayer().getAccount());
         dto.setLoseCardIds(ArrayUtils.arrayToList(lose.getHandCard().getCardIds()));
         dto.setLoseCardType(lose.getHandCard().getCardType());

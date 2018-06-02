@@ -7,6 +7,7 @@ import org.bql.hall_connection.dto.RoomWeathDtos;
 import org.bql.net.builder_clazz.NotifyCode;
 import org.bql.net.http.HttpClient;
 import org.bql.player.PlayerFactory;
+import org.bql.player.PlayerInfoDto;
 import org.bql.rooms.card.CardDataTable;
 import org.bql.rooms.card.CardManager;
 import org.bql.rooms.three_cards.three_cards_1.dto.*;
@@ -99,7 +100,6 @@ public class FirstGamblingParty {
         for (FirstPlayerRoom p : players) {
             //减底注
             p.getPlayer().reduceGold(chip);
-            myRoom.addAllMoney(chip);
             myRoom.bottom(p.getPlayer().getAccount(),chip);
         }
 
@@ -272,10 +272,12 @@ public class FirstGamblingParty {
         winPosition.set(playerSet.getPlayerPos(account));
         nowBottomChip.set(0);
 
-        List<FirstPlayerRoom> pay = playerSet.nowAllPayPlayer();
+        List<FirstPlayerRoom> pay = playerSet.getAllPlayer();
         List<RoomWeathDto> weathDtos = new ArrayList<>(pay.size());
         for (FirstPlayerRoom f : pay) {
             HandCard handCard = f.getHandCard();
+            if(handCard == null)
+                continue;
             weathDtos.add(f.getPlayer().weathDto(handCard.getCardType(), handCard.isCompareResult()));
         }
 

@@ -46,17 +46,16 @@ public class FirstRooms extends RoomAbs {
     public long getAllMoneyNum() {
         return allMoneyNum;
     }
-
+    public void clearAllMoneyNum(){
+        allMoneyNum = 0;
+    }
     public void bottom(String account, long num) {
+        allMoneyNum += num;
         long num1 = num;
         if (bottomMoney.containsKey(account)) {
             num1 += bottomMoney.get(account);
         }
         bottomMoney.put(account, num1);
-        allMoneyNum += num;
-    }
-    public void addAllMoney(int num){
-        allMoneyNum += num;
     }
     public Map<String, Long> getBottomMoney() {
         return bottomMoney;
@@ -175,9 +174,9 @@ public class FirstRooms extends RoomAbs {
         roomState = RoomStateType.READY;//房间状态码1：等待准备状态 2：房间开启了等待准备状态  3：打牌状态
         gamblingParty.timeOutAndEnd();
         playerSet.end();
-        gamblingParty.end();//牌局
         allMoneyNum = 0;
         bottomMoney.clear();
+        gamblingParty.end();//牌局
     }
 
     public void timer() {
