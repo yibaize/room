@@ -12,6 +12,7 @@ import org.bql.rooms.thousands_of.model.TORoom;
 import org.bql.utils.builder_clazz.ann.Protocol;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,11 +28,13 @@ public class TOPlayerPlay extends OperateCommandAbstract {
         TORoom room = (TORoom) player.getRoom();
         TOPlayerSet playerSet = room.getPlayerSet();
         List<TOPlayer> toPlayerList = playerSet.getAllPlayer();
-        int size = toPlayerList.size() > 15 ? 15 : toPlayerList.size();
-        List<RoomPlayerBaseDto> baseInfoDtos = new ArrayList<>(size);
-        for(int i = 0;i<size;i++){
-            baseInfoDtos.add(new RoomPlayerBaseDto().baseDto(toPlayerList.get(i).getPlayer()));
+        List<RoomPlayerBaseDto> baseInfoDtos = new ArrayList<>(toPlayerList.size());
+        for(TOPlayer tp:toPlayerList){
+            if(tp.getPosition() != TOPlayer.DEFAULT_POS){
+                baseInfoDtos.add(new RoomPlayerBaseDto().baseDto(tp.getPlayer()));
+            }
         }
+        Collections.sort(baseInfoDtos);
         return new RoomPlayerBaseDtos(baseInfoDtos);
     }
 }

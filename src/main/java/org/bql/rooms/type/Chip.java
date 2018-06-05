@@ -16,4 +16,6 @@ public class Chip {
 
     /**万人场筹码*/
     public static final int[] TO_ROOM = new int[]{1000,10000,100000,1000000,5000000,10000000};
+    /**骰子场筹码*/
+    public static final int[] DICE_ROOM = new int[]{1000,10000,100000,1000000,5000000,10000000};
 }

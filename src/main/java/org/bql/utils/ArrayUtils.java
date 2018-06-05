@@ -27,6 +27,15 @@ public class ArrayUtils {
         System.arraycopy(arr, 0, newArray, 1,length);
         return newArray;
     }
+    public static <T extends Comparable> boolean contains(T[] arr,T element){
+        if(arr.length<=0)
+            return false;
+        for(int i = 0; i<arr.length;i++){
+            if(element.equals(arr[i]))
+                return true;
+        }
+        return false;
+    }
     public static <T extends Comparable> boolean contains(T[] arr,T[] element){
         if(arr.length != element.length)
             return false;

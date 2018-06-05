@@ -1,11 +1,14 @@
 package org.bql.rooms.dice.model;
 
 import org.bql.net.handler.TcpHandler;
+import org.bql.net.message.ServerResponse;
 import org.bql.player.IPlayer;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.RoomAbs;
 import org.bql.rooms.RoomFactory;
 import org.bql.rooms.card.CardManager;
+import org.bql.rooms.type.RoomStateType;
+import org.bql.utils.ProtostuffUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +17,11 @@ public class DiceRoom extends RoomAbs {
     private DicePlayerSet playerSet;
     private DiceGamblingParty gamblingParty;
     private CardManager cardManager;
-    private int roomState;
+    private RoomStateType roomState;
     public DiceRoom() {
         super(4,-753294, "",TcpHandler.getInstance().pool.nextWorker());
+        playerSet = new DicePlayerSet(this);
+        gamblingParty = new DiceGamblingParty(this);
     }
 
     public DicePlayerSet getPlayerSet() {
@@ -43,11 +48,11 @@ public class DiceRoom extends RoomAbs {
         this.cardManager = cardManager;
     }
 
-    public int getRoomState() {
+    public RoomStateType getRoomState() {
         return roomState;
     }
 
-    public void setRoomState(int roomState) {
+    public void setRoomState(RoomStateType roomState) {
         this.roomState = roomState;
     }
 
@@ -58,7 +63,6 @@ public class DiceRoom extends RoomAbs {
 
     @Override
     public void enterRoom(IPlayer player) {
-
     }
 
     @Override
@@ -93,11 +97,23 @@ public class DiceRoom extends RoomAbs {
 
     @Override
     public void timer() {
-
+        gamblingParty.timer();
     }
 
     @Override
     public void kicking(PlayerRoom player, int position) {
 
+    }
+    public void broadcast(List<DicePlayer> playerList, short cmdId, Object msg){
+        ServerResponse r = response(cmdId,msg);
+        for(DicePlayer tp : playerList){
+            tp.getSession().write(r);
+        }
+    }
+    private ServerResponse response(short cmdId,Object o){
+        byte[] buf = null;
+        if(o != null)
+            buf = ProtostuffUtils.serializer(o);
+        return new ServerResponse(cmdId,buf);
     }
 }

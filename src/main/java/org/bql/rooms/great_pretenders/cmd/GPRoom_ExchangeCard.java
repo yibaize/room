@@ -41,7 +41,7 @@ public class GPRoom_ExchangeCard extends OperateCommandAbstract {
         if(handCard == null)
             new GenaryAppError(AppErrorCode.SERVER_ERR);
         Integer[] ids = handCard.getCardIds();
-        if(!ArrayUtils.contains(ids,new Integer[]{cardId}))
+        if(!ArrayUtils.contains(ids,cardId))
             new GenaryAppError(AppErrorCode.DATA_ERR);
         rooms = (FirstRooms) player.getRoom();
         List<CardDataTable> residueCard = rooms.getGamblingParty().getExchangeCard();
@@ -52,18 +52,18 @@ public class GPRoom_ExchangeCard extends OperateCommandAbstract {
         PlayerInfoDto playerInfoDto = player.getPlayer();
         account = playerInfoDto.getAccount();
         List<ResourceModel> prop = playerInfoDto.getProps();
-        if(prop == null || prop.size() <= 0)
-            new GenaryAppError(AppErrorCode.NOT_EXCHANGE_CARD_PROP);
-        //检查换牌卡
-        int propId = -1;
-        for(int i = 0;i<prop.size();i++){
-            if(prop.get(i).getId() == 21){
-                propId = i;
-                break;
-            }
-        }
-        if(propId == -1)
-            new GenaryAppError(AppErrorCode.NOT_EXCHANGE_CARD_PROP);
+//        if(prop == null || prop.size() <= 0)
+//            new GenaryAppError(AppErrorCode.NOT_EXCHANGE_CARD_PROP);
+//        //检查换牌卡
+//        int propId = -1;
+//        for(int i = 0;i<prop.size();i++){
+//            if(prop.get(i).getId() == 21){
+//                propId = i;
+//                break;
+//            }
+//        }
+//        if(propId == -1)
+//            new GenaryAppError(AppErrorCode.NOT_EXCHANGE_CARD_PROP);
         int random = RandomUtils.randomIndex(residueCard.size());
         //从余牌中随机获取一个再删除
         CardDataTable c = residueCard.get(random);
@@ -75,8 +75,8 @@ public class GPRoom_ExchangeCard extends OperateCommandAbstract {
             }
         }
         residueCard.remove(random);//从剩余的牌中删除这个牌
-        ResourceModel pro = prop.get(propId);
-        pro.reduce(1);//减去换牌卡数量
+//        ResourceModel pro = prop.get(propId);
+//        pro.reduce(1);//减去换牌卡数量
         //返回牌id
         return new PositionDto(c.getId());
     }

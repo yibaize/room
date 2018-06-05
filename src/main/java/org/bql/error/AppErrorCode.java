@@ -29,9 +29,9 @@ public final class AppErrorCode{
     public final static int GOLD_NEED_30000 = 1001;
     @ExcelValue(value = "庄家无法下注哟！")
     public final static int BANKER_CAN_NOT_BET = 1002;
-    @ExcelValue(value = "位置已经被占满了，想等等吧！")
+    @ExcelValue(value = "位置已经被占满了，再等等吧！")
     public final static int POSITION_NOT = 1003;
-    @ExcelValue(value = "位置已经被占满了，想等等吧！")
+    @ExcelValue(value = "位置已经有人了，再等等吧！")
     public final static int POSITION_HASH_PLAYER = 1004;
     @ExcelValue(value = "目标玩家已经比过牌并且输掉了！")
     public final static int PLAYER_IS_COMPARE = 1005;
@@ -61,6 +61,8 @@ public final class AppErrorCode{
     public final static int NOW_PLAY_PLAYER_ERR = 1017;
     @ExcelValue(value = "上一玩家全压，您只能全压或者弃牌！")
     public final static int HASH_PLAYER_BET_ALL = 1018;
+    @ExcelValue(value = "想在已经开局，无法清楚下注！")
+    public final static int NOW_IS_START_BETTLE = 1019;
 
     @ExcelValue(value = "超时下注了,等待下一局吧！^_^ 吼吼吼")
     public final static int BET_TIME_OUT = 2000;

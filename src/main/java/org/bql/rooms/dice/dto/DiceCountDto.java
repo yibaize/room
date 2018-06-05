@@ -1,17 +1,17 @@
-package org.bql.rooms.dice.model;
+package org.bql.rooms.dice.dto;
 
 import org.bql.utils.builder_clazz.ann.Protostuff;
 
 @Protostuff
-public class DiceDto {
+public class DiceCountDto {
     private int one;
     private int two;
     /**场次*/
     private long battleCount;
-    public DiceDto() {
+    public DiceCountDto() {
     }
 
-    public DiceDto(int one, int two, long battleCount) {
+    public DiceCountDto(int one, int two, long battleCount) {
         this.one = one;
         this.two = two;
         this.battleCount = battleCount;

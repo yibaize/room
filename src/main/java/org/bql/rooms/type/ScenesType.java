@@ -4,6 +4,7 @@ import org.bql.player.PlayerFactory;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.RoomAbs;
 import org.bql.rooms.RoomFactory;
+import org.bql.rooms.dice.model.DicePlayer;
 import org.bql.rooms.thousands_of.model.TOPlayer;
 import org.bql.rooms.three_cards.three_cards_1.manage.FirstPlayerRoom;
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public enum ScenesType {
     DICE(4,1) {
         @Override
         public RoomAbs enterRoom(PlayerRoom player) {
-            return null;
+            return RoomFactory.getInstance().getDiceRoom((DicePlayer) player);
         }
 
         @Override
@@ -89,7 +90,7 @@ public enum ScenesType {
 
         @Override
         public int[] chip() {
-            return new int[0];
+            return Chip.DICE_ROOM;
         }
     },
     /**万人场*/

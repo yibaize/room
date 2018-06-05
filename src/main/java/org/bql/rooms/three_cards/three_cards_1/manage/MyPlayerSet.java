@@ -185,7 +185,6 @@ public class MyPlayerSet {
         if (nextPos == -1) {
             nextPos = getNextPos(0, index, temPos);
         }
-        LoggerUtils.getLogicLog().info("<进来>"+nowPosition+"<索引>"+index+"<找到的位置>"+nextPos+"<房间位置>"+temPos);
         if (nextPos == -1) {
             return null;
         }

@@ -1,5 +1,7 @@
 package org.bql.rooms;
 import org.bql.rooms.always_happy.model.AHRoom;
+import org.bql.rooms.dice.model.DicePlayer;
+import org.bql.rooms.dice.model.DiceRoom;
 import org.bql.rooms.great_pretenders.manager.GP_1RoomManager;
 import org.bql.rooms.great_pretenders.manager.GP_2RoomManager;
 import org.bql.rooms.great_pretenders.manager.GP_3RoomManager;
@@ -26,6 +28,7 @@ public class RoomFactory {
     private final GP_1RoomManager gp_1RoomManager;
     private final GP_3RoomManager gp_3RoomManager;
     private final AHRoom ahRoom;
+    private final DiceRoom diceRoom;
     private RoomFactory() {
         ROOMS =  new TORoom();
         F_ROOM = FRoomManager.getInstance();
@@ -34,6 +37,7 @@ public class RoomFactory {
         gp_1RoomManager = GP_1RoomManager.getInstance();
         gp_2RoomManager = GP_2RoomManager.getInstance();
         gp_3RoomManager = GP_3RoomManager.getInstance();
+        diceRoom = new DiceRoom();
         ahRoom = new AHRoom();
     }
 
@@ -69,7 +73,10 @@ public class RoomFactory {
     public AHRoom getAhRoom() {
         return ahRoom;
     }
-
+    public DiceRoom getDiceRoom(DicePlayer player){
+        diceRoom.enterRoom(player);
+        return diceRoom;
+    }
     public List<RoomAbs> allRoom(){
         List<RoomAbs> allRoom = new ArrayList<>();
         allRoom.addAll(F_ROOM.getAllRoom());
@@ -80,6 +87,7 @@ public class RoomFactory {
         allRoom.addAll(gp_3RoomManager.getAllRoom());
         allRoom.add(ROOMS);
         allRoom.add(ahRoom);
+        allRoom.add(diceRoom);
         return allRoom;
     }
 }
