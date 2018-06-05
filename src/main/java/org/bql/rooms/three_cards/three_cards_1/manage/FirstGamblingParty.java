@@ -6,6 +6,7 @@ import org.bql.hall_connection.dto.RoomWeathDto;
 import org.bql.hall_connection.dto.RoomWeathDtos;
 import org.bql.net.builder_clazz.NotifyCode;
 import org.bql.net.http.HttpClient;
+import org.bql.net.message.ServerResponse;
 import org.bql.player.PlayerFactory;
 import org.bql.player.PlayerInfoDto;
 import org.bql.rooms.card.CardDataTable;
@@ -267,9 +268,7 @@ public class FirstGamblingParty {
         betAllPlayer = null;
         betAllGold = 0;
         myRoom.setRoomState(RoomStateType.READY);
-        //设置下一局下注位置
-        String account = playerSet.getNextPositionAccount(nowBottomPos.get());
-        winPosition.set(playerSet.getPlayerPos(account));
+        winPosition.set(winPlayer.getPlayer().getRoomPosition());
         nowBottomChip.set(0);
 
         List<FirstPlayerRoom> pay = playerSet.getAllPlayer();
@@ -301,7 +300,7 @@ public class FirstGamblingParty {
             playerSet.losePlayer(loseAccount);
             losePlayer.getHandCard().setCompareResult(false);
 
-            if (playerSet.loseNum() >= playerSet.playNum() - 1) {
+            if (playerSet.playNum() <= 1) {
                 List<FirstPlayerRoom> list = new ArrayList<>(playerSet.getNowPlay().values());
                 if(list.size() <= 0)
                     new GenaryAppError(AppErrorCode.SERVER_ERR);
@@ -309,8 +308,15 @@ public class FirstGamblingParty {
                 myRoom.end();
                 return;
             }
-            myRoom.broadcast(playerSet.getAllPlayer(), NotifyCode.ROOM_BET_TIME_OUT, new RoomPlayerAccountDto(loseAccount));
+            //下一个位置的玩家
+            String nextAccount = playerSet.getNextPositionAccount(losePlayer.getPlayer().getRoomPosition());
+            FirstPlayerRoom nextPlayer = playerSet.getPlayerForPosition(nextAccount);
 
+            setNowBottomPos(new AtomicInteger(nextPlayer.getPlayer().getRoomPosition()));
+
+            nextPlayer.getSession().write(new ServerResponse(NotifyCode.ROOM_PLAYER_BOTTOM,null));
+            //通知下一个位置玩家做动作
+            myRoom.broadcast(playerSet.getAllPlayer(), NotifyCode.ROOM_BET_TIME_OUT, new RoomPlayerAccountDto(loseAccount));
             startTime.set(System.currentTimeMillis());
         }
         //延迟3秒结束

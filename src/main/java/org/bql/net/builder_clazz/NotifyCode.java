@@ -42,6 +42,8 @@ public class NotifyCode {
     public static final short BET_ALL = 1515;
     @ExcelValue(value = "通知所有玩家牌局结束，那哪个玩家赢了多少输了多少  下发BetAllDto")
     public static final short FIRST_ROOM_GAME_OVER = 1516;
+    @ExcelValue(value = "在玩的时候有人跑了 下发FirstRoomStartDto")
+    public static final short HASH_PLAYER_EXIT = 1517;
 
     /**万人场使用2000-3000*/
     @ExcelValue(value = "有人上了位置 返回一个PlayerRoomBaseInfoDto对象")

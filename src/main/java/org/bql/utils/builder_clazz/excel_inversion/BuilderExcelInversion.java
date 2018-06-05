@@ -43,7 +43,8 @@ public class BuilderExcelInversion {
             Object o = null;
             try {
                 CodeModel model = iterator.next();
-                o = model.getClazz().newInstance();
+
+                o = model.getClazz().getDeclaredConstructor().newInstance();
                 reflectField(o);
             } catch (Exception e) {
                 LoggerUtils.getPlatformLog().info("反射对象是出现异常",e);

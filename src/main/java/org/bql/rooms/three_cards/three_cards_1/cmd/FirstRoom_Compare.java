@@ -23,6 +23,7 @@ import org.bql.utils.logger.LoggerUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 比牌
@@ -51,7 +52,6 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
         account = p.getAccount();
         room = (FirstRooms) player.getRoom();
         playerSet = room.getPlayerSet();
-
         if(!playerSet.isPlayForAccount(account))
             new GenaryAppError(AppErrorCode.SERVER_ERR);//服务器异常，没这玩家
         FirstPlayerRoom other = playerSet.getPlayerForPosition(targetAccount);
@@ -65,9 +65,6 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
             new GenaryAppError(AppErrorCode.PLAYER_IS_COMPARE);
         if(room.getGamblingParty().getNowBottomPos().get() != p.getRoomPosition())
             new GenaryAppError(AppErrorCode.NOT_IS_YOU_BET);//不是该玩家操作
-//        if(room.getGamblingParty().isForbidCompare(account,targetAccount)){
-//            new GenaryAppError(AppErrorCode.TARGET_IS_FORBID);//禁比当中
-//        }
         CardManager.getInstance().compareCard(selfCardIds,otherCardIds);
         if(selfCardIds.isCompareResult()){
             playerSet.losePlayer(targetAccount);
@@ -92,10 +89,9 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
         List<Integer> cardsIds = ArrayUtils.arrayToList(losePlayer.getHandCard().getCardIds());
         resultDto.setCardIds(cardsIds);
         room.broadcast(playerSet.getAllPlayer(),NotifyCode.ROOM_LOWER_PLAYER,resultDto);//通知所有玩家这家伙输了
-        playerSet.losePlayer(account);//这个玩家输了
         FirstGamblingParty gamblingParty = room.getGamblingParty();
         //在这里通知本场结束
-        if(playerSet.getCompareNum() >= playerSet.playNum()-1){
+        if(playerSet.getCompareNum() >= playerSet.playNum()){
             gamblingParty.setWinPlayer(winPlayer);
             gamblingParty.setWinPosition(winPlayer.getPlayer().getRoomPosition());//设置这把赢家的位置
             gamblingParty.setRoomEnd();
@@ -104,10 +100,11 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
             //下一个位置的玩家
             String nextAccount = playerSet.getNextPositionAccount(player.getPlayer().getRoomPosition());
             FirstPlayerRoom nextPlayer = room.getPlayerSet().getPlayerForPosition(nextAccount);
+            gamblingParty.setNowBottomPos(new AtomicInteger(nextPlayer.getPlayer().getRoomPosition()));
             nextPlayer.getSession().write(new ServerResponse(NotifyCode.ROOM_PLAYER_BOTTOM,null));
             //通知下一个位置玩家做动作
         }
-        gamblingParty.setStartTime(DateUtils.currentTime());
+        gamblingParty.setStartTime(System.currentTimeMillis());
     }
 
 }

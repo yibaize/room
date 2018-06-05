@@ -106,7 +106,7 @@ public class TcpHandler {
     }
     public void exceptionCaught(Channel ctx,Throwable cause){
         String str = String.format("%s ：<<---用户异常下线--->> %s",cause.getMessage(),ctx.remoteAddress(),cause);
-        massegeRansiter(new SessionImpl(ctx), new ServerRequest((short) 10003, new Msg("")));
+//        massegeRansiter(new SessionImpl(ctx), new ServerRequest((short) 10003, new Msg("")));
         LoggerUtils.getLogicLog().error(str,cause);
     }
     public void channelInactive(Channel ctx){

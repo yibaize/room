@@ -75,7 +75,7 @@ public class FirstRoom_Bet extends OperateCommandAbstract {
         room.bottom(account,moneyChange);//更新房间金币
         //下一玩家下注位置
         nextAccount = playerSet.getNextPositionAccount(p.getRoomPosition());
-        gamblingParty.addOparetionCount();
+//        gamblingParty.addOparetionCount();
         return new SettleModelDto(account,p.getGold(),room.getAllMoneyNum());
     }
 

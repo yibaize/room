@@ -3,6 +3,7 @@ package org.bql.net.http;
 import okhttp3.*;
 import org.bql.error.AppErrorCode;
 import org.bql.error.GenaryAppError;
+import org.bql.net.handler.NetCnf;
 import org.bql.net.message.Msg;
 import org.bql.player.LoginDto;
 import org.bql.utils.ProtostuffUtils;
@@ -16,11 +17,17 @@ import java.io.*;
  */
 public class HttpClient {
     private static HttpClient instance;
-
+    private final int port;
+    private final String ip;
     public static HttpClient getInstance() {
         if (instance == null)
             instance = new HttpClient();
         return instance;
+    }
+
+    private HttpClient() {
+        ip = NetCnf.getInstance().getPathCnf().getClientIp();
+        port = NetCnf.getInstance().getPathCnf().getClientPort();
     }
 
     public static void main(String[] args) throws IOException {
@@ -50,7 +57,7 @@ public class HttpClient {
             dos.write(buf);
             RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), baos.toByteArray());
             Request request = new Request.Builder()
-                    .url("http://127.0.0.1:5050")
+                    .url("http://"+ip+":"+port)
                     .post(body)
                     .build();
             Response response = client.newCall(request).execute();
@@ -83,7 +90,7 @@ public class HttpClient {
             dos.write(buf);
             RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), baos.toByteArray());
             Request request = new Request.Builder()
-                    .url("http://127.0.0.1:5050")
+                    .url("http://"+ip+":"+port)
                     .post(body)
                     .build();
             client.newCall(request).enqueue(new Callback() {

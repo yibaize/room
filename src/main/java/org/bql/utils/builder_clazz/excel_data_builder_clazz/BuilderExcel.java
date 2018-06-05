@@ -43,7 +43,7 @@ public class BuilderExcel {
             Object o = null;
             try {
                 CodeModel model = iterator.next();
-                o = model.getClazz().newInstance();
+                o = model.getClazz().getDeclaredConstructor().newInstance();
                 List<String> bean = reflectField(model.getId(), o);
                 assemblyBean(o.getClass().getSimpleName(), bean);
             } catch (Exception e) {

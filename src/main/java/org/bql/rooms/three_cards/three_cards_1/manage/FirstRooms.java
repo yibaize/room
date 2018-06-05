@@ -1,5 +1,7 @@
 package org.bql.rooms.three_cards.three_cards_1.manage;
 
+import org.bql.error.AppErrorCode;
+import org.bql.error.GenaryAppError;
 import org.bql.net.builder_clazz.NotifyCode;
 import org.bql.net.handler.TcpHandler;
 import org.bql.net.message.ServerResponse;
@@ -12,6 +14,7 @@ import org.bql.rooms.RoomFactory;
 import org.bql.rooms.card.CardManager;
 import org.bql.rooms.three_cards.three_cards_1.dto.FirstRoomStartDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.PlayerRoomDto;
+import org.bql.rooms.three_cards.three_cards_1.dto.RoomBetDto;
 import org.bql.rooms.type.RoomStateType;
 import org.bql.utils.ProtostuffUtils;
 import org.bql.utils.logger.LoggerUtils;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FirstRooms extends RoomAbs {
     private RoomStateType roomState;//房间状态码1：等待准备状态 2：房间开启了等待准备状态  3：打牌状态
@@ -110,13 +114,17 @@ public class FirstRooms extends RoomAbs {
     public void enterRoom(IPlayer player) {
         FirstPlayerRoom firstPlayerRoom = (FirstPlayerRoom) player;
         PlayerInfoDto p = firstPlayerRoom.getPlayer();
+        p.setRoomId(getRoomId());
         playerSet.resetpos(firstPlayerRoom);//位置
+        boolean isReady = false;
         if (roomState == RoomStateType.READY) {
             playerSet.getNowPlay().putIfAbsent(p.getAccount(), firstPlayerRoom);
             playerSet.addPlayerChoice(p.getAccount(), true);//准备
+            isReady = true;
         }
         //通知房间玩家有人进来
         PlayerRoomBaseInfoDto prbifd = firstPlayerRoom.roomPlayerDto();
+        prbifd.setHasReady(isReady);
         prbifd.setPostion(p.getRoomPosition());
         gamblingParty.setStartTime();
         broadcast(playerSet.getNotAccountPlayer(p.getAccount()), NotifyCode.ROOM_PLAYER_ENTER, prbifd);
@@ -125,10 +133,41 @@ public class FirstRooms extends RoomAbs {
     @Override
     public void exitRoom(IPlayer player) {
         FirstPlayerRoom firstPlayerRoom = (FirstPlayerRoom) player;
-        playerSet.exit(firstPlayerRoom.getPlayer().getAccount());
         String account = firstPlayerRoom.getPlayer().getAccount();
+        boolean isPlay = playerSet.isPlayForAccount(account);
+        //获取下一玩家账号放这时因为如果放下面那么在playerSet.exit(account);中已经把该玩家一处所以获取到的位置会有问题
+        String nextAccount = playerSet.getNextPositionAccount(firstPlayerRoom.getPlayer().getRoomPosition());
+        playerSet.exit(account);
         FirstRoomStartDto dto = new FirstRoomStartDto(account);
         broadcast(playerSet.getNotAccountPlayer(account), NotifyCode.ROOM_PLAYER_EXIT, dto);
+        if(roomState == RoomStateType.READY || !isPlay)
+            return;
+        int nowPlayPlayer = playerSet.playNum();
+        if(nowPlayPlayer <= 1){
+            if(nowPlayPlayer <= 0)
+                new GenaryAppError(AppErrorCode.SERVER_ERR);
+            FirstPlayerRoom winPlayer = playerSet.nowAllPayPlayer().get(0);
+            gamblingParty.setWinPlayer(winPlayer);
+            gamblingParty.setWinPosition(winPlayer.getPlayer().getRoomPosition());//设置这把赢家的位置
+            gamblingParty.setRoomEnd();
+            gamblingParty.setEndTime();
+            end();
+        }else {
+            //下一个位置的玩家
+            if(gamblingParty.getNowBottomPos().get() != firstPlayerRoom.getPlayer().getRoomPosition()){
+                return;
+            }
+            if(nextAccount == null)
+                new GenaryAppError(AppErrorCode.SERVER_ERR);
+            FirstPlayerRoom nextPlayer = playerSet.getPlayerForPosition(nextAccount);
+            gamblingParty.setNowBottomPos(new AtomicInteger(nextPlayer.getPlayer().getRoomPosition()));
+            nextPlayer.getSession().write(new ServerResponse(NotifyCode.ROOM_PLAYER_BOTTOM,null));
+            //通知下一个位置玩家做动作
+            //通知下一个下注玩家
+            FirstRoomStartDto nextDto = new FirstRoomStartDto(nextAccount);
+            //通知所有玩家到这玩家下注
+            broadcast(playerSet.getNotAccountPlayer(account),NotifyCode.HASH_PLAYER_EXIT,nextDto);
+        }
     }
 
     @Override
