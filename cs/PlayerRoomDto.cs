@@ -10,5 +10,7 @@ public class PlayerRoomDto : IProtostuff {
 	[ProtoMember(3)]
 	public int SelfPosition{get;set;}
 	[ProtoMember(4)]
+	public int ExchangeCardCount{get;set;}
+	[ProtoMember(5)]
 	public List<PlayerRoomBaseInfoDto> Players{get;set;}
 }

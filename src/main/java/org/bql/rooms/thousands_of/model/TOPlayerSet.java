@@ -88,7 +88,7 @@ public class TOPlayerSet {
      */
     public boolean bankerUp(TOPlayer p) {
 //        String account = p.getPlayer().getAccount();
-        if(bankerUpList.contains(p))
+        if(bankerUpList.contains(p) || p.equals(banker))
             return false;
         bankerUpList.push(p);
         bankerUp();
@@ -116,7 +116,9 @@ public class TOPlayerSet {
     }
 
     private void bankerUp() {
-        if (banker == null && bankerUpList.size() > 0) {
+        if(banker != null)
+            return;
+        if (bankerUpList.size() > 0) {
             banker = bankerUpList.pop();
             bankerCount = 0;
             //通知所有人换庄
@@ -125,7 +127,6 @@ public class TOPlayerSet {
             room.broadcast(getAllPlayer(), NotifyCode.EXCHANGE_BANKER, prbif); //通知所有人有人上了位置
         } else {
             room.broadcast(getAllPlayer(), NotifyCode.IS_SYSTEM_BANKER, null); //通知所有人现在是系统庄家
-
         }
     }
 
@@ -204,15 +205,12 @@ public class TOPlayerSet {
                 if (self.getVipLv() < other.getVipLv()) {
                     new GenaryAppError(AppErrorCode.VIP_LV_NOT_ERR);//vip等级没别人高
                 }
-                positionList[pos] = p;
-                p.setPosition(pos);
                 target.setPosition(TOPlayer.DEFAULT_POS);
                 byte[] buf = ProtostuffUtils.serializer(new RoomPlayerAccountDto(self.getUsername()));
                 target.getSession().write(new ServerResponse(NotifyCode.POISITION_KICKING, buf));// 通知被踢玩家
-                // 通知所有玩家上位
-                PlayerRoomBaseInfoDto prbif = notifyDto(pos, p.getPlayer(), 0, true);
-                //通知所有玩家
-                room.broadcast(getAllPlayer(), NotifyCode.UP_POSTION, prbif); //通知所有人有人上了位置
+                downPos(target);
+                //通知有人下位置
+                room.broadcast(allPlayerNotId(target.getPlayer().getAccount()), NotifyCode.HASK_PLAYER_KICKING, new RoomPlayerAccountDto(target.getPlayer().getUsername())); //有人离开房间
             }
             return false;
         }

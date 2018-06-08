@@ -37,8 +37,8 @@ public class ErrorLigout extends OperateCommandAbstract {
         PlayerRoom playerRoom = (PlayerRoom) getSession().getAttachment();
         //先通知大厅财富更新先
         PlayerInfoDto playerInfoDto = playerRoom.getPlayer();
-        List<RoomWeathDto> weathDtos = new ArrayList<>(1);
-        weathDtos.add(new RoomWeathDto(playerInfoDto.getAccount(),playerInfoDto.getGold(),playerInfoDto.getDiamond(),playerInfoDto.getIntegral(),false,-1));
+        List<PlayerInfoDto> weathDtos = new ArrayList<>(1);
+        weathDtos.add(playerInfoDto);
         RoomWeathDtos notifyMessage = new RoomWeathDtos(weathDtos);
 
         HttpClient.getInstance().syncPost(NotifyCode.REQUEST_HALL_UPDATE_WEATH,JsonUtils.jsonSerialize(notifyMessage)+","+PlayerFactory.SYSTEM_PLAYER_ID,null);

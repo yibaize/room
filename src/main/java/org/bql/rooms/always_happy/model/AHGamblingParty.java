@@ -8,6 +8,7 @@ import org.bql.net.builder_clazz.NotifyCode;
 import org.bql.net.http.HttpClient;
 import org.bql.net.server.session.SessionManager;
 import org.bql.player.PlayerFactory;
+import org.bql.player.PlayerInfoDto;
 import org.bql.player.PlayerRoom;
 import org.bql.rooms.always_happy.dto.AHBetDto;
 import org.bql.rooms.always_happy.dto.AHHistoryDto;
@@ -124,9 +125,9 @@ public class AHGamblingParty {
         //通知大厅 系统赢了多少或者输了多少 今日输赢财富 奖池 血池
         if (lastTimeGrantAward > 0 || updatebloodGroove > 0)
             HttpClient.getInstance().asyncPost(NotifyCode.SYSTEM_WEATH_UPDATE, PlayerFactory.SYSTEM_PLAYER_ID + "," + room.getScenecId() + "," + todayGetMoney.get() + "," + 0 + "," + bloodGroove);
-        List<RoomWeathDto> weathDtos = new ArrayList<>(ahPlayers.size());
+        List<PlayerInfoDto> weathDtos = new ArrayList<>(ahPlayers.size());
         for (PlayerRoom ah : ahPlayers) {
-            weathDtos.add(ah.getPlayer().weathDto(thisGamblingParCard.getResult(), false));
+            weathDtos.add(ah.getPlayer());
         }
         if (weathDtos.size() > 0) {
             RoomWeathDtos notifyMessage = new RoomWeathDtos(weathDtos);

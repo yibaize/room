@@ -57,14 +57,4 @@ public class TOCardsDto {
         this.result = handCard.isCompareResult();
         return this;
     }
-
-    @Override
-    public String toString() {
-        return "TOCardsDto{" +
-                "position=" + position +
-                ", cardType=" + cardType +
-                ", result=" + result +
-                ", cardIds=" + cardIds +
-                '}';
-    }
 }

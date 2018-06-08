@@ -8,6 +8,7 @@ import org.bql.player.PlayerInfoDto;
 import org.bql.player.ResourceModel;
 import org.bql.rooms.RoomAbs;
 import org.bql.rooms.card.CardDataTable;
+import org.bql.rooms.card.CardManager;
 import org.bql.rooms.great_pretenders.dto.GPRoomExchangeCardDto;
 import org.bql.rooms.thousands_of.dto.PositionDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.RoomPlayerAccountDto;
@@ -17,7 +18,9 @@ import org.bql.rooms.three_cards.three_cards_1.model.HandCard;
 import org.bql.utils.ArrayUtils;
 import org.bql.utils.RandomUtils;
 import org.bql.utils.builder_clazz.ann.Protocol;
+import org.bql.utils.logger.LoggerUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,6 +40,8 @@ public class GPRoom_ExchangeCard extends OperateCommandAbstract {
     @Override
     public Object execute() {
         FirstPlayerRoom player = (FirstPlayerRoom) getSession().getAttachment();
+        if(player.getExchangeCardCount() >= 3)
+            new GenaryAppError(AppErrorCode.EXCHANGE_CARD_LIMT);
         HandCard handCard = player.getHandCard();
         if(handCard == null)
             new GenaryAppError(AppErrorCode.SERVER_ERR);
@@ -52,32 +57,30 @@ public class GPRoom_ExchangeCard extends OperateCommandAbstract {
         PlayerInfoDto playerInfoDto = player.getPlayer();
         account = playerInfoDto.getAccount();
         List<ResourceModel> prop = playerInfoDto.getProps();
-//        if(prop == null || prop.size() <= 0)
-//            new GenaryAppError(AppErrorCode.NOT_EXCHANGE_CARD_PROP);
-//        //检查换牌卡
-//        int propId = -1;
-//        for(int i = 0;i<prop.size();i++){
-//            if(prop.get(i).getId() == 21){
-//                propId = i;
-//                break;
-//            }
-//        }
-//        if(propId == -1)
-//            new GenaryAppError(AppErrorCode.NOT_EXCHANGE_CARD_PROP);
-        int random = RandomUtils.randomIndex(residueCard.size());
-        //从余牌中随机获取一个再删除
-        CardDataTable c = residueCard.get(random);
-        //替换那个牌
-        for(int i = 0;i<ids.length;i++){
-            if(ids[i] == cardId){
-                ids[i] = c.getId();
+        if(prop == null || prop.size() <= 0)
+            new GenaryAppError(AppErrorCode.NOT_EXCHANGE_CARD_PROP);
+        //检查换牌卡
+        int propId = -1;
+        for(int i = 0;i<prop.size();i++){
+            if(prop.get(i).getId() == 22){
+                propId = i;
                 break;
             }
         }
-        residueCard.remove(random);//从剩余的牌中删除这个牌
-//        ResourceModel pro = prop.get(propId);
-//        pro.reduce(1);//减去换牌卡数量
+        if(propId == -1)
+            new GenaryAppError(AppErrorCode.NOT_EXCHANGE_CARD_PROP);
+        int random = RandomUtils.randomIndex(residueCard.size());
+        //从余牌中随机获取一个再删除
+        CardDataTable c = residueCard.get(random);
+        ResourceModel pro = prop.get(propId);
         //返回牌id
+        pro.reduce(player.getExchangeCardCount()+1);//减去换牌卡数量
+        player.addExchangeCardCount(1);
+        //替换那个牌
+        ArrayUtils.set(ids,cardId,c.getId());
+        int oldFace = CardManager.getInstance().getMap().get(cardId).getFace();
+        ArrayUtils.set(player.getHandCard().getCardFaces(),oldFace,c.getFace());
+        residueCard.remove(random);//从剩余的牌中删除这个牌
         return new PositionDto(c.getId());
     }
 

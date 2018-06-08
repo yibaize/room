@@ -65,7 +65,11 @@ public class FirstRoom_Compare extends OperateCommandAbstract {
             new GenaryAppError(AppErrorCode.PLAYER_IS_COMPARE);
         if(room.getGamblingParty().getNowBottomPos().get() != p.getRoomPosition())
             new GenaryAppError(AppErrorCode.NOT_IS_YOU_BET);//不是该玩家操作
+        //整理牌型
+        CardManager.getInstance().getCardType(selfCardIds);
+        CardManager.getInstance().getCardType(otherCardIds);
         CardManager.getInstance().compareCard(selfCardIds,otherCardIds);
+        LoggerUtils.getLogicLog().info(selfCardIds+":"+otherCardIds);
         if(selfCardIds.isCompareResult()){
             playerSet.losePlayer(targetAccount);
             winPlayer = player;

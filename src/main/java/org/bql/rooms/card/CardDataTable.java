@@ -3,6 +3,7 @@ package org.bql.rooms.card;
 import org.bql.utils.builder_clazz.ann.DataTable;
 import org.bql.utils.builder_clazz.excel_init_data.DataTableMessage;
 import org.bql.utils.builder_clazz.excel_init_data.StaticConfigMessage;
+import org.bql.utils.logger.LoggerUtils;
 
 public class CardDataTable implements DataTableMessage {
     private final int id;

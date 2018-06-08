@@ -79,12 +79,18 @@ public class ArrayUtils {
         }
         return tt;
     }
+    public static <T> void set(T[] arr,T src,T dest){
+        for(int i = 0;i<arr.length;i++){
+            if(arr[i].equals(src)){
+                arr[i] = dest;
+            }
+        }
+    }
     public static void main(String[] args) {
 //        Integer[] i = new Integer[]{1,2,3,4,5,6};
 //        System.out.println(Arrays.toString(add(i,9)));
         Integer[] i = new Integer[]{1,3,2};
-        Integer[] j = new Integer[]{2,1,null};
-        Arrays.sort(i);
-        System.out.println(Arrays.toString(clear(i)));
+        set(i,2,4);
+        System.out.println(Arrays.toString(i));
     }
 }

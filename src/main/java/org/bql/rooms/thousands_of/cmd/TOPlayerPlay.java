@@ -30,7 +30,7 @@ public class TOPlayerPlay extends OperateCommandAbstract {
         List<TOPlayer> toPlayerList = playerSet.getAllPlayer();
         List<RoomPlayerBaseDto> baseInfoDtos = new ArrayList<>(toPlayerList.size());
         for(TOPlayer tp:toPlayerList){
-            if(tp.getPosition() != TOPlayer.DEFAULT_POS){
+            if(tp.getPosition() == TOPlayer.DEFAULT_POS){
                 baseInfoDtos.add(new RoomPlayerBaseDto().baseDto(tp.getPlayer()));
             }
         }

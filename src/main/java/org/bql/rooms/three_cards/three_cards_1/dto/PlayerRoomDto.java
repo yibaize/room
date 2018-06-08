@@ -9,16 +9,19 @@ public class PlayerRoomDto {
     private int roomId;
     private int roomState;
     private int selfPosition;
+    /**换牌卡数量*/
+    private int exchangeCardCount;
     /**房间其他人的信息*/
     private List<PlayerRoomBaseInfoDto> players;
 
     public PlayerRoomDto() {
     }
 
-    public PlayerRoomDto(int roomId, int roomState, int selfPosition, List<PlayerRoomBaseInfoDto> players) {
+    public PlayerRoomDto(int roomId, int roomState, int selfPosition, int exchangeCardCount, List<PlayerRoomBaseInfoDto> players) {
         this.roomId = roomId;
         this.roomState = roomState;
         this.selfPosition = selfPosition;
+        this.exchangeCardCount = exchangeCardCount;
         this.players = players;
     }
 
@@ -52,5 +55,13 @@ public class PlayerRoomDto {
 
     public void setSelfPosition(int selfPosition) {
         this.selfPosition = selfPosition;
+    }
+
+    public int getExchangeCardCount() {
+        return exchangeCardCount;
+    }
+
+    public void setExchangeCardCount(int exchangeCardCount) {
+        this.exchangeCardCount = exchangeCardCount;
     }
 }

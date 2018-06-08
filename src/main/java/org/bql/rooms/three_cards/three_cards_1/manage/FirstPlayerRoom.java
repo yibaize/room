@@ -8,8 +8,19 @@ import org.bql.rooms.three_cards.three_cards_1.model.HandCard;
 public class FirstPlayerRoom extends PlayerRoom {
     private long startTime;
     private boolean hasLookCard;//是否已经看牌
+    private int exchangeCardCount;
     private HandCard handCard;
 
+    public int getExchangeCardCount() {
+        return exchangeCardCount;
+    }
+
+    public void setExchangeCardCount(int num) {
+        this.exchangeCardCount = num;
+    }
+    public void addExchangeCardCount(int num){
+        this.exchangeCardCount += num;
+    }
     public long getStartTime() {
         return startTime;
     }

@@ -44,6 +44,8 @@ public class NotifyCode {
     public static final short FIRST_ROOM_GAME_OVER = 1516;
     @ExcelValue(value = "在玩的时候有人跑了 下发FirstRoomStartDto")
     public static final short HASH_PLAYER_EXIT = 1517;
+    @ExcelValue(value = "您被人提出房间")
+    public static final short KICKING_ROOM = 1518;
 
     /**万人场使用2000-3000*/
     @ExcelValue(value = "有人上了位置 返回一个PlayerRoomBaseInfoDto对象")
@@ -72,6 +74,8 @@ public class NotifyCode {
     public static final short NOTIFY_POSITION_BANKER_WEATH_UPDATE = 2011;
     @ExcelValue(value = "通知所有玩家牌局结束发送本局排行 返回TOSettleRanking对象")
     public static final short NOTIFY_END_RANKING = 2012;
+    @ExcelValue(value = "有人被踢下线")
+    public static final short HASK_PLAYER_KICKING = 2013;
 
     @ExcelValue(value = "时时乐结算通知返回AHWeathDto对象")
     public static final short AH_ROOM_SETTLE_ACCOUNT = 3000;

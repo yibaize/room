@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 作者： 白泽
+ * 作者： big
  * 时间： 2017/11/2.
  * 描述：生成导标类文件注解
  */

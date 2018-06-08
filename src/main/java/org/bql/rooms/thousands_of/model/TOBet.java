@@ -94,7 +94,7 @@ public class TOBet implements Comparable<TOBet> {
                 //如果是位置上的人就要通知所有人财富变更
                 TORoom room = (TORoom) p.getRoom();
                 //这里通知的账号现在是用来存储这个玩家输或者赢的标记
-                room.broadcast(room.getPlayerSet().allPlayerNotId(playerInfoDto.getAccount()), NotifyCode.NOTIFY_POSITION_PLAYER_WEATH_UPDATE,
+                room.broadcast(room.getPlayerSet().getAllPlayer(), NotifyCode.NOTIFY_POSITION_PLAYER_WEATH_UPDATE,
                         new BetUpdateDto(procedureType.getResult() + "", playerInfoDto.getGold(),money, p.getPosition()));
             }
         }

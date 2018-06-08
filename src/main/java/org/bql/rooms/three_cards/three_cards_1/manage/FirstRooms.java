@@ -2,19 +2,19 @@ package org.bql.rooms.three_cards.three_cards_1.manage;
 
 import org.bql.error.AppErrorCode;
 import org.bql.error.GenaryAppError;
+import org.bql.hall_connection.BackHall;
+import org.bql.net.builder_clazz.CommandCode;
 import org.bql.net.builder_clazz.NotifyCode;
 import org.bql.net.handler.TcpHandler;
 import org.bql.net.message.ServerResponse;
-import org.bql.player.IPlayer;
-import org.bql.player.PlayerInfoDto;
-import org.bql.player.PlayerRoom;
-import org.bql.player.PlayerRoomBaseInfoDto;
+import org.bql.player.*;
 import org.bql.rooms.RoomAbs;
 import org.bql.rooms.RoomFactory;
 import org.bql.rooms.card.CardManager;
 import org.bql.rooms.three_cards.three_cards_1.dto.FirstRoomStartDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.PlayerRoomDto;
 import org.bql.rooms.three_cards.three_cards_1.dto.RoomBetDto;
+import org.bql.rooms.three_cards.three_cards_1.dto.RoomPlayerAccountDto;
 import org.bql.rooms.type.RoomStateType;
 import org.bql.utils.ProtostuffUtils;
 import org.bql.utils.logger.LoggerUtils;
@@ -107,7 +107,18 @@ public class FirstRooms extends RoomAbs {
             prbifd.setPostion(playerSet.getPlayerPos(prbifd.getAccount()));
             baseInfoDtos.add(prbifd);
         }
-        return new PlayerRoomDto(getRoomId(), roomState.id(), playerSet.getPlayerPos(account), baseInfoDtos);
+        //获取换牌卡数量
+        int exchangeCardCount = 0;
+        PlayerInfoDto infoDto = playerSet.getPlayerForPosition(account).getPlayer();
+        List<ResourceModel> prop =infoDto.getProps();
+        int size = prop == null ? 0 : prop.size();
+        for(int i = 0;i<size;i++){
+            if(prop.get(i).getId() == 22){
+                exchangeCardCount = prop.get(i).getCount();
+                break;
+            }
+        }
+        return new PlayerRoomDto(getRoomId(), roomState.id(), playerSet.getPlayerPos(account),exchangeCardCount, baseInfoDtos);
     }
 
     @Override
@@ -224,6 +235,20 @@ public class FirstRooms extends RoomAbs {
 
     @Override
     public void kicking(PlayerRoom player, int position) {
-
+        FirstPlayerRoom target = playerSet.getPlayerForPosition(position);
+        if(target == null)
+            new GenaryAppError(AppErrorCode.POSITION_HASH_PLAYER);
+        if(target.getPlayer().getAccount().equals(player.getPlayer().getAccount()))
+            new  GenaryAppError(AppErrorCode.DO_NOT_KICKING_SELF);
+        if(target.getPlayer().getVipLv() > player.getPlayer().getVipLv())
+            new GenaryAppError(AppErrorCode.VIP_LV_NOT_ERR);
+        exitRoom(target);
+        target.setRoom(null);
+        byte[] buf = ProtostuffUtils.serializer(new RoomPlayerAccountDto(player.getPlayer().getUsername()));
+        target.getSession().write(new ServerResponse(NotifyCode.KICKING_ROOM,buf));
+        BackHall backHall = new BackHall();
+        backHall.setCmdId((short) CommandCode.BackHall);
+        backHall.setSession(target.getSession());
+        backHall.subim();
     }
 }

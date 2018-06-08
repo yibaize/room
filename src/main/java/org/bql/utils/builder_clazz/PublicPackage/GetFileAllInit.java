@@ -25,24 +25,18 @@ public class GetFileAllInit {
      */
     public static List<Class> getClasssFromPackage(String pack) {
         List<Class> clazzs = new ArrayList<Class>();
-
         // 是否循环搜索子包
         boolean recursive = true;
-
         // 包名字
         String packageName = pack;
         // 包名对应的路径名称
         String packageDirName = packageName.replace('.', '/');
-
         Enumeration<URL> dirs;
-
         try {
             dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
             while (dirs.hasMoreElements()) {
                 URL url = dirs.nextElement();
-
                 String protocol = url.getProtocol();
-
                 if ("file".equals(protocol)) {
                     String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
                     findClassInPackageByFile(packageName, filePath, recursive, clazzs);
@@ -50,11 +44,9 @@ public class GetFileAllInit {
                     LoggerUtils.getPlatformLog().info("jar类型的扫描");
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return clazzs;
     }
     /**

@@ -148,8 +148,7 @@ public class FirstGamblingParty {
             }
             handCard.setCardIds(cardIds);
             handCard.setCardFaces(cardFaces);
-            //整理牌型
-            cardManager.getCardType(handCard);
+
             players.get(i).setHandCard(handCard);
         }
     }
@@ -163,9 +162,8 @@ public class FirstGamblingParty {
      */
     private void shuffExchange(List<CardDataTable> c) {
         for (int i = 0; i < c.size(); i++) {
-            if (exchangeCard.contains(c)) {
-                exchangeCard.remove(i);
-            }
+            CardDataTable cd = c.get(i);
+            exchangeCard.remove(cd);
         }
     }
 
@@ -272,12 +270,13 @@ public class FirstGamblingParty {
         nowBottomChip.set(0);
 
         List<FirstPlayerRoom> pay = playerSet.getAllPlayer();
-        List<RoomWeathDto> weathDtos = new ArrayList<>(pay.size());
+        List<PlayerInfoDto> weathDtos = new ArrayList<>(pay.size());
         for (FirstPlayerRoom f : pay) {
+            f.setExchangeCardCount(0);//清楚比牌次数
             HandCard handCard = f.getHandCard();
             if(handCard == null)
                 continue;
-            weathDtos.add(f.getPlayer().weathDto(handCard.getCardType(), handCard.isCompareResult()));
+            weathDtos.add(f.getPlayer());
         }
 
         RoomWeathDtos weath = new RoomWeathDtos(weathDtos);
@@ -285,7 +284,6 @@ public class FirstGamblingParty {
         HttpClient.getInstance().asyncPost(NotifyCode.REQUEST_HALL_UPDATE_WEATH, JsonUtils.jsonSerialize(weath) + "," + PlayerFactory.SYSTEM_PLAYER_ID);
         //请求大厅数据
     }
-
     public void timer() {
         if (myRoom.getRoomState() != RoomStateType.START) {
             if (playerSet.getChoiceNum(true) >= 2 && System.currentTimeMillis() - startTime.get() >= OUT_TIME) {

@@ -100,5 +100,4 @@ public class BuilderProtostuff {
         }
         WriteFile.writeText(beanName+".cs",sb.toString(),BuilderAll.PATH_CNF.getCsPath());
     }
-
 }

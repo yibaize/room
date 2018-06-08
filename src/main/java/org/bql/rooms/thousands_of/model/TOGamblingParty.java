@@ -99,6 +99,9 @@ public class TOGamblingParty {
             }
             handCard.setPosition(i);
             handCardMap.putIfAbsent(i, handCard);
+            if(handCard.getCardType() == 0){
+                LoggerUtils.getLogicLog().error(handCard);
+            }
         }
     }
 
@@ -202,9 +205,9 @@ public class TOGamblingParty {
         historyQueue.offer(history);
 
         //添加与大厅通讯数据
-        List<RoomWeathDto> weathDtos = new ArrayList<>(toPlayers.size());
+        List<PlayerInfoDto> weathDtos = new ArrayList<>(toPlayers.size());
         for (TOPlayer t : toPlayers) {
-            weathDtos.add(t.getPlayer().weathDto(1, false));
+            weathDtos.add(t.getPlayer());
         }
         //同步大厅系统财富存储记录 今日输赢财富 奖池 血池
         if (isSyncSystemWeath)

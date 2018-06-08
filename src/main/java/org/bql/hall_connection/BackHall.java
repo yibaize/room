@@ -1,6 +1,4 @@
 package org.bql.hall_connection;
-
-import org.bql.hall_connection.dto.RoomWeathDto;
 import org.bql.hall_connection.dto.RoomWeathDtos;
 import org.bql.net.builder_clazz.NotifyCode;
 import org.bql.net.http.HttpClient;
@@ -33,8 +31,8 @@ public class BackHall extends OperateCommandAbstract {
 
         //先通知大厅财富更新先
         PlayerInfoDto playerInfoDto = playerRoom.getPlayer();
-        List<RoomWeathDto> weathDtos = new ArrayList<>(1);
-        weathDtos.add(new RoomWeathDto(playerInfoDto.getAccount(),playerInfoDto.getGold(),playerInfoDto.getDiamond(),playerInfoDto.getIntegral(),false,-1));
+        List<PlayerInfoDto> weathDtos = new ArrayList<>(1);
+        weathDtos.add(playerInfoDto);
         RoomWeathDtos notifyMessage = new RoomWeathDtos(weathDtos);
         //通知大厅财富更新到数据库
         HttpClient.getInstance().asyncPost(NotifyCode.REQUEST_HALL_UPDATE_WEATH,JsonUtils.jsonSerialize(notifyMessage)+","+PlayerFactory.SYSTEM_PLAYER_ID);

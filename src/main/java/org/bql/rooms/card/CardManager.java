@@ -180,6 +180,9 @@ public class CardManager {
         Integer[] cardFace = c.getCardFaces();
         Arrays.sort(cardFace);
         if(ArrayUtils.contains(cardFace,A12)){
+            c.setCardType(CardType.STRAIGHT.id());
+            c.setMax(cardFace[2]);
+            c.setMin(cardFace[0]);
             return true;
         }
         for(int i = 0;i<cardFace.length - 1;i++){
@@ -223,24 +226,14 @@ public class CardManager {
 
     public static void main(String[] args) {
         ExcelUtils.init("excel");
-        HandCard self = new HandCard();
-        HandCard other = new HandCard();
-        self.setCardIds(new Integer[]{23, 35, 1});
-        other.setCardIds(new Integer[]{30, 38, 48});
-
-        self.setCardFaces(new Integer[]{9, 10, 14});
-        other.setCardFaces(new Integer[]{4, 14, 9});
-        getInstance().getCardType(self);
-        getInstance().getCardType(other);
-        getInstance().compareCard(self,other);
-        System.out.println(self);
-        System.out.println(other);
-//        ExcelUtils.init("excel");
-//        getInstance();
-//        int[] i = new int[]{1,1,1,1};
-//        System.out.println(CardManager.getInstance().pair(i));
-//        System.out.println(CardManager.getInstance().straight(i));
-//        System.out.println(CardManager.getInstance().leopard(i));
+        getInstance();
+        for(CardDataTable c : getInstance().getMap().values()){
+            LoggerUtils.getLogicLog().info("id:<<"+c.getId()+">> face:<<"+c.getFace()+">> type:<<"+c.getType()+">>;");
+        }
+        LoggerUtils.getLogicLog().info("===================================================================================================");
+        for(CardDataTable c : getInstance().cardDataTables){
+            LoggerUtils.getLogicLog().info("id:<<"+c.getId()+">> face:<<"+c.getFace()+">> type:<<"+c.getType()+">>;");
+        }
     }
     /**
      * 豹子

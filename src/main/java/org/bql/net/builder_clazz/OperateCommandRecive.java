@@ -21,6 +21,11 @@ import org.bql.rooms.always_happy.cmd.AHBet;
 import org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_BetAll;
 import org.bql.rooms.always_happy.cmd.AHInfoRoomOperation;
 import org.bql.rooms.great_pretenders.cmd.GPRoom_ForbidCompare;
+import org.bql.rooms.dice.cmd.DiceBetOperation;
+import org.bql.rooms.dice.cmd.DiceClearBetOperation;
+import org.bql.rooms.dice.cmd.DiceHisoryOperation;
+import org.bql.rooms.dice.cmd.DicePlayPlayerOperation;
+import org.bql.rooms.dice.cmd.DiceUpPositionOperation;
 import org.bql.chat.BroadcastOparetion;
 import org.bql.chat.ChatRoomOperation;
 import org.bql.hall_connection.PlayerInfoOperation;
@@ -80,6 +85,16 @@ import org.bql.net.server.manage.OperateCommandAbstract;public class OperateComm
 				return getAHInfoRoomOperation(params);
 			case 1023:
 				return getGPRoom_ForbidCompare(params);
+			case 1024:
+				return getDiceBetOperation(params);
+			case 1025:
+				return getDiceClearBetOperation(params);
+			case 1026:
+				return getDiceHisoryOperation(params);
+			case 1027:
+				return getDicePlayPlayerOperation(params);
+			case 1028:
+				return getDiceUpPositionOperation(params);
 			case 5560:
 				return getBroadcastOparetion(params);
 			case 5599:
@@ -175,6 +190,24 @@ import org.bql.net.server.manage.OperateCommandAbstract;public class OperateComm
 	private OperateCommandAbstract getGPRoom_ForbidCompare(String[] params){
 		String value0 = params[0];
 		return new GPRoom_ForbidCompare(value0);
+	}
+	private OperateCommandAbstract getDiceBetOperation(String[] params){
+		int value0 = Integer.parseInt(params[0]);
+		int value1 = Integer.parseInt(params[1]);
+		return new DiceBetOperation(value0,value1);
+	}
+	private OperateCommandAbstract getDiceClearBetOperation(String[] params){
+		return new DiceClearBetOperation();
+	}
+	private OperateCommandAbstract getDiceHisoryOperation(String[] params){
+		return new DiceHisoryOperation();
+	}
+	private OperateCommandAbstract getDicePlayPlayerOperation(String[] params){
+		return new DicePlayPlayerOperation();
+	}
+	private OperateCommandAbstract getDiceUpPositionOperation(String[] params){
+		int value0 = Integer.parseInt(params[0]);
+		return new DiceUpPositionOperation(value0);
 	}
 	private OperateCommandAbstract getBroadcastOparetion(String[] params){
 		int value0 = Integer.parseInt(params[0]);

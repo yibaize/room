@@ -51,7 +51,7 @@ public final class AppErrorCode{
     public final static int NOT_FORBID_CARD = 1012;
     @ExcelValue(value = "您的喇叭卡不足,无法广播消息！")
     public final static int NOT_TRUMPET = 1013;
-    @ExcelValue(value = "当前已近在上庄列表！")
+    @ExcelValue(value = "当前已经在上庄列表！")
     public final static int NOW_IN_BANKER_LIST = 1014;
     @ExcelValue(value = "你在万人人场下注了很多不能再在时时乐下注这么多金币，请先到商城购买或者等待万人场牌局完毕吧！")
     public final static int IN_TO_ROOM_BET_NIMIETY = 1015;
@@ -63,6 +63,10 @@ public final class AppErrorCode{
     public final static int HASH_PLAYER_BET_ALL = 1018;
     @ExcelValue(value = "想在已经开局，无法清楚下注！")
     public final static int NOW_IS_START_BETTLE = 1019;
+    @ExcelValue(value = "每局只能换三次牌，这局你已经换完！")
+    public final static int EXCHANGE_CARD_LIMT = 1020;
+    @ExcelValue(value = "不能提出自己下线！")
+    public final static int DO_NOT_KICKING_SELF = 1021;
 
     @ExcelValue(value = "超时下注了,等待下一局吧！^_^ 吼吼吼")
     public final static int BET_TIME_OUT = 2000;

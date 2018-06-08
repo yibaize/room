@@ -22,6 +22,11 @@ public class CommandCode{
 	public static final int FirstRoom_BetAll = 1018;
 	public static final int AHInfoRoomOperation = 1019;
 	public static final int GPRoom_ForbidCompare = 1023;
+	public static final int DiceBetOperation = 1024;
+	public static final int DiceClearBetOperation = 1025;
+	public static final int DiceHisoryOperation = 1026;
+	public static final int DicePlayPlayerOperation = 1027;
+	public static final int DiceUpPositionOperation = 1028;
 	public static final int BroadcastOparetion = 5560;
 	public static final int ChatRoomOperation = 5599;
 	public static final int PlayerInfoOperation = 10000;
