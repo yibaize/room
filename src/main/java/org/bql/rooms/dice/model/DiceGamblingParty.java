@@ -10,10 +10,7 @@ import org.bql.utils.DateUtils;
 import org.bql.utils.RandomUtils;
 import org.bql.utils.weightRandom.WeightRandom;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class DiceGamblingParty {
@@ -27,6 +24,7 @@ public class DiceGamblingParty {
     private long endTime;
     private long allMoney;
     private DiceCountType thisTimeCount;//当局点数
+    private Set<String> betPlayerNum;//下注人数
     public DiceGamblingParty(DiceRoom room) {
         this.room = room;
         playerSet = room.getPlayerSet();
@@ -49,6 +47,7 @@ public class DiceGamblingParty {
     private static final Object BET_LOCK = new Object();
     public void bet(DicePlayer player,long num,int position){
         synchronized (BET_LOCK) {
+            betPlayerNum.add(player.getPlayer().getAccount());
             allMoney += num;
             DiceBet d = bets.getOrDefault(position, null);
             if (d == null) {
@@ -60,6 +59,11 @@ public class DiceGamblingParty {
             //TODO 通知有人下注 下了多少
         }
     }
+
+    public int getBetPlayerNum() {
+        return betPlayerNum.size();
+    }
+
     public void settleAccounts(){
         for(DiceBet db : bets.values()){
             if(db.getPosition() == thisTimeCount.getCount() || db.getPosition() == thisTimeCount.getSize()){
@@ -82,10 +86,13 @@ public class DiceGamblingParty {
     public List<DiceCountDto> getHistory(){
         return new ArrayList<>(historyQueue);
     }
-    private int timer;
+    private int residueTime;
+    public int getResidueTime(){
+        return residueTime;
+    }
     public void timer(){
-        timer++;
-        switch (timer){
+        residueTime++;
+        switch (residueTime){
             case 1:
                 room.setRoomState(RoomStateType.READY);
                 //通知开局
@@ -104,8 +111,11 @@ public class DiceGamblingParty {
                 //通知本局结束
                 break;
         }
-        if(timer > 17){
-            timer = 0;
+        if(residueTime > 17){
+            residueTime = 0;
         }
+    }
+    private void clear(){
+        betPlayerNum.clear();
     }
 }

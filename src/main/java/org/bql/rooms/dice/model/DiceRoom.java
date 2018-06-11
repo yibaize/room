@@ -7,6 +7,7 @@ import org.bql.player.PlayerRoom;
 import org.bql.rooms.RoomAbs;
 import org.bql.rooms.RoomFactory;
 import org.bql.rooms.card.CardManager;
+import org.bql.rooms.dice.dto.DiceRoomInfiDto;
 import org.bql.rooms.type.RoomStateType;
 import org.bql.utils.ProtostuffUtils;
 
@@ -58,7 +59,7 @@ public class DiceRoom extends RoomAbs {
 
     @Override
     public Object roomInfo(String account) {
-        return null;
+        return new DiceRoomInfiDto().dto(this,account);
     }
 
     @Override

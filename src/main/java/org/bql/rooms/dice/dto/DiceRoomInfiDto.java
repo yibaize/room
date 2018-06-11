@@ -1,55 +1,44 @@
-package org.bql.rooms.thousands_of.dto;
+package org.bql.rooms.dice.dto;
 
 import org.bql.player.PlayerInfoDto;
 import org.bql.player.PlayerRoomBaseInfoDto;
-import org.bql.rooms.thousands_of.model.TOPlayer;
-import org.bql.rooms.thousands_of.model.TORoom;
+import org.bql.rooms.dice.model.DicePlayer;
+import org.bql.rooms.dice.model.DiceRoom;
 import org.bql.utils.builder_clazz.ann.Protostuff;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 当前庄家信息
- * 房间人数
- * 房间状态
- * 房间剩余时间
- * 位置信息
- * 历史记录
- * @return
+ * @作者： big
+ * @创建时间： 2018/6/11
+ * @文件描述：
  */
 @Protostuff
-public class TORoomInfoDto {
-    /**庄家 null为系统庄家*/
-    private PlayerRoomBaseInfoDto banker;
-    /**房间人数*/
+public class DiceRoomInfiDto {
+    private int betPlayerNum;
+    private long betAllNum;
     private int roomNum;
-    /**房间状态*/
     private int roomState;
-    /**房间剩余时间*/
     private int roomTimer;
-    /**自己的位置*/
     private int selfPosition;
-    /**房间的6个位置的信息*/
-    private List<PlayerRoomBaseInfoDto> positionInfo;
+    //座位上的人
+    List<PlayerRoomBaseInfoDto> positionInfo;
 
-    public TORoomInfoDto() {
+    public int getBetPlayerNum() {
+        return betPlayerNum;
     }
 
-    public int getSelfPosition() {
-        return selfPosition;
+    public void setBetPlayerNum(int betPlayerNum) {
+        this.betPlayerNum = betPlayerNum;
     }
 
-    public void setSelfPosition(int selfPosition) {
-        this.selfPosition = selfPosition;
+    public long getBetAllNum() {
+        return betAllNum;
     }
 
-    public PlayerRoomBaseInfoDto getBanker() {
-        return banker;
-    }
-
-    public void setBanker(PlayerRoomBaseInfoDto banker) {
-        this.banker = banker;
+    public void setBetAllNum(long betAllNum) {
+        this.betAllNum = betAllNum;
     }
 
     public int getRoomNum() {
@@ -76,6 +65,14 @@ public class TORoomInfoDto {
         this.roomTimer = roomTimer;
     }
 
+    public int getSelfPosition() {
+        return selfPosition;
+    }
+
+    public void setSelfPosition(int selfPosition) {
+        this.selfPosition = selfPosition;
+    }
+
     public List<PlayerRoomBaseInfoDto> getPositionInfo() {
         return positionInfo;
     }
@@ -83,23 +80,22 @@ public class TORoomInfoDto {
     public void setPositionInfo(List<PlayerRoomBaseInfoDto> positionInfo) {
         this.positionInfo = positionInfo;
     }
-    public TORoomInfoDto dto(TORoom room,String account){
-        TOPlayer player = room.getPlayerSet().getBanker();
-        if(player != null) {
-            banker = base(room.getPlayerSet().getBanker());
-        }
-        roomNum = room.getPlayerSet().allPlayerNum();
-        selfPosition = room.getPlayerSet().getPlayerForAccount(account).getPosition();
+
+    public DiceRoomInfiDto dto(DiceRoom room, String account){
+        roomNum = room.getPlayerSet().getAllPlayer().size();
+        selfPosition = room.getPlayerSet().getPlayerForAccount(account).getRoomPosition();
         roomState = room.getRoomState().id();
         roomTimer = room.getGamblingParty().getResidueTime();
-        List<TOPlayer> toPlayers = room.getPlayerSet().positionPlayer();
+        betPlayerNum = room.getGamblingParty().getBetPlayerNum();
+        betAllNum = room.getGamblingParty().getAllMoney();
+        List<DicePlayer> toPlayers = room.getPlayerSet().postionAllPlayer();
         positionInfo = new ArrayList<>(toPlayers.size());
-        for(TOPlayer t : toPlayers){
+        for(DicePlayer t : toPlayers){
             positionInfo.add(base(t));
         }
         return this;
     }
-    private PlayerRoomBaseInfoDto base(TOPlayer toPlayer){
+    private PlayerRoomBaseInfoDto base(DicePlayer toPlayer){
         PlayerInfoDto playerInfoDto = toPlayer.getPlayer();
         PlayerRoomBaseInfoDto base = new PlayerRoomBaseInfoDto();
         base.setVipLv(playerInfoDto.getVipLv());
@@ -107,7 +103,7 @@ public class TORoomInfoDto {
         base.setUserName(playerInfoDto.getUsername());
         base.setGold(playerInfoDto.getGold());
         base.setBottomNum(toPlayer.getBetNum());
-        base.setPostion(toPlayer.getPosition());
+        base.setPostion(toPlayer.getRoomPosition());
         base.setAccount(playerInfoDto.getAccount());
         base.setAutoId(playerInfoDto.getNowUserAutos());
         base.setHasReady(false);

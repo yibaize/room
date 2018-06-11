@@ -210,8 +210,10 @@ public class TOGamblingParty {
             weathDtos.add(t.getPlayer());
         }
         //同步大厅系统财富存储记录 今日输赢财富 奖池 血池
-        if (isSyncSystemWeath)
+        if (isSyncSystemWeath) {
             HttpClient.getInstance().asyncPost(NotifyCode.SYSTEM_WEATH_UPDATE, PlayerFactory.SYSTEM_PLAYER_ID + "," + room.getScenecId() + "," + todayMoney.get() + "," + jackpot + "," + bloodGroove);
+            isSyncSystemWeath = false;
+        }
         if (weathDtos.size() > 0) {//同步大厅玩家财富变更
             RoomWeathDtos notifyMessage = new RoomWeathDtos(weathDtos);
             HttpClient.getInstance().asyncPost(NotifyCode.REQUEST_HALL_UPDATE_WEATH, JsonUtils.jsonSerialize(notifyMessage) + "," + PlayerFactory.SYSTEM_PLAYER_ID);

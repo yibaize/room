@@ -1,12 +1,5 @@
-2018-06-08 16:14:50.433  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:63599
-2018-06-08 16:14:54.810  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:63606
-2018-06-08 16:15:41.980 ERROR org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_BetAll.execute(FirstRoom_BetAll.java:74) - 1 下注前 299900gold299900
-2018-06-08 16:15:41.986 ERROR org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_BetAll.execute(FirstRoom_BetAll.java:81) - 1 金币是 0
-2018-06-08 16:15:43.742 ERROR org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_BetAll.execute(FirstRoom_BetAll.java:74) - 2 下注前 600120gold299900
-2018-06-08 16:15:43.743 ERROR org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_BetAll.execute(FirstRoom_BetAll.java:81) - 2 金币是 300220
-2018-06-08 16:15:43.750  INFO org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_BetAll.broadcast(FirstRoom_BetAll.java:114) - 2 (赢家)金币是 900220
-2018-06-08 16:15:43.750  INFO org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_BetAll.broadcast(FirstRoom_BetAll.java:115) - 1 (输家家)金币是 0
-2018-06-08 16:29:01.081  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607034>>:用户名:<<1>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+2018-06-11 09:28:17.336  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:54071
+2018-06-11 09:29:02.237  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607034>>:用户名:<<1>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
 org.bql.error.CloseConnectionError
 	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
 	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
@@ -39,8 +32,54 @@ org.bql.error.CloseConnectionError
 	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
 	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
 	at java.base/java.lang.Thread.run(Thread.java:844)
-2018-06-08 16:29:01.103  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:63599
-2018-06-08 16:29:03.239  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607035>>:用户名:<<2>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+2018-06-11 09:29:02.240  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:54071
+2018-06-11 14:03:56.516  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:64352
+2018-06-11 14:04:05.829  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:64377
+2018-06-11 14:05:57.895  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:64352
+2018-06-11 14:05:57.919  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607034>>:用户名:<<1>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+org.bql.error.CloseConnectionError
+	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.utils.executer.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:81)
+	at org.bql.utils.executer.AbstractNioSelector.run(AbstractNioSelector.java:55)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 14:06:22.367  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:64456
+2018-06-11 14:07:06.766  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607035>>:用户名:<<2>>操作异常<---||--->；异常码：<<1002>>(^_^)异常信息：<<>>
+org.bql.error.GenaryAppError
+	at org.bql.rooms.thousands_of.cmd.TOBetOperation.execute(TOBetOperation.java:39)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.utils.executer.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:81)
+	at org.bql.utils.executer.AbstractNioSelector.run(AbstractNioSelector.java:55)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 14:07:16.589  INFO org.bql.rooms.thousands_of.model.TOBet.settleAccounts(TOBet.java:73) - 299000：前
+2018-06-11 14:07:16.608  INFO org.bql.rooms.thousands_of.model.TOBet.settleAccounts(TOBet.java:78) - 赢950:1000
+2018-06-11 14:07:16.611  INFO org.bql.rooms.thousands_of.model.TOBet.settleAccounts(TOBet.java:86) - 300950：后:
+2018-06-11 14:07:40.561  INFO org.bql.rooms.thousands_of.model.TOBet.settleAccounts(TOBet.java:73) - 299950：前
+2018-06-11 14:07:40.561  INFO org.bql.rooms.thousands_of.model.TOBet.settleAccounts(TOBet.java:78) - 赢950:1000
+2018-06-11 14:07:40.561  INFO org.bql.rooms.thousands_of.model.TOBet.settleAccounts(TOBet.java:86) - 301900：后:
+2018-06-11 14:08:13.397  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607035>>:用户名:<<2>>操作异常<---||--->；异常码：<<2000>>(^_^)异常信息：<<>>
+org.bql.error.GenaryAppError
+	at org.bql.rooms.thousands_of.cmd.TOBetOperation.execute(TOBetOperation.java:41)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.utils.executer.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:81)
+	at org.bql.utils.executer.AbstractNioSelector.run(AbstractNioSelector.java:55)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 14:08:24.335  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607035>>:用户名:<<2>>操作异常<---||--->；异常码：<<2000>>(^_^)异常信息：<<>>
+org.bql.error.GenaryAppError
+	at org.bql.rooms.thousands_of.cmd.TOBetOperation.execute(TOBetOperation.java:41)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.utils.executer.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:81)
+	at org.bql.utils.executer.AbstractNioSelector.run(AbstractNioSelector.java:55)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 14:08:49.507  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607034>>:用户名:<<1>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
 org.bql.error.CloseConnectionError
 	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
 	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
@@ -73,9 +112,8 @@ org.bql.error.CloseConnectionError
 	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
 	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
 	at java.base/java.lang.Thread.run(Thread.java:844)
-2018-06-08 16:29:03.240  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:63606
-2018-06-08 16:29:34.250  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:63889
-2018-06-08 16:33:20.598  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607034>>:用户名:<<1>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+2018-06-11 14:08:49.508  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:64456
+2018-06-11 14:10:55.913  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607035>>:用户名:<<2>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
 org.bql.error.CloseConnectionError
 	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
 	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
@@ -108,9 +146,9 @@ org.bql.error.CloseConnectionError
 	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
 	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
 	at java.base/java.lang.Thread.run(Thread.java:844)
-2018-06-08 16:33:20.602  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:63889
-2018-06-08 16:33:28.713  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:63954
-2018-06-08 16:35:18.726  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607034>>:用户名:<<1>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+2018-06-11 14:10:55.914  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:64377
+2018-06-11 14:11:11.976  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:64616
+2018-06-11 14:12:21.981  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607034>>:用户名:<<1>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
 org.bql.error.CloseConnectionError
 	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
 	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
@@ -143,9 +181,103 @@ org.bql.error.CloseConnectionError
 	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
 	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
 	at java.base/java.lang.Thread.run(Thread.java:844)
-2018-06-08 16:35:18.727  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:63954
-2018-06-08 16:35:27.737  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:64000
-2018-06-08 16:36:30.371  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607035>>:用户名:<<2>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+2018-06-11 14:12:21.982  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:64616
+2018-06-11 14:26:49.945  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/192.168.1.88:55623
+2018-06-11 14:26:56.790  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:93) - 用户id:<<180611008>>:用户名:<<dfgfds>>
+java.lang.NullPointerException
+	at org.bql.rooms.dice.dto.DiceRoomInfiDto.dto(DiceRoomInfiDto.java:86)
+	at org.bql.rooms.dice.model.DiceRoom.roomInfo(DiceRoom.java:62)
+	at org.bql.hall_connection.PlayerInfoOperation.execute(PlayerInfoOperation.java:49)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.net.server.manage.OperateCommandAbstract.subim(OperateCommandAbstract.java:47)
+	at org.bql.net.handler.TcpHandler.massegeRansiter(TcpHandler.java:42)
+	at org.bql.net.handler.ServerSimpleHandler.channelRead0(ServerSimpleHandler.java:40)
+	at org.bql.net.handler.ServerSimpleHandler.channelRead0(ServerSimpleHandler.java:12)
+	at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:105)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1359)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:935)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:134)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:645)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:580)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:497)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:459)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 14:28:17.441  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/192.168.1.88:55623
+2018-06-11 14:28:17.597  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180611008>>:用户名:<<dfgfds>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+org.bql.error.CloseConnectionError
+	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.utils.executer.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:81)
+	at org.bql.utils.executer.AbstractNioSelector.run(AbstractNioSelector.java:55)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 14:28:25.568  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/192.168.1.88:55645
+2018-06-11 14:28:46.998  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:93) - 用户id:<<180611009>>:用户名:<<dfdff>>
+java.lang.NullPointerException
+	at org.bql.rooms.dice.dto.DiceRoomInfiDto.dto(DiceRoomInfiDto.java:86)
+	at org.bql.rooms.dice.model.DiceRoom.roomInfo(DiceRoom.java:62)
+	at org.bql.hall_connection.PlayerInfoOperation.execute(PlayerInfoOperation.java:49)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.net.server.manage.OperateCommandAbstract.subim(OperateCommandAbstract.java:47)
+	at org.bql.net.handler.TcpHandler.massegeRansiter(TcpHandler.java:42)
+	at org.bql.net.handler.ServerSimpleHandler.channelRead0(ServerSimpleHandler.java:40)
+	at org.bql.net.handler.ServerSimpleHandler.channelRead0(ServerSimpleHandler.java:12)
+	at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:105)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1359)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:935)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:134)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:645)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:580)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:497)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:459)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 14:29:10.506  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/192.168.1.88:55645
+2018-06-11 14:29:10.553  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180611009>>:用户名:<<dfdff>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+org.bql.error.CloseConnectionError
+	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.utils.executer.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:81)
+	at org.bql.utils.executer.AbstractNioSelector.run(AbstractNioSelector.java:55)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 16:02:29.804  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/192.168.1.142:54136
+2018-06-11 16:02:39.956  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/192.168.1.142:54148
+2018-06-11 16:05:21.323  INFO org.bql.rooms.three_cards.three_cards_1.cmd.FirstRoom_Compare.execute(FirstRoom_Compare.java:72) - HandCard{cardType=4, cardFaces=[10, 11, 14], cardIds=[23, 14, 24], max=14, min=10, compareResult=true, position=0}:HandCard{cardType=1, cardFaces=[11, 12, 14], cardIds=[51, 11, 1], max=14, min=11, compareResult=false, position=0}
+2018-06-11 16:10:08.329  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607035>>:用户名:<<2>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
 org.bql.error.CloseConnectionError
 	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
 	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
@@ -178,4 +310,74 @@ org.bql.error.CloseConnectionError
 	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
 	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
 	at java.base/java.lang.Thread.run(Thread.java:844)
-2018-06-08 16:36:30.372  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/127.0.0.1:64000
+2018-06-11 16:10:08.335  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/192.168.1.142:54136
+2018-06-11 16:13:11.915  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/192.168.1.142:54683
+2018-06-11 16:14:12.810  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607049>>:用户名:<<3>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+org.bql.error.CloseConnectionError
+	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.net.server.manage.OperateCommandAbstract.subim(OperateCommandAbstract.java:47)
+	at org.bql.net.handler.TcpHandler.massegeRansiter(TcpHandler.java:42)
+	at org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:113)
+	at org.bql.net.handler.ServerSimpleHandler.channelInactive(ServerSimpleHandler.java:25)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:75)
+	at io.netty.handler.timeout.IdleStateHandler.channelInactive(IdleStateHandler.java:277)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInputClosed(ByteToMessageDecoder.java:377)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInactive(ByteToMessageDecoder.java:342)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1354)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:917)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$8.run(AbstractChannel.java:822)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:463)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 16:14:12.811  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/192.168.1.142:54148
+2018-06-11 16:14:16.023  INFO org.bql.net.handler.TcpHandler.errRecive(TcpHandler.java:90) - 用户id:<<180607035>>:用户名:<<2>>操作异常<---||--->；异常码：<<700>>(^_^)异常信息：<<>>
+org.bql.error.CloseConnectionError
+	at org.bql.hall_connection.ErrorLigout.execute(ErrorLigout.java:66)
+	at org.bql.net.server.manage.OperateCommandAbstract.run(OperateCommandAbstract.java:34)
+	at org.bql.net.server.manage.OperateCommandAbstract.subim(OperateCommandAbstract.java:47)
+	at org.bql.net.handler.TcpHandler.massegeRansiter(TcpHandler.java:42)
+	at org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:113)
+	at org.bql.net.handler.ServerSimpleHandler.channelInactive(ServerSimpleHandler.java:25)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:75)
+	at io.netty.handler.timeout.IdleStateHandler.channelInactive(IdleStateHandler.java:277)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInputClosed(ByteToMessageDecoder.java:377)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInactive(ByteToMessageDecoder.java:342)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:224)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1354)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:245)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:231)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:917)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$8.run(AbstractChannel.java:822)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:463)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:844)
+2018-06-11 16:14:16.024  INFO org.bql.net.handler.TcpHandler.channelInactive(TcpHandler.java:114) - 用户下线/192.168.1.142:54683
+2018-06-11 17:57:43.617  INFO org.bql.net.handler.TcpHandler.channelActive(TcpHandler.java:117) - 用户上线/127.0.0.1:63274

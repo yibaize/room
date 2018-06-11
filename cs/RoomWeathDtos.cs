@@ -4,5 +4,5 @@ using ProtoBuf;
 [ProtoContract]
 public class RoomWeathDtos : IProtostuff {
 	[ProtoMember(1)]
-	public List<RoomWeathDto> WeathDtos{get;set;}
+	public List<PlayerInfoDto> WeathDtos{get;set;}
 }

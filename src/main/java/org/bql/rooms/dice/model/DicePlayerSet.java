@@ -119,4 +119,13 @@ public class DicePlayerSet {
     public DicePlayer getPlayerForAccount(String account) {
         return allPlayer.getOrDefault(account, null);
     }
+    public List<DicePlayer> postionAllPlayer(){
+        List<DicePlayer> list = new ArrayList<>();
+        for(int i = 0;i<positions.length;i++){
+            if(positions[i] != null){
+                list.add(positions[i]);
+            }
+        }
+        return list;
+    }
 }
