@@ -11,4 +11,6 @@ public class BetUpdateDto : IProtostuff {
 	public long WinGld{get;set;}
 	[ProtoMember(4)]
 	public int Position{get;set;}
+	[ProtoMember(5)]
+	public int BetPlayerNum{get;set;}
 }

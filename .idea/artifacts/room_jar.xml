@@ -3,33 +3,30 @@
     <output-path>$PROJECT_DIR$/out/artifacts/room_jar</output-path>
     <root id="root">
       <element id="archive" name="room.jar">
-        <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
-        </element>
         <element id="module-output" name="room" />
       </element>
       <element id="directory" name="lib">
-        <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.7" />
-        <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
-        <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.6.0" />
-        <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
-        <element id="library" level="project" name="Maven: io.netty:netty-all:4.1.16.Final" />
-        <element id="library" level="project" name="Maven: com.zaxxer:HikariCP-java6:2.3.13" />
-        <element id="library" level="project" name="Maven: io.protostuff:protostuff-api:1.4.0" />
-        <element id="library" level="project" name="Maven: io.protostuff:protostuff-core:1.4.0" />
-        <element id="library" level="project" name="Maven: io.protostuff:protostuff-collectionschema:1.4.0" />
-        <element id="library" level="project" name="Maven: io.protostuff:protostuff-runtime:1.4.0" />
-        <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.2.0" />
-        <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.1" />
         <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.2" />
-        <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:3.16-beta2" />
+        <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.04" />
+        <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.2.0" />
+        <element id="library" level="project" name="Maven: com.zaxxer:HikariCP-java6:2.3.13" />
+        <element id="library" level="project" name="Maven: io.netty:netty-all:4.1.16.Final" />
+        <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
+        <element id="library" level="project" name="Maven: io.protostuff:protostuff-core:1.4.0" />
+        <element id="library" level="project" name="Maven: io.protostuff:protostuff-runtime:1.4.0" />
+        <element id="library" level="project" name="Maven: io.protostuff:protostuff-collectionschema:1.4.0" />
+        <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.6.0" />
+        <element id="library" level="project" name="Maven: io.protostuff:protostuff-api:1.4.0" />
         <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:3.16-beta2" />
         <element id="library" level="project" name="Maven: org.apache.poi:poi:3.16-beta2" />
-        <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" />
+        <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.1" />
         <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+        <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" />
+        <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
+        <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:3.16-beta2" />
         <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.3.0" />
         <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
-        <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.04" />
+        <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.7" />
         <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
       </element>
     </root>

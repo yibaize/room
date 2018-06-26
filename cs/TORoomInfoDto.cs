@@ -14,5 +14,7 @@ public class TORoomInfoDto : IProtostuff {
 	[ProtoMember(5)]
 	public int SelfPosition{get;set;}
 	[ProtoMember(6)]
+	public long BetLimit{get;set;}
+	[ProtoMember(7)]
 	public List<PlayerRoomBaseInfoDto> PositionInfo{get;set;}
 }

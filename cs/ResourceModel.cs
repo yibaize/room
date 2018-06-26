@@ -9,4 +9,6 @@ public class ResourceModel : IProtostuff {
 	public int Type{get;set;}
 	[ProtoMember(3)]
 	public int Count{get;set;}
+	[ProtoMember(4)]
+	public long CreateTime{get;set;}
 }
