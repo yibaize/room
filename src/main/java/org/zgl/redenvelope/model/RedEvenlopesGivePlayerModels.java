@@ -1,4 +1,4 @@
-package org.zgl.redenvelope;
+package org.zgl.redenvelope.model;
 
 import org.zgl.utils.builder_clazz.ann.Protostuff;
 

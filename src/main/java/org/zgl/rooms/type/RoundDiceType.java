@@ -34,7 +34,6 @@ public enum RoundDiceType {
         }
     }
     public static RoundDiceType get(int count){
-        System.out.println(count);
         return roundMap.get(count);
     }
     public int id(){

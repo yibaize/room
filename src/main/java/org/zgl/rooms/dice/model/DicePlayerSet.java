@@ -149,4 +149,18 @@ public class DicePlayerSet {
         }
         return list;
     }
+    public void end(){
+        for(Map.Entry<String,DicePlayer> e: allPlayer.entrySet()){
+            if(!e.getValue().getSession().isConnected()){
+                allPlayer.remove(e.getKey());
+            }
+        }
+        for(int i = 0;i < positions.length;i++){
+            if(positions[i] != null){
+                if(!positions[i].getSession().isConnected()){
+                    positions[i] = null;
+                }
+            }
+        }
+    }
 }

@@ -27,10 +27,11 @@ import org.zgl.rooms.dice.cmd.DiceUpPositionOperation;
 import org.zgl.rooms.thousands_of.cmd.TODownPositionOperation;
 import org.zgl.rooms.dice.cmd.DiceDownPositionOperation;
 import org.zgl.rooms.thousands_of.cmd.TORoomJackpotOperation;
-import org.zgl.redenvelope.OpenRedEnvelopesOperation;
-import org.zgl.redenvelope.HandOutRedEnvelopesOperation;
-import org.zgl.redenvelope.SnatchRedEnvelopesOperation;
+import org.zgl.redenvelope.cmd.OpenRedEnvelopesOperation;
+import org.zgl.redenvelope.cmd.HandOutRedEnvelopesOperation;
+import org.zgl.redenvelope.cmd.SnatchRedEnvelopesOperation;
 import org.zgl.givegift.GiveGiftOperation;
+import org.zgl.updatedate.TimingInitDataTable;
 import org.zgl.chat.BroadcastOparetion;
 import org.zgl.chat.ChatRoomOperation;
 import org.zgl.rooms.always_happy.cmd.AHStartTest;
@@ -114,6 +115,8 @@ import org.zgl.net.server.manage.OperateCommandAbstract;public class OperateComm
 				return getSnatchRedEnvelopesOperation(params);
 			case 1035:
 				return getGiveGiftOperation(params);
+			case 1036:
+				return getTimingInitDataTable(params);
 			case 5560:
 				return getBroadcastOparetion(params);
 			case 5599:
@@ -241,11 +244,10 @@ import org.zgl.net.server.manage.OperateCommandAbstract;public class OperateComm
 		return new OpenRedEnvelopesOperation();
 	}
 	private OperateCommandAbstract getHandOutRedEnvelopesOperation(String[] params){
-		long value0 = Long.parseLong(params[0]);
-		int value1 = Integer.parseInt(params[1]);
-		String value2 = params[2];
-		int value3 = Integer.parseInt(params[3]);
-		return new HandOutRedEnvelopesOperation(value0,value1,value2,value3);
+		int value0 = Integer.parseInt(params[0]);
+		String value1 = params[1];
+		int value2 = Integer.parseInt(params[2]);
+		return new HandOutRedEnvelopesOperation(value0,value1,value2);
 	}
 	private OperateCommandAbstract getSnatchRedEnvelopesOperation(String[] params){
 		int value0 = Integer.parseInt(params[0]);
@@ -255,6 +257,9 @@ import org.zgl.net.server.manage.OperateCommandAbstract;public class OperateComm
 		int value0 = Integer.parseInt(params[0]);
 		long value1 = Long.parseLong(params[1]);
 		return new GiveGiftOperation(value0,value1);
+	}
+	private OperateCommandAbstract getTimingInitDataTable(String[] params){
+		return new TimingInitDataTable();
 	}
 	private OperateCommandAbstract getBroadcastOparetion(String[] params){
 		int value0 = Integer.parseInt(params[0]);

@@ -117,4 +117,6 @@ public class NotifyCode {
     public static final short BROADCAST = 5560;
     @ExcelValue(value = "有人赠送礼物")
     public static final short GET_GIFT = 5561;
+    @ExcelValue(value = "有人发红包")
+    public static final short HAND_OUT_RED_ENVELOPES = 5562;
 }

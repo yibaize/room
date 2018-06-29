@@ -20,7 +20,7 @@ public class AHStartTest extends OperateCommandAbstract {
     public Object execute() {
         AHRoom room = RoomFactory.getInstance().getAhRoom();
         room.setRoomState(RoomStateType.START);
-        room.getGamblingParty().shuffle();
+//        room.getGamblingParty().shuffle();
         return null;
     }
 }

@@ -32,6 +32,7 @@ public class CommandCode{
 	public static final int HandOutRedEnvelopesOperation = 1033;
 	public static final int SnatchRedEnvelopesOperation = 1034;
 	public static final int GiveGiftOperation = 1035;
+	public static final int TimingInitDataTable = 1036;
 	public static final int BroadcastOparetion = 5560;
 	public static final int ChatRoomOperation = 5599;
 	public static final int AHStartTest = 8880;

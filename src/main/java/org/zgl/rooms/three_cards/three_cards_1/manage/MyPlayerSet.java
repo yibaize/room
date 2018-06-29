@@ -26,7 +26,27 @@ public class MyPlayerSet {
 
     public MyPlayerSet() {
     }
-
+    /**
+     * 房间本局结束
+     */
+    public void end() {
+        playerChoiceStateMap.clear();//玩家的选择状态 key:玩家ID  value:是否同意
+        nowPlay.clear();//当前玩牌的人
+        compareNum = 0;//本场比牌人数
+        losePosition.clear();//本局输掉的玩家位置
+        //删除缓存
+        for(Map.Entry<String,FirstPlayerRoom> e:playerForAccount.entrySet()){
+            if(!e.getValue().getSession().isConnected()){
+                playerForAccount.remove(e.getKey());
+                if(playerPosForAccount.contains(e.getKey())){
+                    if(playerAccountForPos.contains(playerPosForAccount.get(e.getKey()))){
+                        playerAccountForPos.remove(playerPosForAccount.get(e.getKey()));
+                    }
+                    playerPosForAccount.remove(e.getKey());
+                }
+            }
+        }
+    }
     public MyPlayerSet(FirstRooms room) {
         this.playerForAccount = new ConcurrentHashMap<>();
         this.playerPosForAccount = new ConcurrentHashMap<>();
@@ -338,13 +358,5 @@ public class MyPlayerSet {
         return nowPlay.containsKey(account);
     }
 
-    /**
-     * 房间本局结束
-     */
-    public void end() {
-        playerChoiceStateMap.clear();//玩家的选择状态 key:玩家ID  value:是否同意
-        nowPlay.clear();//当前玩牌的人
-        compareNum = 0;//本场比牌人数
-        losePosition.clear();//本局输掉的玩家位置
-    }
+
 }

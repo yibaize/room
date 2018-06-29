@@ -53,7 +53,7 @@ public class TOBetOperation extends OperateCommandAbstract {
         room.getGamblingParty().addBeforeBet(infoDto.getUid(),m);
         room.getGamblingParty().bet(betPostion,moneyNum,toPlayer);
         toPlayer.bet(moneyNum);
-
+        infoDto.addToRoomBetNum(moneyNum);
         return new BetUpdateDto(infoDto.getAccount(),infoDto.getGold(),moneyNum,betPostion);
     }
 }

@@ -2,6 +2,7 @@ package org.zgl.rooms.dice.model;
 
 import org.zgl.net.builder_clazz.NotifyCode;
 import org.zgl.player.PlayerInfoDto;
+import org.zgl.rooms.dice.data.DiceDataTable;
 import org.zgl.rooms.dice.dto.DiceCountDto;
 import org.zgl.rooms.dice.dto.DiceSettleRanking;
 import org.zgl.rooms.dice.manager.DiceManager;
@@ -43,22 +44,21 @@ public class DiceGamblingParty {
 
     public void start() {
         //权重随机生成点数
-        int count1 = WeightRandom.awardPosition(DiceManager.getInstance().getDiceDate());
-        int count2 = WeightRandom.awardPosition(DiceManager.getInstance().getDiceDate());
+        int id = WeightRandom.awardPosition(DiceManager.getInstance().getDiceDate());
+        DiceDataTable diceDataTable = DiceDataTable.get(id);
+        DiceCountDto splitCount = diceDataTable.getSplitCount();
+        int one = splitCount.getOne();
+        int two = splitCount.getTwo();
         //围骰
-        if (count1 == count2) {
-            if (count1 == 1 || count1 == 6) {
+        if (one == splitCount.getTwo()) {
+            if (one == 1 || one == 6) {
                 isRound = RoundDiceType.get(16);
             } else {
-                isRound = RoundDiceType.get(count1 + count2);
+                isRound = RoundDiceType.get(diceDataTable.getCount());
             }
         }
-        diceCountDto = new DiceCountDto(count1, count2, battleCount++);
-        thisTimeCount = DiceCountType.getDiceType(count1 + count2);
-        if (historyQueue.size() >= 10) {
-            historyQueue.poll();
-        }
-        historyQueue.offer(diceCountDto);
+        diceCountDto = new DiceCountDto(one, two, battleCount++);
+        thisTimeCount = DiceCountType.getDiceType(diceDataTable.getCount());
     }
     public void addBeforeBet(long uid,long gold){
         beforeBet.putIfAbsent(uid,gold);
@@ -107,6 +107,7 @@ public class DiceGamblingParty {
         for(DicePlayer d:allPlayer){
             PlayerInfoDto dto = d.getPlayer();
             if(beforeBet.containsKey(dto.getUid())){
+                LoggerUtils.getLogicLog().info("前："+beforeBet.get(dto.getUid()) + "后："+dto.getGold() + "差值:"+(dto.getGold() - beforeBet.get(dto.getUid())));
                 if(dto.getGold() > beforeBet.get(dto.getUid())){
                     ll.add(new BetUpdateDto(dto.getUsername(),dto.getGold(), dto.getGold()-beforeBet.get(dto.getUid()), -1));
                 }
@@ -117,6 +118,11 @@ public class DiceGamblingParty {
 
         //发送本局结束之后赢钱最多的三个人和四个位置的输赢情况
         room.broadcast(playerSet.getAllPlayer(), NotifyCode.DICE_ROOM_END, new DiceSettleRanking(diceCountDto.getOne(), diceCountDto.getTwo(), ll.subList(0, size)));
+        //历史记录
+        if (historyQueue.size() >= 10) {
+            historyQueue.poll();
+        }
+        historyQueue.offer(diceCountDto);
     }
 
     public long getAllMoney() {
@@ -124,9 +130,16 @@ public class DiceGamblingParty {
     }
 
     public void clearPlayerBet(DicePlayer player) {
+        long money = 0;
         for (DiceBet db : bets.values()) {
-            db.clearPlayerBet(player);
+            money += db.clearPlayerBet(player);
         }
+        allMoney -= money;
+        betPlayerNum.remove(player.getPlayer().getAccount());
+        BetUpdateDto betUpdateDto = new BetUpdateDto(player.getPlayer().getAccount(), allMoney, money, 0);
+        betUpdateDto.setBetPlayerNum(betPlayerNum.size());
+        player.addBet(money);
+        room.broadcast(playerSet.getAllPlayer(), NotifyCode.DICE_ROOM_PLAYER_BET, betUpdateDto);
     }
 
     public List<DiceCountDto> getHistory() {
@@ -141,7 +154,6 @@ public class DiceGamblingParty {
 
     public void timer() {
         residueTime++;
-//        LoggerUtils.getLogicLog().info(residueTime);
         switch (residueTime) {
             case 1:
                 room.setRoomState(RoomStateType.READY);
@@ -175,5 +187,6 @@ public class DiceGamblingParty {
         allMoney = 0;
         beforeBet.clear();
         betPlayerNum.clear();
+        playerSet.end();
     }
 }

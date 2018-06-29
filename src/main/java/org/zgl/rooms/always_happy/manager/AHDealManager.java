@@ -78,7 +78,8 @@ public class AHDealManager {
             CardDataTable c = CardManager.getInstance().getCard(ids[i]);
             if (c == null)
                 new GenaryAppError(AppErrorCode.SERVER_ERR);
-            oddEven += c.getFace();
+            int faceExchange = c.getFace() == 14 ? 1 : c.getFace();
+            oddEven += faceExchange;
         }
         oddEven = oddEven % 2 == 0 ? 8 : 9;
         return new AHHistoryDto(0, result, oddEven, ArrayUtils.arrayToList(ids));

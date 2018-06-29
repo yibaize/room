@@ -1,4 +1,4 @@
-package org.zgl.redenvelope;
+package org.zgl.redenvelope.cmd;
 
 import org.zgl.error.AppErrorCode;
 import org.zgl.error.GenaryAppError;
@@ -9,10 +9,14 @@ import org.zgl.net.server.session.ISession;
 import org.zgl.net.server.session.SessionManager;
 import org.zgl.player.PlayerInfoDto;
 import org.zgl.player.PlayerRoom;
-import org.zgl.player.ResourceModel;
+import org.zgl.redenvelope.dto.DBRedEvenlopes;
+import org.zgl.redenvelope.dto.HandOutRedEvenlopesDto;
 import org.zgl.remote.HttpProxyOutboundHandler;
 import org.zgl.remote.IBackHall;
 import org.zgl.remote.IRedEvenlopes;
+import org.zgl.rooms.thousands_of.dto.PlayerWeathUpdateDto;
+import org.zgl.rooms.thousands_of.dto.PositionDto;
+import org.zgl.utils.DateUtils;
 import org.zgl.utils.ProtostuffUtils;
 import org.zgl.utils.builder_clazz.ann.Protocol;
 
@@ -35,15 +39,12 @@ public class HandOutRedEnvelopesOperation extends OperateCommandAbstract {
         GOLD.put(10,100000);
         GOLD.put(20,200000);
     }
-    //红红包数量
     private final int redEvenlopesType;
-    private final long targetUid;
     private final String explain;
     //红包个数
     private final int redEnvelopesCount;
-    public HandOutRedEnvelopesOperation(long targetUid,int redEnvelopesCount,String explain,int redEvenlopesType) {
+    public HandOutRedEnvelopesOperation(int redEnvelopesCount,String explain,int redEvenlopesType) {
         this.redEvenlopesType = redEvenlopesType;
-        this.targetUid = targetUid;
         this.explain = explain;
         this.redEnvelopesCount = redEnvelopesCount;
     }
@@ -52,45 +53,42 @@ public class HandOutRedEnvelopesOperation extends OperateCommandAbstract {
     public Object execute() {
         PlayerRoom player = (PlayerRoom) getSession().getAttachment();
         PlayerInfoDto playerInfoDto = player.getPlayer();
-        if(!playerInfoDto.reduceGold(redEvenlopesType)){
+        int reduceGold = GOLD.get(redEnvelopesCount);
+        if(!playerInfoDto.reduceGold(reduceGold)){
             new GenaryAppError(AppErrorCode.GOLD_NOT);
         }
-        DBRedEvenlopes redEvenlopes = new DBRedEvenlopes();
-        redEvenlopes.setUid(playerInfoDto.getUid());
-        redEvenlopes.setCreateTime(new Date(new java.util.Date().getTime()));
-        redEvenlopes.setHasGet(redEnvelopesCount);
-        redEvenlopes.setHeadIcon(playerInfoDto.getHeadIcon());
-        redEvenlopes.setNum(redEnvelopesCount);
-        redEvenlopes.setRedEvenlopesType(redEvenlopesType);
-        redEvenlopes.setUserName(playerInfoDto.getUsername());
-        redEvenlopes.setVipLv(playerInfoDto.getVipLv());
-        redEvenlopes.setTargetUid(targetUid);
-        redEvenlopes.setNumed(0);
-        redEvenlopes.setExplain(explain);
-        redEvenlopes.setResidueGold(GOLD.get(redEnvelopesCount));
+        DBRedEvenlopes redEnvelopse = new DBRedEvenlopes();
+        redEnvelopse.setUid(playerInfoDto.getUid());
+        redEnvelopse.setCreateTime(DateUtils.currentTime());
+        redEnvelopse.setHasGet(reduceGold);
+        redEnvelopse.setHeadIcon(playerInfoDto.getHeadIcon());
+        redEnvelopse.setNum(redEnvelopesCount);
+        redEnvelopse.setRedEvenlopesType(redEvenlopesType);
+        redEnvelopse.setUserName(playerInfoDto.getUsername());
+        redEnvelopse.setVipLv(playerInfoDto.getVipLv());
+        redEnvelopse.setNumed(0);
+        redEnvelopse.setExplain(explain);
+        redEnvelopse.setResidueGold(reduceGold);
 
         IRedEvenlopes iRedEvenlopes = HttpProxyOutboundHandler.getRemoteProxyObj(IRedEvenlopes.class);
-        iRedEvenlopes.insertRedEvenlopes(redEvenlopes);
+        int redEnvelopesId = iRedEvenlopes.insertRedEvenlopes(redEnvelopse);
 
         IBackHall backHall = HttpProxyOutboundHandler.getRemoteProxyObj(IBackHall.class);
         List<PlayerInfoDto> list = new ArrayList<>(1);
         list.add(playerInfoDto);
-        if(backHall.backHall(list) != -200){
+        if(backHall.backHall(list) != 200){
             new GenaryAppError(AppErrorCode.DATA_ERR);
         }
-        HandOutRedEvenlopesDto dto = new HandOutRedEvenlopesDto();
-        dto.setUid(playerInfoDto.getUid());
-        dto.setUserName(playerInfoDto.getUsername());
-        dto.setHeadIcon(playerInfoDto.getHeadIcon());
-        dto.setVipLv(playerInfoDto.getVipLv());
-        dto.setExplain(explain);
+        PositionDto dto = new PositionDto(redEnvelopesId);
         byte[] buf = ProtostuffUtils.serializer(dto);
-        ServerResponse serverResponse = new ServerResponse(NotifyCode.BROADCAST,buf);
+        ServerResponse serverResponse = new ServerResponse(NotifyCode.HAND_OUT_RED_ENVELOPES,buf);
         for(Map.Entry<Long,ISession> e:SessionManager.map().entrySet()){
+            if(!e.getValue().isConnected())
+                continue;
             if(!e.getKey().equals(playerInfoDto.getUid())){
                 e.getValue().write(serverResponse);
             }
         }
-        return null;
+        return new PlayerWeathUpdateDto(playerInfoDto.getGold(),GOLD.get(redEnvelopesCount));
     }
 }

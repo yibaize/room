@@ -54,11 +54,13 @@ public class DiceBet {
      * 根据玩家清除玩家下的注并将钱返还
      * @param player
      */
-    public void clearPlayerBet(DicePlayer player){
+    public long clearPlayerBet(DicePlayer player){
         if(players.containsKey(player)){
             long money = players.remove(player);
             player.getPlayer().insertGold(money);
+            return money;
         }
+        return 0;
     }
     public void loseSettle(){
         ServerResponse response = new ServerResponse();
@@ -92,11 +94,9 @@ public class DiceBet {
             p.clearBet();
             PlayerInfoDto playerInfoDto = p.getPlayer();
             long money = (long) (e.getValue() * rate);//这里的5是牌的倍率
-
+            playerInfoDto.insertGold(money + e.getValue());
 //            //扣除百分之5的平台费
 //            money = (long) (money - money * procedureType.id());
-
-            playerInfoDto.insertGold(e.getValue() + e.getValue());
             BetUpdateDto betUpdateDto = new BetUpdateDto();
             betUpdateDto.setAccount(e.getValue().toString());
             betUpdateDto.setGold(playerInfoDto.getGold());
@@ -109,7 +109,7 @@ public class DiceBet {
             response.setData(buf);
             //通知自己财富变更
             p.getSession().write(response);
-            //有位置
+//            有位置
             if (p.getRoomPosition() != DicePlayer.DEFAULT_POSITION) {
                 //如果是位置上的人就要通知所有人财富变更
                 DiceRoom room = (DiceRoom) p.getRoom();

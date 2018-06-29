@@ -12,6 +12,7 @@ import org.zgl.utils.ProtostuffUtils;
 import org.zgl.utils.logger.LoggerUtils;
 
 import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @作者： big
@@ -84,7 +85,12 @@ public class HttpClient {
      */
     public void asyncPost(short cmd, String args) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); DataOutputStream dos = new DataOutputStream(baos)) {
-            OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient()
+                    .newBuilder()
+                    .connectTimeout(3,TimeUnit.SECONDS)
+                    .readTimeout(3,TimeUnit.SECONDS)
+                    .writeTimeout(3,TimeUnit.SECONDS)
+                    .build();
             dos.writeInt(-777888);
             dos.writeShort(cmd);
             Msg msm = new Msg(args);
@@ -131,7 +137,12 @@ public class HttpClient {
     }
     public <T> T syncPost(IoMessageJavaTpeImpl ioMessage,Class<T> tClazz) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); DataOutputStream dos = new DataOutputStream(baos)) {
-            OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient()
+                    .newBuilder()
+                    .connectTimeout(3,TimeUnit.SECONDS)
+                    .readTimeout(3,TimeUnit.SECONDS)
+                    .writeTimeout(3,TimeUnit.SECONDS)
+                    .build();
             dos.writeInt(-777888);
             byte[] buf = ProtostuffUtils.serializer(ioMessage);
             dos.write(buf);
@@ -155,7 +166,12 @@ public class HttpClient {
     }
     public void asyncPost(IoMessageJavaTpeImpl ioMessage) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); DataOutputStream dos = new DataOutputStream(baos)) {
-            OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient()
+                    .newBuilder()
+                    .connectTimeout(3,TimeUnit.SECONDS)
+                    .readTimeout(3,TimeUnit.SECONDS)
+                    .writeTimeout(3,TimeUnit.SECONDS)
+                    .build();
             dos.writeInt(-777888);
             byte[] buf = ProtostuffUtils.serializer(ioMessage);
             dos.write(buf);

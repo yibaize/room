@@ -47,6 +47,7 @@ public class AHBet extends OperateCommandAbstract {
         }
         room.getGamblingParty().addBefore(infoDto.getUid(),gold);
         room.getGamblingParty().bet(betPosition,allNum, player,betCount);
+        infoDto.addAhRoomBetNum(allNum);
         return new SettleModelDto(infoDto.getAccount(),infoDto.getGold(),room.getGamblingParty().getAllMoney());
     }
 }

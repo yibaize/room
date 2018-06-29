@@ -1,4 +1,4 @@
-package org.zgl.redenvelope;
+package org.zgl.redenvelope.model;
 
 import org.zgl.utils.builder_clazz.ann.Protostuff;
 
@@ -11,8 +11,17 @@ import org.zgl.utils.builder_clazz.ann.Protostuff;
 public class RedEvenlopesGivePlayerModel {
     private long uid;
     private String userName;
-    private int vipLv;
+    private String headIcon;
     private int getCount;
+    private String createTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 
     public long getUid() {
         return uid;
@@ -30,12 +39,12 @@ public class RedEvenlopesGivePlayerModel {
         this.userName = userName;
     }
 
-    public int getVipLv() {
-        return vipLv;
+    public String getHeadIcon() {
+        return headIcon;
     }
 
-    public void setVipLv(int vipLv) {
-        this.vipLv = vipLv;
+    public void setHeadIcon(String headIcon) {
+        this.headIcon = headIcon;
     }
 
     public int getGetCount() {

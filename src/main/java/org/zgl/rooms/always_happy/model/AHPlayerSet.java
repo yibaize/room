@@ -35,5 +35,10 @@ public class AHPlayerSet {
         return players.size();
     }
     public void end(){
+        for (PlayerRoom p:players){
+            if(!p.getSession().isConnected()){
+                players.remove(p);
+            }
+        }
     }
 }

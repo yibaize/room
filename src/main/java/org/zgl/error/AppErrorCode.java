@@ -97,4 +97,7 @@ public final class AppErrorCode{
     public final static int NOT_IS_GIF = 2007;
     @ExcelValue(value = "不在同一个场不能赠送礼物！")
     public final static int NOT_IS_LIKE_SCENES = 2008;
+
+    @ExcelValue(value = "红包已经领取！")
+    public final static int RED_ENVELOPES_IS_GET = 2009;
 }

@@ -20,6 +20,7 @@ import org.zgl.rooms.always_happy.dto.AHResultDto;
 import org.zgl.rooms.always_happy.dto.AHWeathDto;
 import org.zgl.rooms.always_happy.manager.AHDealManager;
 import org.zgl.rooms.card.CardType;
+import org.zgl.rooms.thousands_of.dto.PositionDto;
 import org.zgl.rooms.type.ProcedureType;
 import org.zgl.rooms.type.RoomStateType;
 import org.zgl.utils.DateUtils;
@@ -40,7 +41,6 @@ public class AHGamblingParty {
     private AtomicLong todayGetMoney;//当天系统财富收入
     private int todayTimer;//当天系统财富收入计时器
     private long lastTimeGrantAward;//上期发放奖金
-    private long bloodGroove;//血池
     private Queue<AHHistoryDto> historyDtos;
     private long nowNum;//当前场次
     private AHHistoryDto thisGamblingParCard;
@@ -58,14 +58,6 @@ public class AHGamblingParty {
         this.beforeBet = new HashMap<>();
     }
 
-    public void shuffle() {
-        thisGamblingParCard = AHDealManager.getInstance().shuffleAndDeal();
-        thisGamblingParCard.setNum(nowNum);
-        historyDtos.offer(thisGamblingParCard);
-        if (historyDtos.size() >= 14) {
-            historyDtos.poll();
-        }
-    }
 
     public void addBefore(long uid, long money) {
         beforeBet.putIfAbsent(uid, money);
@@ -109,15 +101,13 @@ public class AHGamblingParty {
      * 上次更新的当条财富和血池
      * 如果没有变化不需要同步到数据库
      */
-    private long updatebloodGroove;
-
+    private boolean isUpdateSystemWeath = false;
     public void settleAccount() {
         if (todayTimer != DateUtils.currentDay()) {
             todayTimer = DateUtils.currentDay();
             todayGetMoney.set(0);
-            bloodGroove = 0;
         }
-        updatebloodGroove = 0;
+        isUpdateSystemWeath = false;
         //通知所有人开牌了
         List<PlayerRoom> ahPlayers = new ArrayList<>();
         lastTimeGrantAward = 0;
@@ -133,10 +123,9 @@ public class AHGamblingParty {
             } else {
                 //玩家输了就把所有的钱放到血池中去
                 lastTimeGrantAward -= b.getAllMoney();
-                todayGetMoney.addAndGet(b.getAllMoney());
             }
         }
-        bloodGroove += updatebloodGroove;
+        todayGetMoney.addAndGet(lastTimeGrantAward);
         notifyResult();
         Map<Long, AwardModel> m = new HashMap<>();
         for (AwardModel a : awardModels) {
@@ -161,9 +150,9 @@ public class AHGamblingParty {
         }
         //本局有财富变更才更新
         //通知大厅 系统赢了多少或者输了多少 今日输赢财富 奖池 血池
-        if (lastTimeGrantAward > 0 || updatebloodGroove > 0) {
+        if (lastTimeGrantAward != 0) {
             ISystemWeathUpdate weathUpdate = HttpProxyOutboundHandler.getRemoteProxyObj(ISystemWeathUpdate.class);
-            weathUpdate.update(room.getScenecId(), todayGetMoney.get(), 0, bloodGroove);
+            weathUpdate.update(room.getScenecId(), todayGetMoney.get(), 0, 0);
         }
         List<PlayerInfoDto> weathDtos = new ArrayList<>(ahPlayers.size());
         for (PlayerRoom ah : ahPlayers) {
@@ -175,7 +164,14 @@ public class AHGamblingParty {
             IBackHall backHall = HttpProxyOutboundHandler.getRemoteProxyObj(IBackHall.class);
             backHall.backHall(weathDtos);
         }
-
+        historyDtos.offer(thisGamblingParCard);
+        if (historyDtos.size() >= 14) {
+            historyDtos.poll();
+        }
+    }
+    private void shuffle() {
+        thisGamblingParCard = AHDealManager.getInstance().shuffleAndDeal();
+        thisGamblingParCard.setNum(nowNum);
     }
 
     private void notifyResult() {
@@ -196,36 +192,36 @@ public class AHGamblingParty {
     }
 
     public void timer() {
-        timer++;
+        timer--;
         switch (timer) {
             //通知开始
-            case 1:
-                SessionManager.notifyAllx(NotifyCode.AH_ROOM_START, null);
+            case 30:
+                SessionManager.notifyAllx(NotifyCode.AH_ROOM_START, new PositionDto(30));
                 room.setRoomState(RoomStateType.START);
                 break;
-            case 7:
+            case 23:
                 shuffle();
                 break;
-            case 20:
+            case 10:
                 //不能下注了
                 room.setRoomState(RoomStateType.STOP_BOTTOM);
-                room.braodcast(playerSet.getPlayers(), NotifyCode.AH_ROOM_CAN_NOT_BET, null);
+                room.braodcast(playerSet.getPlayers(), NotifyCode.AH_ROOM_CAN_NOT_BET,  new PositionDto(10));
                 break;
-            case 25:
+            case 5:
                 settleAccount();
                 room.setRoomState(RoomStateType.SETTLE);
                 break;
-            case 30:
-                SessionManager.notifyAllx(NotifyCode.AH_ROOM_END, null);
+            case 1:
+                SessionManager.notifyAllx(NotifyCode.AH_ROOM_END,  new PositionDto(1));
                 room.setRoomState(RoomStateType.END);
                 //通知结束
                 end();
-                timer = 0;
+                timer = 31;
                 nowNum++;
                 break;
         }
-        if (timer > 40) {
-            timer = 0;
+        if (timer <= 0) {
+            timer = 30;
         }
     }
 

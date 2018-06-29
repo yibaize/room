@@ -1,4 +1,4 @@
-package org.zgl.redenvelope;
+package org.zgl.redenvelope.model;
 
 /**
  * @作者： big

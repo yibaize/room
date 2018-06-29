@@ -48,6 +48,7 @@ public class DiceBetOperation extends OperateCommandAbstract {
         }
         room.getGamblingParty().addBeforeBet(infoDto.getUid(),m);
         room.getGamblingParty().bet(player,moneyNum,betPosition);
+        infoDto.addDiceRoomBetNum(moneyNum);
 //        player.bet(moneyNum);
         return new BetUpdateDto(infoDto.getAccount(),infoDto.getGold(),moneyNum,betPosition);
     }
